@@ -1,44 +1,40 @@
 package z.z.w.test.server.impl ;
 
 import org.springframework.beans.BeansException ;
-import org.springframework.context.ApplicationContext ;
-import org.springframework.context.support.ClassPathXmlApplicationContext ;
 
 import z.z.w.test.server.IServiceLoader ;
 
 /**************************************************************************
  * <pre>
- *     FileName: z.z.w.test.server.impl.ContextServiceImpl.java
+ *     FileName: z.z.w.test.server.impl.BizServiceImpl.java
  *         Desc: 
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月7日 下午12:14:04 
- *   LastChange: 2015年9月7日 下午12:14:04 
+ *     @version: 2015年9月10日 下午4:31:30 
+ *   LastChange: 2015年9月10日 下午4:31:30 
  *      History:
  * </pre>
  **************************************************************************/
-public class ContextServiceImpl implements IServiceLoader
+public class BizServiceImpl implements IServiceLoader
 {
+	
 	/*
 	 * (non-Javadoc)
 	 * @see z.z.w.test.server.IServiceLoader#loadService()
 	 */
 	public void loadService()
 	{
-		logger.info( "Starting load app context service....." ) ;
+		logger.info( "Starting bussiness service....." ) ;
 		try
-		{
-			String[] classpaths = new String[] { "classpath:spring/spring.xml" } ;
-			ApplicationContext app = new ClassPathXmlApplicationContext( classpaths ) ;
-			logger.info(	"ApplicationContext : {}",
-							app ) ;
+		{	
+			
 		}
 		catch ( BeansException e )
 		{
-			logger.error(	"Loading app context error : {}.",
+			logger.error(	"Loading bussiness error : {}.",
 							e.getMessage(),
 							e ) ;
 		}
-		logger.info( "Loaded app context service." ) ;
+		logger.info( "Loaded bussiness service." ) ;
 		
 	}
 	
@@ -48,7 +44,7 @@ public class ContextServiceImpl implements IServiceLoader
 	 */
 	public void destroy()
 	{
-		// TODO 2015年9月7日 下午12:14:04
+		// TODO 2015年9月10日 下午4:31:30
 		Thread.currentThread().interrupt() ;
 	}
 	
@@ -59,6 +55,6 @@ public class ContextServiceImpl implements IServiceLoader
 	public void run()
 	{
 		loadService() ;
-		
 	}
+	
 }

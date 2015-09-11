@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory ;
  *      History:
  * </pre>
  **************************************************************************/
-public interface IServiceLoader
+public interface IServiceLoader extends Runnable
 {
 	final static Logger	logger	= LoggerFactory.getLogger( IServiceLoader.class ) ;
 	
