@@ -72,7 +72,7 @@ public class MerchantSmsSendServiceTest
 		
 		when( req.getParameter( "receiveStatus" ) ).thenReturn( "" ) ;
 		String receiveStatus = req.getParameter( "receiveStatus" ) ;
-		
+		 
 		params.put( "pageNum", ( Integer.parseInt( pag ) - 1 ) * Integer.parseInt( pageSi ) ) ;
 		params.put( "pageSize", Integer.parseInt( pageSi ) ) ;
 		params.put( "startDate", startTime ) ;
