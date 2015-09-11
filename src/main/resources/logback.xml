@@ -53,9 +53,8 @@
 	</appender>
 	
 	<logger name="z.z.w" level="info"/>
-<!-- 	<logger name="org.hibernate.tool.hbm2ddl" level="info"/> -->
 	<!-- mybatis sql 日誌 -->
-<!-- 	<logger name="z.z.w.test.dao" level="debug" /> -->
+	<logger name="z.z.w.test.dao" level="debug" />
  
 	<root level="error">
 		<appender-ref ref="commonFile" />
