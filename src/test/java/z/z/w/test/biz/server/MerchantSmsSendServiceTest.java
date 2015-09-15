@@ -72,42 +72,30 @@ public class MerchantSmsSendServiceTest
 		
 		when( req.getParameter( "receiveStatus" ) ).thenReturn( "" ) ;
 		String receiveStatus = req.getParameter( "receiveStatus" ) ;
+		 
+		params.put( "pageNum", ( Integer.parseInt( pag ) - 1 ) * Integer.parseInt( pageSi ) ) ;
+		params.put( "pageSize", Integer.parseInt( pageSi ) ) ;
+		params.put( "startDate", startTime ) ;
+		params.put( "endDate", endTime ) ;
+		params.put( "merchantAccount", merchantAccount ) ;
+		params.put( "receiveMobile", mobile ) ;
+		params.put( "smsChannelCode", chanelId ) ;
+		params.put( "sendResult", ( StringUtils.isBlank( sendResult ) ? sendResult : Integer.parseInt( sendResult ) ) ) ;
+		params.put( "receiveStatus", ( StringUtils.isBlank( receiveStatus ) ? receiveStatus : Integer.parseInt( receiveStatus ) ) ) ;
 		
-		params.put( "pageNum",
-					( Integer.parseInt( pag ) - 1 ) * Integer.parseInt( pageSi ) ) ;
-		params.put( "pageSize",
-					Integer.parseInt( pageSi ) ) ;
-		params.put( "startDate",
-					startTime ) ;
-		params.put( "endDate",
-					endTime ) ;
-		params.put( "merchantAccount",
-					merchantAccount ) ;
-		params.put( "receiveMobile",
-					mobile ) ;
-		params.put( "smsChannelCode",
-					chanelId ) ;
-		params.put( "sendResult",
-					( StringUtils.isBlank( sendResult ) ? sendResult : Integer.parseInt( sendResult ) ) ) ;
-		params.put( "receiveStatus",
-					( StringUtils.isBlank( receiveStatus ) ? receiveStatus : Integer.parseInt( receiveStatus ) ) ) ;
-		
-		logger.info(	"发送记录查询参数：{}",
-						params ) ;
+		logger.info( "发送记录查询参数：{}", params ) ;
 	}
 	
 	@Test
 	@Ignore
 	public void testConnection()
 	{
-		logger.info(	"{}",
-						merchantSmsSendService ) ;
+		logger.info( "{}", merchantSmsSendService ) ;
 		
 		MerchantSmsSend merchantSmsSend = new MerchantSmsSend() ;
 		merchantSmsSend.setId( 10002909l ) ; ;
 		
-		logger.info(	"{}",
-						merchantSmsSendService.getMerchantSmsSendMapper().selectSmsSendResultByID( merchantSmsSend ) ) ;
+		logger.info( "{}", merchantSmsSendService.getMerchantSmsSendMapper().selectSmsSendResultByID( merchantSmsSend ) ) ;
 	}
 	
 	/**
@@ -121,8 +109,7 @@ public class MerchantSmsSendServiceTest
 		List< MerchantSmsSend > list = merchantSmsSendService.selectResultByCondition( params ) ;
 		for ( MerchantSmsSend mss : list )
 		{
-			logger.info(	"{}",
-							mss.toString() ) ;
+			logger.info( "{}", mss.toString() ) ;
 		}
 	}
 	
@@ -136,8 +123,7 @@ public class MerchantSmsSendServiceTest
 		List< MerchantSmsSend > list = merchantSmsSendService.selectResultByConditionOd( params ) ;
 		for ( MerchantSmsSend mss : list )
 		{
-			logger.info(	"{}",
-							mss.toString() ) ;
+			logger.info( "{}", mss.toString() ) ;
 		}
 	}
 	
@@ -148,8 +134,7 @@ public class MerchantSmsSendServiceTest
 	@Ignore
 	public void testGetCount()
 	{
-		logger.info(	"Count-->{}",
-						merchantSmsSendService.getCount( params ) ) ;
+		logger.info( "Count-->{}", merchantSmsSendService.getCount( params ) ) ;
 	}
 	
 	public MerchantSmsSendService getMerchantSmsSendService()

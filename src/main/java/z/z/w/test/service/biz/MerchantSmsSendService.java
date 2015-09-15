@@ -65,7 +65,7 @@ public class MerchantSmsSendService
 						{
 							if ( mss.getId() == msc.getMerchantSmsSendId() )
 							{
-								mss.setChannelSmsId( msc.getMerSmsChanSig() ) ;
+								mss.setChannelSmsId( msc.getSendSmsCode() ) ;
 								mss.setDataTime( msc.getDateTime() ) ;
 								mss.setMerchantSmsUid( msc.getMerchantSmsUid() ) ;
 							}

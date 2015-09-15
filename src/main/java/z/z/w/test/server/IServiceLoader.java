@@ -1,8 +1,5 @@
 package z.z.w.test.server ;
 
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.server.IServiceLoader.java
@@ -13,9 +10,8 @@ import org.slf4j.LoggerFactory ;
  *      History:
  * </pre>
  **************************************************************************/
-public interface IServiceLoader extends Runnable
+public interface IServiceLoader
 {
-	final static Logger	logger	= LoggerFactory.getLogger( IServiceLoader.class ) ;
 	
 	void loadService() ;
 	

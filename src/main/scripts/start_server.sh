@@ -8,7 +8,6 @@
 
 source /etc/profile
 source ~/.bash_profile
-export CLASSPATH=$cpath/lib/*:$cpath/cfg/
 export LANG="zh_CN.UTF-8"
 
 # resolve links - $0 may be a softlink
@@ -26,6 +25,8 @@ done
 
 PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." > /dev/null; pwd`
+
+export CLASSPATH=${BASEDIR}/lib/*:${BASEDIR}/conf/
 
 date=`date +%H`
 #if [ 23 = ${date} ] ; then 

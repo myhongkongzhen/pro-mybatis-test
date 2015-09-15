@@ -46,11 +46,10 @@ public class MainRunner
 		logger.debug( "Service will be starting..." ) ;
 		for ( IServiceLoader service : loader )
 		{
-			new Thread( service ).start() ;
+			service.loadService() ;
 		}
 		logger.debug( "Service is started!" ) ;
-		logger.debug(	"@@{}",
-						SpringContextUtil.getSpringContext() ) ;
+		logger.debug( "@@{}", SpringContextUtil.getApplicationContext() ) ;
 		
 		synchronized ( MainRunner.class )
 		{
@@ -62,9 +61,7 @@ public class MainRunner
 				}
 				catch ( Throwable e )
 				{
-					logger.error(	"Single mainRunner processor error : {}.",
-									e.getMessage(),
-									e ) ;
+					logger.error( "Single mainRunner processor error : {}.", e.getMessage(), e ) ;
 				}
 			}
 		}

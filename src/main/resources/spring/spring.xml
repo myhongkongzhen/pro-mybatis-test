@@ -14,8 +14,10 @@
 				        http://www.springframework.org/schema/tx 
 				        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
+	<bean name="springContextUtil" class="z.z.w.util.SpringContextUtil"></bean>
+
 	<import resource="spring-base.xml" />
-	<!-- <import resource="spring-task.xml" /> -->
+	<import resource="spring-task.xml" />
 	<import resource="spring-mybatis.xml" />
 
 </beans>
