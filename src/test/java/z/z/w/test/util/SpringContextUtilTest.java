@@ -31,7 +31,7 @@ public class SpringContextUtilTest
 	@Test
 	public void testGetSpringContext()
 	{
-		logger.info( "@@{}", SpringContextUtil.getSpringContext() ) ;
+		logger.info( "@@{}", SpringContextUtil.getApplicationContext() ) ;
 	}
 	
 }

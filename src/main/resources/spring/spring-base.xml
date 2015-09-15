@@ -16,8 +16,6 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 
 	<context:annotation-config />
 
-	<bean name="springContextUtil" class="z.z.w.util.SpringContextUtil"></bean>
-
 	<bean name="common-properties"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />

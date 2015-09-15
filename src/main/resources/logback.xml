@@ -19,7 +19,7 @@
 			<maxFileSize>80MB</maxFileSize>
 		</triggeringPolicy>
 		<encoder>
-			<pattern>[%d{yyyy-MM-dd HH:mm:ss}]%5level - %m %n</pattern>
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss}][%t]%5level - %m %n</pattern>
 		</encoder>
 	</appender>
 
@@ -59,7 +59,7 @@
 	<root level="error">
 		<appender-ref ref="commonFile" />
 		<appender-ref ref="errorFile" />
-		<appender-ref ref="console" />
+		${logback.console}
 	</root>
 
 </configuration>
