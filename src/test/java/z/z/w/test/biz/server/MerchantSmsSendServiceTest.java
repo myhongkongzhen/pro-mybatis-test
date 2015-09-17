@@ -47,32 +47,32 @@ public class MerchantSmsSendServiceTest
 		HttpServletRequest req = mock( HttpServletRequest.class ) ;
 		logger.info( "REQ : " + req ) ;
 		
-		when( req.getParameter( "page" ) ).thenReturn( "1" ) ;
+		when( req.getParameter( "page" ) ).thenReturn( "0" ) ;
 		String pag = req.getParameter( "page" ) ;
-		when( req.getParameter( "pageSize" ) ).thenReturn( "3" ) ;
+		when( req.getParameter( "pageSize" ) ).thenReturn( "10" ) ;
 		String pageSi = req.getParameter( "pageSize" ) ;
 		
-		when( req.getParameter( "chanelId" ) ).thenReturn( "" ) ;
+		when( req.getParameter( "chanelId" ) ).thenReturn( "BJ_JTD_YDSW_CHANNEL001" ) ;
 		String chanelId = req.getParameter( "chanelId" ) ;
 		
-		when( req.getParameter( "startTime" ) ).thenReturn( "2015-09-09" ) ;
+		when( req.getParameter( "startTime" ) ).thenReturn( "2015-08-09" ) ;
 		String startTime = req.getParameter( "startTime" ) ;
 		
 		when( req.getParameter( "endTime" ) ).thenReturn( "" ) ;
 		String endTime = req.getParameter( "endTime" ) ;
 		
-		when( req.getParameter( "merchantAccount" ) ).thenReturn( "" ) ;
+		when( req.getParameter( "merchantAccount" ) ).thenReturn( "chuzhong" ) ;
 		String merchantAccount = req.getParameter( "merchantAccount" ) ;
 		
 		when( req.getParameter( "mobile" ) ).thenReturn( "" ) ;
 		String mobile = req.getParameter( "mobile" ) ;
 		
-		when( req.getParameter( "sendResult" ) ).thenReturn( "0" ) ;
+		when( req.getParameter( "sendResult" ) ).thenReturn( "" ) ;
 		String sendResult = req.getParameter( "sendResult" ) ;
 		
 		when( req.getParameter( "receiveStatus" ) ).thenReturn( "" ) ;
 		String receiveStatus = req.getParameter( "receiveStatus" ) ;
-		 
+		
 		params.put( "pageNum", ( Integer.parseInt( pag ) - 1 ) * Integer.parseInt( pageSi ) ) ;
 		params.put( "pageSize", Integer.parseInt( pageSi ) ) ;
 		params.put( "startDate", startTime ) ;
@@ -102,25 +102,10 @@ public class MerchantSmsSendServiceTest
 	 * Test method for {@link z.z.w.test.service.biz.MerchantSmsSendService#selectResultByCondition(java.util.Map)}.
 	 */
 	@Test
-//	@Ignore
-			public void
-			testSelectResultByCondition()
+	@Ignore
+	public void testSelectResultByCondition()
 	{
 		List< MerchantSmsSend > list = merchantSmsSendService.selectResultByCondition( params ) ;
-		for ( MerchantSmsSend mss : list )
-		{
-			logger.info( "{}", mss.toString() ) ;
-		}
-	}
-	
-	/**
-	 * Test method for {@link z.z.w.test.service.biz.MerchantSmsSendService#selectResultByConditionOd(java.util.Map)}.
-	 */
-	@Test
-	@Ignore
-	public void testSelectResultByConditionOd()
-	{
-		List< MerchantSmsSend > list = merchantSmsSendService.selectResultByConditionOd( params ) ;
 		for ( MerchantSmsSend mss : list )
 		{
 			logger.info( "{}", mss.toString() ) ;
@@ -131,10 +116,13 @@ public class MerchantSmsSendServiceTest
 	 * Test method for {@link z.z.w.test.service.biz.MerchantSmsSendService#getCount(java.util.Map)}.
 	 */
 	@Test
-	@Ignore
-	public void testGetCount()
+//	@Ignore
+			public void
+			testGetCount()
 	{
+		long startTime = System.currentTimeMillis() ;
 		logger.info( "Count-->{}", merchantSmsSendService.getCount( params ) ) ;
+		logger.info( "Use time : {} s", ( ( System.currentTimeMillis() - startTime ) * 0.1 / 1000 ) ) ;
 	}
 	
 	public MerchantSmsSendService getMerchantSmsSendService()

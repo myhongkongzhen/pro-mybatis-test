@@ -47,8 +47,7 @@ public class TestServiceTest
 			List< TbTestUser > list = testService.queryAllUsers() ;
 			for ( TbTestUser ttu : list )
 			{
-				logger.info(	"{}",
-								ttu.toString() ) ;
+				logger.info( "{}", ttu.toString() ) ;
 			}
 		}
 		catch ( Exception e )

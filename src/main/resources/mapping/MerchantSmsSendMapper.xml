@@ -82,15 +82,6 @@
 				AND RECEIVE_STATUS = #{receiveStatus,jdbcType=INTEGER}
 			</if>
 
-			<!-- 1:success,-1:fail -->
-			<if test="sendResult != null ">
-				AND SEND_RESULT IS NULL
-			</if>
-			<!-- 0:success,1:fail -->
-			<if test="receiveStatus != null">
-				AND RECEIVE_STATUS IS NULL
-			</if>
-
 			<if test="startDate != null  and startDate !=''">
 				<![CDATA[
 				AND CREATE_TIME >= #{startDate,jdbcType=TIMESTAMP}
@@ -154,5 +145,193 @@
 			</foreach>
 		</if>
 	</select>
+
+	<insert id="insertSelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT @@IDENTITY
+		</selectKey>
+		insert into merchant_sms_send
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="merchantAccount != null">
+				MERCHANT_ACCOUNT,
+			</if>
+			<if test="smsSignerId != null">
+				SMS_SIGNER_ID,
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID,
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT,
+			</if>
+			<if test="smsChannelCode != null">
+				SMS_CHANNEL_CODE,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="receiveMobile != null">
+				RECEIVE_MOBILE,
+			</if>
+			<if test="receiveTime != null">
+				RECEIVE_TIME,
+			</if>
+			<if test="sendResult != null">
+				SEND_RESULT,
+			</if>
+			<if test="resource != null">
+				RESOURCE,
+			</if>
+			<if test="receiveStatus != null">
+				RECEIVE_STATUS,
+			</if>
+			<if test="appId != null">
+				APP_ID,
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="carriers != null">
+				CARRIERS,
+			</if>
+			<if test="receiveStatusChannel != null">
+				RECEIVE_STATUS_CHANNTL,
+			</if>
+			<if test="receiveStatusDesc != null">
+				RECEIVE_STATUS_DESC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="merchantAccount != null">
+				#{merchantAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSignerId != null">
+				#{smsSignerId,jdbcType=INTEGER},
+			</if>
+			<if test="smsTemplateId != null">
+				#{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="smsContent != null">
+				#{smsContent,jdbcType=VARCHAR},
+			</if>
+			<if test="smsChannelCode != null">
+				#{smsChannelCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveMobile != null">
+				#{receiveMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				#{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendResult != null">
+				#{sendResult,jdbcType=SMALLINT},
+			</if>
+			<if test="resource != null">
+				#{resource,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatus != null">
+				#{receiveStatus,jdbcType=INTEGER},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=INTEGER},
+			</if>
+			<if test="smsType != null">
+				#{smsType,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="carriers != null">
+				#{carriers,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveStatusChannel != null">
+				#{receiveStatusChannel,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatusDesc != null">
+				#{receiveStatusDesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
+		update merchant_sms_send
+		<set>
+			<if test="merchantAccount != null">
+				MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSignerId != null">
+				SMS_SIGNER_ID = #{smsSignerId,jdbcType=INTEGER},
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+			</if>
+			<if test="smsChannelCode != null">
+				SMS_CHANNEL_CODE = #{smsChannelCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveMobile != null">
+				RECEIVE_MOBILE = #{receiveMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendResult != null">
+				SEND_RESULT = #{sendResult,jdbcType=SMALLINT},
+			</if>
+			<if test="resource != null">
+				RESOURCE = #{resource,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatus != null">
+				RECEIVE_STATUS = #{receiveStatus,jdbcType=INTEGER},
+			</if>
+			<if test="appId != null">
+				APP_ID = #{appId,jdbcType=INTEGER},
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE = #{smsType,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="carriers != null">
+				CARRIERS = #{carriers,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveStatusChannel != null">
+				RECEIVE_STATUS_CHANNTL =
+				#{receiveStatusChannel,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatusDesc != null">
+				RECEIVE_STATUS_DESC =
+				#{receiveStatusDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
 
 </mapper>
