@@ -64,7 +64,54 @@ public class MerchantSmsSend
 	@Override
 	public String toString()
 	{
-		return "MerchantSmsSend [id=" + id + ", merchantAccount=" + merchantAccount + ", smsSignerId=" + smsSignerId + ", smsTemplateId=" + smsTemplateId + ", smsContent=" + smsContent + ", smsChannelCode=" + smsChannelCode + ", createTime=" + createTime + ", receiveMobile=" + receiveMobile + ", receiveTime=" + receiveTime + ", sendResult=" + sendResult + ", resource=" + resource + ", receiveStatus=" + receiveStatus + ", appId=" + appId + ", smsType=" + smsType + ", province=" + province + ", city=" + city + ", carriers=" + carriers + ", merchantSmsUid=" + merchantSmsUid + ", channelSmsId=" + channelSmsId + ", dataTime=" + dataTime + ", receiveStatusChannel=" + receiveStatusChannel + ", receiveStatusDesc=" + receiveStatusDesc + ", sendTime=" + sendTime + ", statusTime=" + statusTime + "]" ;
+		return "MerchantSmsSend [id=" + id
+				+ ", merchantAccount="
+				+ merchantAccount
+				+ ", smsSignerId="
+				+ smsSignerId
+				+ ", smsTemplateId="
+				+ smsTemplateId
+				+ ", smsContent="
+				+ smsContent
+				+ ", smsChannelCode="
+				+ smsChannelCode
+				+ ", createTime="
+				+ createTime
+				+ ", receiveMobile="
+				+ receiveMobile
+				+ ", receiveTime="
+				+ receiveTime
+				+ ", sendResult="
+				+ sendResult
+				+ ", resource="
+				+ resource
+				+ ", receiveStatus="
+				+ receiveStatus
+				+ ", appId="
+				+ appId
+				+ ", smsType="
+				+ smsType
+				+ ", province="
+				+ province
+				+ ", city="
+				+ city
+				+ ", carriers="
+				+ carriers
+				+ ", merchantSmsUid="
+				+ merchantSmsUid
+				+ ", channelSmsId="
+				+ channelSmsId
+				+ ", dataTime="
+				+ dataTime
+				+ ", receiveStatusChannel="
+				+ receiveStatusChannel
+				+ ", receiveStatusDesc="
+				+ receiveStatusDesc
+				+ ", sendTime="
+				+ sendTime
+				+ ", statusTime="
+				+ statusTime
+				+ "]" ;
 	}
 	
 	/*

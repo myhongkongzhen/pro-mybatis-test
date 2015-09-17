@@ -28,4 +28,9 @@ public interface MerchantSmsSendMapper
 	MerchantSmsSend selectSmsSendResultByID( @Param( value = "merchantSmsSend" ) MerchantSmsSend merchantSmsSend ) ;
 	
 	List< MerchantSmsChannel > selectSmsSendResultByIDs( @Param( value = "paramList" ) List< MerchantSmsSend > paramList ) ;
+	
+	/**
+	 * Create by : 2015年9月17日 下午2:32:07
+	 */
+	void insertSelective( @Param( value = "merchantSmsSend" ) MerchantSmsSend merchantSmsSend ) ;
 }

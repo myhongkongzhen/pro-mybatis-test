@@ -51,7 +51,7 @@ public class MerchantSmsSendService
 		try
 		{
 			list = merchantSmsSendMapper.selectResultByPage( params ) ;
-			logger.info( "根据条件查询发送记录结果： " + list ) ;
+			logger.debug( "根据条件查询发送记录结果： " + list ) ;
 			
 			if ( null != list && !list.isEmpty() )
 			{
@@ -63,11 +63,15 @@ public class MerchantSmsSendService
 					{
 						for ( MerchantSmsChannel msc : nlist )
 						{
-							if ( mss.getId() == msc.getMerchantSmsSendId() )
+							if ( mss.getId().longValue() == msc.getMerchantSmsSendId().longValue() )
 							{
+								logger.debug( "Send記錄：" + mss.toString() ) ;
+								logger.debug( "Record記錄：" + msc.toString() ) ;
+								
 								mss.setChannelSmsId( msc.getSendSmsCode() ) ;
 								mss.setDataTime( msc.getDateTime() ) ;
-								mss.setMerchantSmsUid( msc.getMerchantSmsUid() ) ;
+								
+								break ;
 							}
 						}
 						
@@ -85,58 +89,7 @@ public class MerchantSmsSendService
 		}
 		catch ( Exception e )
 		{
-			logger.error(	"按短信发送记录ID查询对应状态报告信息出错:" + e.getMessage(),
-							e ) ;
-		}
-		finally
-		{
-			logger.info( "按条件查询发送记录数据共用时：" + ( ( System.currentTimeMillis() - startTime ) ) + "ms." ) ;
-		}
-		
-		return list ;
-	}
-	
-	/**
-	 * Create by : 2015年9月10日 下午3:14:35
-	 */
-	public List< MerchantSmsSend > selectResultByConditionOd( Map< String, Object > params )
-	{
-		long startTime = System.currentTimeMillis() ;
-		List< MerchantSmsSend > list = null ;
-		try
-		{
-			list = merchantSmsSendMapper.selectResultByPage( params ) ;
-			logger.info( "根据条件查询发送记录结果： " + list ) ;
-			
-			if ( null != list && !list.isEmpty() )
-			{
-				for ( MerchantSmsSend mss : list )
-				{
-					try
-					{
-						MerchantSmsSend ms = merchantSmsSendMapper.selectSmsSendResultByID( mss ) ;
-						if ( null == ms ) continue ;
-						mss.setChannelSmsId( ms.getChannelSmsId() ) ;
-						mss.setDataTime( ms.getDataTime() ) ;
-						mss.setMerchantSmsUid( ms.getMerchantSmsUid() ) ;
-						
-						if ( null == mss.getReceiveTime() ) mss.setDataTime( null ) ;
-						
-						if ( null != mss.getCreateTime() && null != mss.getReceiveTime() ) mss.setSendTime( String.valueOf( ( mss.getReceiveTime().getTime() - mss.getCreateTime()
-																																									.getTime() ) / 1000 ) ) ;
-						
-						if ( null != mss.getCreateTime() && null != mss.getDataTime() ) mss.setStatusTime( String.valueOf( ( ( mss.getDataTime().getTime() - mss.getCreateTime()
-																																								.getTime() ) / 1000 ) ) ) ;
-						
-						logger.debug( "=>" + mss.toString() ) ;
-					}
-					catch ( Exception e )
-					{
-						logger.error(	"按短信发送记录ID查询对应状态报告信息出错:" + e.getMessage(),
-										e ) ;
-					}
-				}
-			}
+			logger.error( "按短信发送记录ID查询对应状态报告信息出错:" + e.getMessage(), e ) ;
 		}
 		finally
 		{
@@ -153,5 +106,13 @@ public class MerchantSmsSendService
 	{
 		logger.info( "查询（总数）条件：" + params ) ;
 		return merchantSmsSendMapper.getCount( params ) ;
+	}
+	
+	/**
+	 * Create by : 2015年9月17日 下午2:31:43
+	 */
+	public void addMerchantSmsSend( MerchantSmsSend mss )
+	{
+		merchantSmsSendMapper.insertSelective( mss ) ;
 	}
 }
