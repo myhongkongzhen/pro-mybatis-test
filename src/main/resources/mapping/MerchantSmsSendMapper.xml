@@ -147,10 +147,6 @@
 	</select>
 
 	<insert id="insertSelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
-		<selectKey resultType="java.lang.Long" order="AFTER"
-			keyProperty="id">
-			SELECT @@IDENTITY
-		</selectKey>
 		insert into merchant_sms_send
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -271,6 +267,7 @@
 			</if>
 		</trim>
 	</insert>
+
 	<update id="updateByPrimaryKeySelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
 		update merchant_sms_send
 		<set>

@@ -1,2 +1,3 @@
 z.z.w.test.server.impl.ContextServiceImpl
 #z.z.w.test.server.impl.BizServiceImpl
+z.z.w.test.server.impl.DBInsertTestServiceImpl
