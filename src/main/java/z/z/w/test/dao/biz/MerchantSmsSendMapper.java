@@ -32,5 +32,5 @@ public interface MerchantSmsSendMapper
 	/**
 	 * Create by : 2015年9月17日 下午2:32:07
 	 */
-	void insertSelective( @Param( value = "merchantSmsSend" ) MerchantSmsSend merchantSmsSend ) ;
+	void insertSelective( /* @Param( value = "merchantSmsSend" ) */MerchantSmsSend merchantSmsSend ) ;
 }
