@@ -51,11 +51,12 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	public void loadService()
 	{
 		merchantSmsSendService = SpringContextUtil.getBean( MerchantSmsSendService.class ) ;
-		long maxID = merchantSmsSendService.getMaxId() ;
+		Long maxID = merchantSmsSendService.getMaxId() ;
 		logger.info( "Current table send max id : {}." , maxID ) ;
+		if ( null == maxID ) maxID = 0l ;
 		al = new AtomicLong( maxID + 1000 ) ;
 		
-		for ( int i = 0 ; i < 10000000 ; i++ )
+		for ( int i = 0 ; i < 2000000 ; i++ )
 		{
 			service.execute( new Runnable()
 			{
@@ -184,7 +185,8 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	}
 	
 	/**
-	 * @param merchantSmsSendService the merchantSmsSendService to set
+	 * @param merchantSmsSendService
+	 *            the merchantSmsSendService to set
 	 */
 	@Resource
 	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
