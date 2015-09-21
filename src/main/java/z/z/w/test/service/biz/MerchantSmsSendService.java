@@ -89,7 +89,7 @@ public class MerchantSmsSendService
 		}
 		catch ( Exception e )
 		{
-			logger.error( "按短信发送记录ID查询对应状态报告信息出错:" + e.getMessage(), e ) ;
+			logger.error( "按短信发送记录ID查询对应状态报告信息出错:" + e.getMessage() , e ) ;
 		}
 		finally
 		{
@@ -114,5 +114,15 @@ public class MerchantSmsSendService
 	public void addMerchantSmsSend( MerchantSmsSend mss )
 	{
 		merchantSmsSendMapper.insertSelective( mss ) ;
+	}
+	
+	/**
+	 * Create by : 2015年9月21日 下午4:06:18
+	 * 
+	 * @return
+	 */
+	public long getMaxId()
+	{
+		return merchantSmsSendMapper.getMaxId() ;
 	}
 }
