@@ -121,7 +121,7 @@ public class MerchantSmsSendService
 	 * 
 	 * @return
 	 */
-	public long getMaxId()
+	public Long getMaxId()
 	{
 		return merchantSmsSendMapper.getMaxId() ;
 	}

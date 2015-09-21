@@ -39,5 +39,5 @@ public interface MerchantSmsSendMapper
 	 * 
 	 * @return
 	 */
-	long getMaxId() ;
+	Long getMaxId() ;
 }
