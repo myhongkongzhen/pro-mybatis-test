@@ -35,8 +35,11 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 {
 	final static Logger				logger	= LoggerFactory.getLogger( DBInsertTestServiceImpl.class ) ;
 	
-	private final AtomicLong		al		= new AtomicLong( 1000000l ) ;
-	private ExecutorService			service	= Executors.newFixedThreadPool( 6 ) ;
+	private static AtomicLong		al		= null ;														/*
+																											 * new AtomicLong(
+																											 * 1002258 ) ;
+																											 */
+	private ExecutorService			service	= Executors.newFixedThreadPool( 100 ) ;
 	
 	private MerchantSmsSendService	merchantSmsSendService ;
 	
@@ -48,8 +51,11 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	public void loadService()
 	{
 		merchantSmsSendService = SpringContextUtil.getBean( MerchantSmsSendService.class ) ;
+		long maxID = merchantSmsSendService.getMaxId() ;
+		logger.info( "Current table send max id : {}." , maxID ) ;
+		al = new AtomicLong( maxID + 1000 ) ;
 		
-		while ( true )
+		for ( int i = 0 ; i < 10000000 ; i++ )
 		{
 			service.execute( new Runnable()
 			{
@@ -59,7 +65,7 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 					long startTime = System.currentTimeMillis() ;
 					try
 					{
-						logger.info( "Start insert data to db ....." ) ;
+						logger.debug( "Start insert data to db ....." ) ;
 						insertData() ;
 					}
 					catch ( Exception e )
@@ -141,7 +147,15 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 			record.setId( al.incrementAndGet() ) ;
 			logger.info( "{}" , record.toString() ) ;
 			
-			merchantSmsSendService.addMerchantSmsSend( record ) ;
+			long startTime = System.currentTimeMillis() ;
+			try
+			{
+				merchantSmsSendService.addMerchantSmsSend( record ) ;
+			}
+			finally
+			{
+				logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
+			}
 		}
 		catch ( Exception e )
 		{

@@ -59,6 +59,10 @@
 		SELECT COUNT(1) FROM merchant_sms_send
 		<include refid="query_where_condition" />
 	</select>
+	<select id="getMaxId" resultType="java.lang.Long">
+		SELECT ID FROM
+		merchant_sms_send ORDER BY ID DESC LIMIT 1
+	</select>
 
 	<sql id="query_where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
