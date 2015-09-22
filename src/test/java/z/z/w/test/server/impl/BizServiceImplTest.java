@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 
+import z.z.w.test.service.biz.BizServiceImpl ;
+
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.server.impl.BizServiceImplTest.java
@@ -28,23 +30,6 @@ public class BizServiceImplTest
 	private BizServiceImpl	bizServiceImpl ;
 	
 	/**
-	 * Test method for {@link z.z.w.test.server.impl.BizServiceImpl#loadService()}.
-	 */
-	@Test
-	public void testLoadService()
-	{
-		try
-		{
-//			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
-			bizServiceImpl.loadService() ;
-		}
-		catch ( Exception e )
-		{
-			logger.error( "Loading bussiness error : {}.", e.getMessage(), e ) ;
-		}
-	}
-	
-	/**
 	 * @return the bizServiceImpl
 	 */
 	public BizServiceImpl getBizServiceImpl()
@@ -53,12 +38,30 @@ public class BizServiceImplTest
 	}
 	
 	/**
-	 * @param bizServiceImpl the bizServiceImpl to set
+	 * @param bizServiceImpl
+	 *            the bizServiceImpl to set
 	 */
 	@Resource
 	public void setBizServiceImpl( BizServiceImpl bizServiceImpl )
 	{
 		this.bizServiceImpl = bizServiceImpl ;
+	}
+	
+	/**
+	 * Test method for {@link z.z.w.test.service.BizServiceImpl#loadService()}.
+	 */
+	@Test
+	public void testLoadService()
+	{
+		try
+		{
+//			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
+			bizServiceImpl.execute() ;
+		}
+		catch ( Exception e )
+		{
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
+		}
 	}
 	
 }

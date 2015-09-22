@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 
+import z.z.w.test.service.biz.DBInsertServiceImpl ;
+
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.server.impl.DBInsertTestServiceImplTest.java
@@ -23,40 +25,42 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 @ContextConfiguration( locations = { "classpath:spring/spring.xml" } )
 public class DBInsertTestServiceImplTest
 {
-	final static Logger				logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
-	private DBInsertTestServiceImpl	dBInsertTestServiceImpl ;
+	final static Logger			logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
+	private DBInsertServiceImpl	dBInsertServiceImpl ;
 	
 	/**
-	 * Test method for {@link z.z.w.test.server.impl.DBInsertTestServiceImpl#loadService()}.
+	 * @return the dBInsertServiceImpl
+	 */
+	public DBInsertServiceImpl getdBInsertServiceImpl()
+	{
+		return dBInsertServiceImpl ;
+	}
+	
+	/**
+	 * @param dBInsertServiceImpl
+	 *            the dBInsertServiceImpl to set
+	 */
+	@Resource
+	public void setdBInsertServiceImpl( DBInsertServiceImpl dBInsertServiceImpl )
+	{
+		this.dBInsertServiceImpl = dBInsertServiceImpl ;
+	}
+	
+	/**
+	 * Test method for {@link z.z.w.test.service.DBInsertTestServiceImpl#loadService()}.
 	 */
 	@Test
 	public void testLoadService()
 	{
 		try
 		{
-			dBInsertTestServiceImpl.loadService() ;
+			logger.info( "{}" , dBInsertServiceImpl ) ;
+			dBInsertServiceImpl.execute() ;
 		}
 		catch ( Exception e )
 		{
-			logger.error( "DB insert service error : {}.", e.getMessage(), e ) ;
+			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
 		}
-	}
-	
-	/**
-	 * @return the dBInsertTestServiceImpl
-	 */
-	public DBInsertTestServiceImpl getdBInsertTestServiceImpl()
-	{
-		return dBInsertTestServiceImpl ;
-	}
-	
-	/**
-	 * @param dBInsertTestServiceImpl the dBInsertTestServiceImpl to set
-	 */
-	@Resource
-	public void setdBInsertTestServiceImpl( DBInsertTestServiceImpl dBInsertTestServiceImpl )
-	{
-		this.dBInsertTestServiceImpl = dBInsertTestServiceImpl ;
 	}
 	
 }

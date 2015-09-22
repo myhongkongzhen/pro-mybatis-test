@@ -1,19 +1,16 @@
-package z.z.w.test.server ;
+package z.z.w.test.service ;
 
 /**************************************************************************
  * <pre>
- *     FileName: z.z.w.test.server.IServiceLoader.java
+ *     FileName: z.z.w.test.service.IService.java
  *         Desc: 
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月7日 下午12:13:00 
- *   LastChange: 2015年9月7日 下午12:13:00 
+ *     @version: 2015年9月22日 上午10:48:10 
+ *   LastChange: 2015年9月22日 上午10:48:10 
  *      History:
  * </pre>
  **************************************************************************/
-public interface IServiceLoader
+public interface IService extends Runnable
 {
-	
-	void loadService() ;
-	
-	void destroy() ;
+	void execute() throws Exception ;
 }

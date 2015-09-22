@@ -25,54 +25,16 @@ public class MerchantSmsChannel
 	
 	private Long	id ;
 	
-	public MerchantSmsChannel()
-	{
-		super() ;
-	}
-	
 	private String	merSmsChanSig ;
+	
 	private String	merchantSmsUid ;
 	private String	sendSmsCode ;
 	private Long	merchantSmsSendId ;
 	private Date	dateTime ;
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString()
+	public MerchantSmsChannel()
 	{
-		return "MerchantSmsChannel [id=" + id
-				+ ", merSmsChanSig="
-				+ merSmsChanSig
-				+ ", merchantSmsUid="
-				+ merchantSmsUid
-				+ ", sendSmsCode="
-				+ sendSmsCode
-				+ ", merchantSmsSendId="
-				+ merchantSmsSendId
-				+ ", dateTime="
-				+ dateTime
-				+ "]" ;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31 ;
-		int result = 1 ;
-		result = prime * result + ( ( dateTime == null ) ? 0 : dateTime.hashCode() ) ;
-		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() ) ;
-		result = prime * result + ( ( merSmsChanSig == null ) ? 0 : merSmsChanSig.hashCode() ) ;
-		result = prime * result + ( ( merchantSmsSendId == null ) ? 0 : merchantSmsSendId.hashCode() ) ;
-		result = prime * result + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
-		result = prime * result + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
-		return result ;
+		super() ;
 	}
 	
 	/*
@@ -120,67 +82,19 @@ public class MerchantSmsChannel
 	}
 	
 	/**
+	 * @return the dateTime
+	 */
+	public Date getDateTime()
+	{
+		return dateTime ;
+	}
+	
+	/**
 	 * @return the id
 	 */
 	public Long getId()
 	{
 		return id ;
-	}
-	
-	/**
-	 * @param id the id to set
-	 */
-	public void setId( Long id )
-	{
-		this.id = id ;
-	}
-	
-	/**
-	 * @return the merSmsChanSig
-	 */
-	public String getMerSmsChanSig()
-	{
-		return merSmsChanSig ;
-	}
-	
-	/**
-	 * @param merSmsChanSig the merSmsChanSig to set
-	 */
-	public void setMerSmsChanSig( String merSmsChanSig )
-	{
-		this.merSmsChanSig = merSmsChanSig ;
-	}
-	
-	/**
-	 * @return the merchantSmsUid
-	 */
-	public String getMerchantSmsUid()
-	{
-		return merchantSmsUid ;
-	}
-	
-	/**
-	 * @param merchantSmsUid the merchantSmsUid to set
-	 */
-	public void setMerchantSmsUid( String merchantSmsUid )
-	{
-		this.merchantSmsUid = merchantSmsUid ;
-	}
-	
-	/**
-	 * @return the sendSmsCode
-	 */
-	public String getSendSmsCode()
-	{
-		return sendSmsCode ;
-	}
-	
-	/**
-	 * @param sendSmsCode the sendSmsCode to set
-	 */
-	public void setSendSmsCode( String sendSmsCode )
-	{
-		this.sendSmsCode = sendSmsCode ;
 	}
 	
 	/**
@@ -192,7 +106,68 @@ public class MerchantSmsChannel
 	}
 	
 	/**
-	 * @param merchantSmsSendId the merchantSmsSendId to set
+	 * @return the merchantSmsUid
+	 */
+	public String getMerchantSmsUid()
+	{
+		return merchantSmsUid ;
+	}
+	
+	/**
+	 * @return the merSmsChanSig
+	 */
+	public String getMerSmsChanSig()
+	{
+		return merSmsChanSig ;
+	}
+	
+	/**
+	 * @return the sendSmsCode
+	 */
+	public String getSendSmsCode()
+	{
+		return sendSmsCode ;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31 ;
+		int result = 1 ;
+		result = ( prime * result ) + ( ( dateTime == null ) ? 0 : dateTime.hashCode() ) ;
+		result = ( prime * result ) + ( ( id == null ) ? 0 : id.hashCode() ) ;
+		result = ( prime * result ) + ( ( merSmsChanSig == null ) ? 0 : merSmsChanSig.hashCode() ) ;
+		result = ( prime * result ) + ( ( merchantSmsSendId == null ) ? 0 : merchantSmsSendId.hashCode() ) ;
+		result = ( prime * result ) + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
+		result = ( prime * result ) + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
+		return result ;
+	}
+	
+	/**
+	 * @param dateTime
+	 *            the dateTime to set
+	 */
+	public void setDateTime( Date dateTime )
+	{
+		this.dateTime = dateTime ;
+	}
+	
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId( Long id )
+	{
+		this.id = id ;
+	}
+	
+	/**
+	 * @param merchantSmsSendId
+	 *            the merchantSmsSendId to set
 	 */
 	public void setMerchantSmsSendId( Long merchantSmsSendId )
 	{
@@ -200,18 +175,50 @@ public class MerchantSmsChannel
 	}
 	
 	/**
-	 * @return the dateTime
+	 * @param merchantSmsUid
+	 *            the merchantSmsUid to set
 	 */
-	public Date getDateTime()
+	public void setMerchantSmsUid( String merchantSmsUid )
 	{
-		return dateTime ;
+		this.merchantSmsUid = merchantSmsUid ;
 	}
 	
 	/**
-	 * @param dateTime the dateTime to set
+	 * @param merSmsChanSig
+	 *            the merSmsChanSig to set
 	 */
-	public void setDateTime( Date dateTime )
+	public void setMerSmsChanSig( String merSmsChanSig )
 	{
-		this.dateTime = dateTime ;
+		this.merSmsChanSig = merSmsChanSig ;
+	}
+	
+	/**
+	 * @param sendSmsCode
+	 *            the sendSmsCode to set
+	 */
+	public void setSendSmsCode( String sendSmsCode )
+	{
+		this.sendSmsCode = sendSmsCode ;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "MerchantSmsChannel [id=" + id
+				+ ", merSmsChanSig="
+				+ merSmsChanSig
+				+ ", merchantSmsUid="
+				+ merchantSmsUid
+				+ ", sendSmsCode="
+				+ sendSmsCode
+				+ ", merchantSmsSendId="
+				+ merchantSmsSendId
+				+ ", dateTime="
+				+ dateTime
+				+ "]" ;
 	}
 }

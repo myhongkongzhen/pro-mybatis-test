@@ -150,6 +150,52 @@
 		</if>
 	</select>
 
+	<insert id="insertSelectiveList" parameterType="java.util.List">
+		insert into merchant_sms_send (
+		ID,
+		MERCHANT_ACCOUNT,
+		SMS_SIGNER_ID,
+		SMS_TEMPLATE_ID,
+		SMS_CONTENT,
+		SMS_CHANNEL_CODE,
+		CREATE_TIME,
+		RECEIVE_MOBILE,
+		RECEIVE_TIME,
+		SEND_RESULT,
+		RESOURCE,
+		RECEIVE_STATUS,
+		APP_ID,
+		SMS_TYPE,
+		PROVINCE,
+		CITY,
+		CARRIERS,
+		RECEIVE_STATUS_CHANNTL,
+		RECEIVE_STATUS_DESC )
+		values
+		<foreach collection="paramLt" item="param" index="index"
+			separator=",">
+			(#{param.id},
+			#{param.merchantAccount},
+			#{param.smsSignerId},
+			#{param.smsTemplateId},
+			#{param.smsContent},
+			#{param.smsChannelCode},
+			#{param.createTime},
+			#{param.receiveMobile},
+			#{param.receiveTime},
+			#{param.sendResult},
+			#{param.resource},
+			#{param.receiveStatus},
+			#{param.appId},
+			#{param.smsType},
+			#{param.province},
+			#{param.city},
+			#{param.carriers},
+			#{param.receiveStatusChannel},
+			#{param.receiveStatusDesc})
+		</foreach>
+	</insert>
+
 	<insert id="insertSelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
 		insert into merchant_sms_send
 		<trim prefix="(" suffix=")" suffixOverrides=",">

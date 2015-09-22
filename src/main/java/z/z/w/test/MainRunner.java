@@ -5,7 +5,7 @@ import java.util.ServiceLoader ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 
-import z.z.w.test.server.IServiceLoader ;
+import z.z.w.server.IServiceLoader ;
 import z.z.w.util.SpringContextUtil ;
 
 /**************************************************************************
@@ -32,38 +32,33 @@ public class MainRunner
 		
 		Runtime.getRuntime().addShutdownHook( new Thread()
 		{
+			@Override
 			public void run()
 			{
 				logger.debug( "Service will be stopping..." ) ;
 				for ( IServiceLoader service : loader )
-				{
 					service.destroy() ;
-				}
 				logger.debug( "Service is stopped!" ) ;
 			} ;
 		} ) ;
 		
 		logger.debug( "Service will be starting..." ) ;
 		for ( IServiceLoader service : loader )
-		{
 			service.loadService() ;
-		}
 		logger.debug( "Service is started!" ) ;
-		logger.debug( "@@{}", SpringContextUtil.getApplicationContext() ) ;
+		logger.debug( "@@{}" , SpringContextUtil.getApplicationContext() ) ;
 		
 		synchronized ( MainRunner.class )
 		{
 			while ( running )
-			{
 				try
 				{
 					MainRunner.class.wait() ;
 				}
 				catch ( Throwable e )
 				{
-					logger.error( "Single mainRunner processor error : {}.", e.getMessage(), e ) ;
+					logger.error( "Single mainRunner processor error : {}." , e.getMessage() , e ) ;
 				}
-			}
 		}
 		
 	}

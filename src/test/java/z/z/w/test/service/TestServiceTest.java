@@ -37,26 +37,6 @@ public class TestServiceTest
 	private TestService		testService	= null ;
 	
 	/**
-	 * Test method for {@link z.z.w.test.service.TestService#queryAllUsers()}.
-	 */
-	@Test
-	public void testQueryAllUsers()
-	{
-		try
-		{
-			List< TbTestUser > list = testService.queryAllUsers() ;
-			for ( TbTestUser ttu : list )
-			{
-				logger.info( "{}", ttu.toString() ) ;
-			}
-		}
-		catch ( Exception e )
-		{
-			fail( "MASSAGE : " + e.getMessage() + "\nCAUSE : " + e.getCause() + "\nCLASS : " + e.getClass() ) ;
-		}
-	}
-	
-	/**
 	 * <br>
 	 * Created on: 2014-10-14 上午10:45:21
 	 * 
@@ -78,6 +58,24 @@ public class TestServiceTest
 	public void setTestService( TestService testService )
 	{
 		this.testService = testService ;
+	}
+	
+	/**
+	 * Test method for {@link z.z.w.test.service.TestService#queryAllUsers()}.
+	 */
+	@Test
+	public void testQueryAllUsers()
+	{
+		try
+		{
+			List< TbTestUser > list = testService.queryAllUsers() ;
+			for ( TbTestUser ttu : list )
+				logger.info( "{}" , ttu.toString() ) ;
+		}
+		catch ( Exception e )
+		{
+			fail( "MASSAGE : " + e.getMessage() + "\nCAUSE : " + e.getCause() + "\nCLASS : " + e.getClass() ) ;
+		}
 	}
 	
 }
