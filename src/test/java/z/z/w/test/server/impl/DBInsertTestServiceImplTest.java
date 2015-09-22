@@ -1,5 +1,7 @@
 package z.z.w.test.server.impl ;
 
+import javax.annotation.Resource ;
+
 import org.junit.Test ;
 import org.junit.runner.RunWith ;
 import org.slf4j.Logger ;
@@ -7,7 +9,7 @@ import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 
-import z.z.w.util.SpringContextUtil ;
+import z.z.w.test.service.biz.DBInsertServiceImpl ;
 
 /**************************************************************************
  * <pre>
@@ -23,25 +25,42 @@ import z.z.w.util.SpringContextUtil ;
 @ContextConfiguration( locations = { "classpath:spring/spring.xml" } )
 public class DBInsertTestServiceImplTest
 {
-	final static Logger				logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
-	private DBInsertTestServiceImpl	dBInsertTestServiceImpl ;
+	final static Logger			logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
+	private DBInsertServiceImpl	dBInsertServiceImpl ;
 	
 	/**
-	 * Test method for {@link z.z.w.test.server.impl.DBInsertTestServiceImpl#loadService()}.
+	 * Test method for {@link z.z.w.test.service.DBInsertTestServiceImpl#loadService()}.
 	 */
 	@Test
 	public void testLoadService()
 	{
 		try
 		{
-			dBInsertTestServiceImpl = SpringContextUtil.getBean( DBInsertTestServiceImpl.class ) ;
-			logger.info( "{}" , dBInsertTestServiceImpl ) ;
-			dBInsertTestServiceImpl.loadService() ;
+			logger.info( "{}" , dBInsertServiceImpl ) ;
+			dBInsertServiceImpl.execute() ;
 		}
 		catch ( Exception e )
 		{
 			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
 		}
+	}
+	
+	/**
+	 * @return the dBInsertServiceImpl
+	 */
+	public DBInsertServiceImpl getdBInsertServiceImpl()
+	{
+		return dBInsertServiceImpl ;
+	}
+	
+	/**
+	 * @param dBInsertServiceImpl
+	 *            the dBInsertServiceImpl to set
+	 */
+	@Resource
+	public void setdBInsertServiceImpl( DBInsertServiceImpl dBInsertServiceImpl )
+	{
+		this.dBInsertServiceImpl = dBInsertServiceImpl ;
 	}
 	
 }

@@ -26,16 +26,6 @@ public class MerchantSmsSendService
 	
 	private MerchantSmsSendMapper	merchantSmsSendMapper ;
 	
-	public MerchantSmsSendMapper getMerchantSmsSendMapper()
-	{
-		return merchantSmsSendMapper ;
-	}
-	
-	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
-	{
-		this.merchantSmsSendMapper = merchantSmsSendMapper ;
-	}
-	
 	/**
 	 * Create by : 2015年9月8日 下午5:00:10
 	 */
@@ -119,5 +109,22 @@ public class MerchantSmsSendService
 	public Long getMaxId()
 	{
 		return merchantSmsSendMapper.getMaxId() ;
+	}
+	
+	/**
+	 * @return the merchantSmsSendMapper
+	 */
+	public MerchantSmsSendMapper getMerchantSmsSendMapper()
+	{
+		return merchantSmsSendMapper ;
+	}
+	
+	/**
+	 * @param merchantSmsSendMapper
+	 *            the merchantSmsSendMapper to set
+	 */
+	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
+	{
+		this.merchantSmsSendMapper = merchantSmsSendMapper ;
 	}
 }

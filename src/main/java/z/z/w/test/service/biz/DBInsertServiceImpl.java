@@ -1,4 +1,4 @@
-package z.z.w.test.server.impl ;
+package z.z.w.test.service.biz ;
 
 import java.util.Date ;
 import java.util.Random ;
@@ -10,35 +10,34 @@ import org.apache.commons.lang3.time.DateFormatUtils ;
 import org.apache.commons.lang3.time.DateUtils ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
+import org.springframework.beans.factory.annotation.Value ;
 
 import z.z.w.test.entity.biz.MerchantSmsSend ;
-import z.z.w.test.server.IServiceLoader ;
-import z.z.w.test.service.biz.MerchantSmsSendService ;
-import z.z.w.util.SpringContextUtil ;
+import z.z.w.test.service.IService ;
 import z.z.w.util.comm.RandomUtil ;
 
 /**************************************************************************
  * <pre>
- *     FileName: z.z.w.test.server.impl.DBInsertTestServiceImpl.java
+ *     FileName: z.z.w.test.service.biz.DBInsertServiceImpl.java
  *         Desc: 
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月17日 下午2:28:37 
- *   LastChange: 2015年9月17日 下午2:28:37 
+ *     @version: 2015年9月22日 上午10:50:11 
+ *   LastChange: 2015年9月22日 上午10:50:11 
  *      History:
  * </pre>
  **************************************************************************/
-public class DBInsertTestServiceImpl implements IServiceLoader
+public class DBInsertServiceImpl implements IService
 {
-	final static Logger				logger		= LoggerFactory.getLogger( DBInsertTestServiceImpl.class ) ;
+	final static Logger				logger		= LoggerFactory.getLogger( DBInsertServiceImpl.class ) ;
 	
-	private static AtomicLong		al			= null ;														/*
-																												 * new
-																												 * AtomicLong(
-																												 * 1002258 ) ;
-																												 */
-//	@Value( "${EXECUTOR.POOL.SIZE}" )
+	private static AtomicLong		al			= null ;													/*
+																											 * new
+																											 * AtomicLong(
+																											 * 1002258 ) ;
+																											 */
+	@Value( "${EXECUTOR.POOL.SIZE}" )
 	private Integer					threadNum	= 100 ;
-//	@Value( "${OPER.DATASIZE}" )
+	@Value( "${OPER.DATASIZE}" )
 	private Long					dataSize	= 10000000l ;
 	
 	private ExecutorService			service		= null ;
@@ -47,14 +46,13 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#loadService()
+	 * @see z.z.w.test.service.IService#execute()
 	 */
 	@Override
-	public void loadService()
+	public void execute() throws Exception
 	{
 		logger.info( "Thread size : {}. data size : {}." , threadNum , dataSize ) ;
 		service = Executors.newFixedThreadPool( threadNum ) ;
-		merchantSmsSendService = SpringContextUtil.getBean( MerchantSmsSendService.class ) ;
 		Long maxID = merchantSmsSendService.getMaxId() ;
 		logger.info( "Current table send max id : {}." , maxID ) ;
 		if ( null == maxID ) maxID = 0l ;
@@ -183,13 +181,20 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#destroy()
+	 * @see java.lang.Runnable#run()
 	 */
 	@Override
-	public void destroy()
+	public void run()
 	{
-		// TODO 2015年9月17日 下午2:28:37
-		Thread.currentThread().interrupt() ;
+		try
+		{
+			execute() ;
+		}
+		catch ( Exception e )
+		{
+			logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
+		}
+		
 	}
 	
 	/**
@@ -208,5 +213,4 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	{
 		this.merchantSmsSendService = merchantSmsSendService ;
 	}
-	
 }

@@ -15,16 +15,21 @@
 				        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
 	<!-- Biz Service -->
-	<bean id="bizServiceImpl" class="z.z.w.test.server.impl.BizServiceImpl"
+	<bean id="bizServiceImpl" class="z.z.w.test.service.biz.BizServiceImpl"
 		scope="prototype">
+		<property name="threadPoolTaskExecutor" ref="threadPoolTaskExecutor" />
 	</bean>
 
 	<!-- Biz Service -->
-	<bean id="merchantSmsSendMapper" class="z.z.w.test.dao.biz.MerchantSmsSendMapper" />
+	<!--创建数据映射器，数据映射器必须为接口 -->
+	<bean id="merchantSmsSendMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="z.z.w.test.dao.biz.MerchantSmsSendMapper"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
 	<bean id="merchantSmsSendService" class="z.z.w.test.service.biz.MerchantSmsSendService">
 		<property name="merchantSmsSendMapper" ref="merchantSmsSendMapper" />
 	</bean>
-	<bean id="dBInsertTestServiceImpl" class="z.z.w.test.server.impl.DBInsertTestServiceImpl"
+	<bean id="dBInsertServiceImpl" class="z.z.w.test.service.biz.DBInsertServiceImpl"
 		scope="prototype">
 		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
 	</bean>

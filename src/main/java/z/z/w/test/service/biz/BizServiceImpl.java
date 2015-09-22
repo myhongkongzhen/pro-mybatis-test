@@ -1,4 +1,4 @@
-package z.z.w.test.server.impl ;
+package z.z.w.test.service.biz ;
 
 import java.util.HashMap ;
 import java.util.Map ;
@@ -14,21 +14,20 @@ import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor ;
 
-import z.z.w.test.server.IServiceLoader ;
-import z.z.w.util.SpringContextUtil ;
+import z.z.w.test.service.IService ;
 import z.z.w.util.http.HttpClientUtil ;
 
 /**************************************************************************
  * <pre>
- *     FileName: z.z.w.test.server.impl.BizServiceImpl.java
+ *     FileName: z.z.w.test.service.biz.BizServiceImpl.java
  *         Desc: 
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月10日 下午4:31:30 
- *   LastChange: 2015年9月10日 下午4:31:30 
+ *     @version: 2015年9月22日 上午10:50:24 
+ *   LastChange: 2015年9月22日 上午10:50:24 
  *      History:
  * </pre>
  **************************************************************************/
-public class BizServiceImpl implements IServiceLoader
+public class BizServiceImpl implements IService
 {
 	final static Logger				logger	= LoggerFactory.getLogger( BizServiceImpl.class ) ;
 	
@@ -36,16 +35,17 @@ public class BizServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#loadService()
+	 * @see z.z.w.test.service.IService#execute()
 	 */
-	public void loadService()
+	@Override
+	public void execute() throws Exception
 	{
 		logger.info( "Starting bussiness service....." ) ;
 		try
 		{
 			final String url = "http://ah.vnet.cn/SmsGW/SMS/SingleSMS" ;
 			
-			threadPoolTaskExecutor = SpringContextUtil.getBean( ThreadPoolTaskExecutor.class ) ;
+//			threadPoolTaskExecutor = SpringContextUtil.getBean( ThreadPoolTaskExecutor.class ) ;
 			final CompletionService< String > compService = new ExecutorCompletionService< String >( threadPoolTaskExecutor ) ;
 			final ExecutorService executor = Executors.newFixedThreadPool( 200 ) ;
 			logger.info( "-{}" , compService ) ;
@@ -101,6 +101,25 @@ public class BizServiceImpl implements IServiceLoader
 										return null ;
 									}
 								}
+								
+								private String sendSmsJson( String mobile , String sgin )
+								{
+									StringBuffer data = new StringBuffer() ;
+									data.append( "{" ) ;
+									data.append( "\"SingleSMSRequest\":{" ) ;
+									data.append( "\"UserID\":\"10040001\", " ) ;
+									data.append( "\"TPLID\":\"1000\", " ) ;
+									data.append( "\"MSMSID\":\"1812397589120150915104950784\"," ) ;
+									data.append( "\"StampTime\":\"2015-06-12 12:31:06\"," ) ;
+									data.append( "\"SMSText\":\"您好 ： 您的注册码是" + ( ( long ) ( Math.random() * 10000 ) ) + "【技AHDX】\", " ) ;
+									// MD5(UserID+ StampTime+ TPLID+ ObjMobile+商户通信Key)
+//									String ll = MD5Util.md5Hex( "100400012015-06-12 12:31:061000" + mobile + "BhpetXlwaldEMDKsoGFaEngKnqhJUXvU" ) ;
+									data.append( "\"Sign\":\"" + sgin + "\"," ) ;
+									data.append( "\"ObjMobile\":\"" + mobile + "\"" ) ;
+									data.append( "}" ) ;
+									data.append( "}" ) ;
+									return data.toString() ;
+								}
 							} ) ;
 						}
 						
@@ -133,36 +152,40 @@ public class BizServiceImpl implements IServiceLoader
 		
 	}
 	
-	/**
-	 * Create by : 2015年9月14日 下午6:19:16
-	 */
-	private String sendSmsJson( String mobile , String sgin )
-	{
-		StringBuffer data = new StringBuffer() ;
-		data.append( "{" ) ;
-		data.append( "\"SingleSMSRequest\":{" ) ;
-		data.append( "\"UserID\":\"10040001\", " ) ;
-		data.append( "\"TPLID\":\"1000\", " ) ;
-		data.append( "\"MSMSID\":\"1812397589120150915104950784\"," ) ;
-		data.append( "\"StampTime\":\"2015-06-12 12:31:06\"," ) ;
-		data.append( "\"SMSText\":\"您好 ： 您的注册码是" + ( ( long ) ( Math.random() * 10000 ) ) + "【技AHDX】\", " ) ;
-		// MD5(UserID+ StampTime+ TPLID+ ObjMobile+商户通信Key)
-//		String ll = MD5Util.md5Hex( "100400012015-06-12 12:31:061000" + mobile + "BhpetXlwaldEMDKsoGFaEngKnqhJUXvU" ) ;
-		data.append( "\"Sign\":\"" + sgin + "\"," ) ;
-		data.append( "\"ObjMobile\":\"" + mobile + "\"" ) ;
-		data.append( "}" ) ;
-		data.append( "}" ) ;
-		return data.toString() ;
-	}
-	
 	/*
 	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#destroy()
+	 * @see java.lang.Runnable#run()
 	 */
-	public void destroy()
+	@Override
+	public void run()
 	{
-		// TODO 2015年9月10日 下午4:31:30
-		Thread.currentThread().interrupt() ;
+		try
+		{
+			logger.info( "Starting bussiness service....." ) ;
+			execute() ;
+		}
+		catch ( Exception e )
+		{
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
+		}
+		
+	}
+	
+	/**
+	 * @return the threadPoolTaskExecutor
+	 */
+	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
+	{
+		return threadPoolTaskExecutor ;
+	}
+	
+	/**
+	 * @param threadPoolTaskExecutor
+	 *            the threadPoolTaskExecutor to set
+	 */
+	public void setThreadPoolTaskExecutor( ThreadPoolTaskExecutor threadPoolTaskExecutor )
+	{
+		this.threadPoolTaskExecutor = threadPoolTaskExecutor ;
 	}
 	
 }
