@@ -13,7 +13,7 @@ package z.z.w.test.server ;
 public interface IServiceLoader
 {
 	
-	void loadService() ;
-	
 	void destroy() ;
+	
+	void loadService() ;
 }

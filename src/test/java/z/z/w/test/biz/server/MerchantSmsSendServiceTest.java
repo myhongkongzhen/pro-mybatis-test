@@ -41,6 +41,17 @@ public class MerchantSmsSendServiceTest
 	private MerchantSmsSendService	merchantSmsSendService ;
 	Map< String, Object >			params	= new HashMap< String, Object >() ;
 	
+	public MerchantSmsSendService getMerchantSmsSendService()
+	{
+		return merchantSmsSendService ;
+	}
+	
+	@Resource
+	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
+	{
+		this.merchantSmsSendService = merchantSmsSendService ;
+	}
+	
 	@Before
 	public void setUp()
 	{
@@ -73,43 +84,29 @@ public class MerchantSmsSendServiceTest
 		when( req.getParameter( "receiveStatus" ) ).thenReturn( "" ) ;
 		String receiveStatus = req.getParameter( "receiveStatus" ) ;
 		
-		params.put( "pageNum", ( Integer.parseInt( pag ) - 1 ) * Integer.parseInt( pageSi ) ) ;
-		params.put( "pageSize", Integer.parseInt( pageSi ) ) ;
-		params.put( "startDate", startTime ) ;
-		params.put( "endDate", endTime ) ;
-		params.put( "merchantAccount", merchantAccount ) ;
-		params.put( "receiveMobile", mobile ) ;
-		params.put( "smsChannelCode", chanelId ) ;
-		params.put( "sendResult", ( StringUtils.isBlank( sendResult ) ? sendResult : Integer.parseInt( sendResult ) ) ) ;
-		params.put( "receiveStatus", ( StringUtils.isBlank( receiveStatus ) ? receiveStatus : Integer.parseInt( receiveStatus ) ) ) ;
+		params.put( "pageNum" , ( Integer.parseInt( pag ) - 1 ) * Integer.parseInt( pageSi ) ) ;
+		params.put( "pageSize" , Integer.parseInt( pageSi ) ) ;
+		params.put( "startDate" , startTime ) ;
+		params.put( "endDate" , endTime ) ;
+		params.put( "merchantAccount" , merchantAccount ) ;
+		params.put( "receiveMobile" , mobile ) ;
+		params.put( "smsChannelCode" , chanelId ) ;
+		params.put( "sendResult" , ( StringUtils.isBlank( sendResult ) ? sendResult : Integer.parseInt( sendResult ) ) ) ;
+		params.put( "receiveStatus" , ( StringUtils.isBlank( receiveStatus ) ? receiveStatus : Integer.parseInt( receiveStatus ) ) ) ;
 		
-		logger.info( "发送记录查询参数：{}", params ) ;
+		logger.info( "发送记录查询参数：{}" , params ) ;
 	}
 	
 	@Test
 	@Ignore
 	public void testConnection()
 	{
-		logger.info( "{}", merchantSmsSendService ) ;
+		logger.info( "{}" , merchantSmsSendService ) ;
 		
 		MerchantSmsSend merchantSmsSend = new MerchantSmsSend() ;
 		merchantSmsSend.setId( 10002909l ) ; ;
 		
-		logger.info( "{}", merchantSmsSendService.getMerchantSmsSendMapper().selectSmsSendResultByID( merchantSmsSend ) ) ;
-	}
-	
-	/**
-	 * Test method for {@link z.z.w.test.service.biz.MerchantSmsSendService#selectResultByCondition(java.util.Map)}.
-	 */
-	@Test
-	@Ignore
-	public void testSelectResultByCondition()
-	{
-		List< MerchantSmsSend > list = merchantSmsSendService.selectResultByCondition( params ) ;
-		for ( MerchantSmsSend mss : list )
-		{
-			logger.info( "{}", mss.toString() ) ;
-		}
+		logger.info( "{}" , merchantSmsSendService.getMerchantSmsSendMapper().selectSmsSendResultByID( merchantSmsSend ) ) ;
 	}
 	
 	/**
@@ -121,18 +118,19 @@ public class MerchantSmsSendServiceTest
 			testGetCount()
 	{
 		long startTime = System.currentTimeMillis() ;
-		logger.info( "Count-->{}", merchantSmsSendService.getCount( params ) ) ;
-		logger.info( "Use time : {} s", ( ( System.currentTimeMillis() - startTime ) * 0.1 / 1000 ) ) ;
+		logger.info( "Count-->{}" , merchantSmsSendService.getCount( params ) ) ;
+		logger.info( "Use time : {} s" , ( ( ( System.currentTimeMillis() - startTime ) * 0.1 ) / 1000 ) ) ;
 	}
 	
-	public MerchantSmsSendService getMerchantSmsSendService()
+	/**
+	 * Test method for {@link z.z.w.test.service.biz.MerchantSmsSendService#selectResultByCondition(java.util.Map)}.
+	 */
+	@Test
+	@Ignore
+	public void testSelectResultByCondition()
 	{
-		return merchantSmsSendService ;
-	}
-	
-	@Resource
-	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
-	{
-		this.merchantSmsSendService = merchantSmsSendService ;
+		List< MerchantSmsSend > list = merchantSmsSendService.selectResultByCondition( params ) ;
+		for ( MerchantSmsSend mss : list )
+			logger.info( "{}" , mss.toString() ) ;
 	}
 }

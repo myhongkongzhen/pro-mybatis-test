@@ -59,99 +59,6 @@ public class MerchantSmsSend
 	
 	/*
 	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		return "MerchantSmsSend [id=" + id
-				+ ", merchantAccount="
-				+ merchantAccount
-				+ ", smsSignerId="
-				+ smsSignerId
-				+ ", smsTemplateId="
-				+ smsTemplateId
-				+ ", smsContent="
-				+ smsContent
-				+ ", smsChannelCode="
-				+ smsChannelCode
-				+ ", createTime="
-				+ createTime
-				+ ", receiveMobile="
-				+ receiveMobile
-				+ ", receiveTime="
-				+ receiveTime
-				+ ", sendResult="
-				+ sendResult
-				+ ", resource="
-				+ resource
-				+ ", receiveStatus="
-				+ receiveStatus
-				+ ", appId="
-				+ appId
-				+ ", smsType="
-				+ smsType
-				+ ", province="
-				+ province
-				+ ", city="
-				+ city
-				+ ", carriers="
-				+ carriers
-				+ ", merchantSmsUid="
-				+ merchantSmsUid
-				+ ", channelSmsId="
-				+ channelSmsId
-				+ ", dataTime="
-				+ dataTime
-				+ ", receiveStatusChannel="
-				+ receiveStatusChannel
-				+ ", receiveStatusDesc="
-				+ receiveStatusDesc
-				+ ", sendTime="
-				+ sendTime
-				+ ", statusTime="
-				+ statusTime
-				+ "]" ;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31 ;
-		int result = 1 ;
-		result = prime * result + ( ( appId == null ) ? 0 : appId.hashCode() ) ;
-		result = prime * result + ( ( carriers == null ) ? 0 : carriers.hashCode() ) ;
-		result = prime * result + ( ( channelSmsId == null ) ? 0 : channelSmsId.hashCode() ) ;
-		result = prime * result + ( ( city == null ) ? 0 : city.hashCode() ) ;
-		result = prime * result + ( ( createTime == null ) ? 0 : createTime.hashCode() ) ;
-		result = prime * result + ( ( dataTime == null ) ? 0 : dataTime.hashCode() ) ;
-		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() ) ;
-		result = prime * result + ( ( merchantAccount == null ) ? 0 : merchantAccount.hashCode() ) ;
-		result = prime * result + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
-		result = prime * result + ( ( province == null ) ? 0 : province.hashCode() ) ;
-		result = prime * result + ( ( receiveMobile == null ) ? 0 : receiveMobile.hashCode() ) ;
-		result = prime * result + ( ( receiveStatus == null ) ? 0 : receiveStatus.hashCode() ) ;
-		result = prime * result + ( ( receiveStatusChannel == null ) ? 0 : receiveStatusChannel.hashCode() ) ;
-		result = prime * result + ( ( receiveStatusDesc == null ) ? 0 : receiveStatusDesc.hashCode() ) ;
-		result = prime * result + ( ( receiveTime == null ) ? 0 : receiveTime.hashCode() ) ;
-		result = prime * result + ( ( resource == null ) ? 0 : resource.hashCode() ) ;
-		result = prime * result + ( ( sendResult == null ) ? 0 : sendResult.hashCode() ) ;
-		result = prime * result + ( ( sendTime == null ) ? 0 : sendTime.hashCode() ) ;
-		result = prime * result + ( ( smsChannelCode == null ) ? 0 : smsChannelCode.hashCode() ) ;
-		result = prime * result + ( ( smsContent == null ) ? 0 : smsContent.hashCode() ) ;
-		result = prime * result + ( ( smsSignerId == null ) ? 0 : smsSignerId.hashCode() ) ;
-		result = prime * result + ( ( smsTemplateId == null ) ? 0 : smsTemplateId.hashCode() ) ;
-		result = prime * result + ( ( smsType == null ) ? 0 : smsType.hashCode() ) ;
-		result = prime * result + ( ( statusTime == null ) ? 0 : statusTime.hashCode() ) ;
-		return result ;
-	}
-	
-	/*
-	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -285,259 +192,11 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @return the id
-	 */
-	public Long getId()
-	{
-		return id ;
-	}
-	
-	/**
-	 * @param id the id to set
-	 */
-	public void setId( Long id )
-	{
-		this.id = id ;
-	}
-	
-	/**
-	 * @return the merchantAccount
-	 */
-	public String getMerchantAccount()
-	{
-		return merchantAccount ;
-	}
-	
-	/**
-	 * @param merchantAccount the merchantAccount to set
-	 */
-	public void setMerchantAccount( String merchantAccount )
-	{
-		this.merchantAccount = merchantAccount ;
-	}
-	
-	/**
-	 * @return the smsSignerId
-	 */
-	public Integer getSmsSignerId()
-	{
-		return smsSignerId ;
-	}
-	
-	/**
-	 * @param smsSignerId the smsSignerId to set
-	 */
-	public void setSmsSignerId( Integer smsSignerId )
-	{
-		this.smsSignerId = smsSignerId ;
-	}
-	
-	/**
-	 * @return the smsTemplateId
-	 */
-	public String getSmsTemplateId()
-	{
-		return smsTemplateId ;
-	}
-	
-	/**
-	 * @param smsTemplateId the smsTemplateId to set
-	 */
-	public void setSmsTemplateId( String smsTemplateId )
-	{
-		this.smsTemplateId = smsTemplateId ;
-	}
-	
-	/**
-	 * @return the smsContent
-	 */
-	public String getSmsContent()
-	{
-		return smsContent ;
-	}
-	
-	/**
-	 * @param smsContent the smsContent to set
-	 */
-	public void setSmsContent( String smsContent )
-	{
-		this.smsContent = smsContent ;
-	}
-	
-	/**
-	 * @return the smsChannelCode
-	 */
-	public String getSmsChannelCode()
-	{
-		return smsChannelCode ;
-	}
-	
-	/**
-	 * @param smsChannelCode the smsChannelCode to set
-	 */
-	public void setSmsChannelCode( String smsChannelCode )
-	{
-		this.smsChannelCode = smsChannelCode ;
-	}
-	
-	/**
-	 * @return the createTime
-	 */
-	public Date getCreateTime()
-	{
-		return createTime ;
-	}
-	
-	/**
-	 * @param createTime the createTime to set
-	 */
-	public void setCreateTime( Date createTime )
-	{
-		this.createTime = createTime ;
-	}
-	
-	/**
-	 * @return the receiveMobile
-	 */
-	public String getReceiveMobile()
-	{
-		return receiveMobile ;
-	}
-	
-	/**
-	 * @param receiveMobile the receiveMobile to set
-	 */
-	public void setReceiveMobile( String receiveMobile )
-	{
-		this.receiveMobile = receiveMobile ;
-	}
-	
-	/**
-	 * @return the receiveTime
-	 */
-	public Date getReceiveTime()
-	{
-		return receiveTime ;
-	}
-	
-	/**
-	 * @param receiveTime the receiveTime to set
-	 */
-	public void setReceiveTime( Date receiveTime )
-	{
-		this.receiveTime = receiveTime ;
-	}
-	
-	/**
-	 * @return the sendResult
-	 */
-	public Short getSendResult()
-	{
-		return sendResult ;
-	}
-	
-	/**
-	 * @param sendResult the sendResult to set
-	 */
-	public void setSendResult( Short sendResult )
-	{
-		this.sendResult = sendResult ;
-	}
-	
-	/**
-	 * @return the resource
-	 */
-	public Integer getResource()
-	{
-		return resource ;
-	}
-	
-	/**
-	 * @param resource the resource to set
-	 */
-	public void setResource( Integer resource )
-	{
-		this.resource = resource ;
-	}
-	
-	/**
-	 * @return the receiveStatus
-	 */
-	public Integer getReceiveStatus()
-	{
-		return receiveStatus ;
-	}
-	
-	/**
-	 * @param receiveStatus the receiveStatus to set
-	 */
-	public void setReceiveStatus( Integer receiveStatus )
-	{
-		this.receiveStatus = receiveStatus ;
-	}
-	
-	/**
 	 * @return the appId
 	 */
 	public Integer getAppId()
 	{
 		return appId ;
-	}
-	
-	/**
-	 * @param appId the appId to set
-	 */
-	public void setAppId( Integer appId )
-	{
-		this.appId = appId ;
-	}
-	
-	/**
-	 * @return the smsType
-	 */
-	public Integer getSmsType()
-	{
-		return smsType ;
-	}
-	
-	/**
-	 * @param smsType the smsType to set
-	 */
-	public void setSmsType( Integer smsType )
-	{
-		this.smsType = smsType ;
-	}
-	
-	/**
-	 * @return the province
-	 */
-	public String getProvince()
-	{
-		return province ;
-	}
-	
-	/**
-	 * @param province the province to set
-	 */
-	public void setProvince( String province )
-	{
-		this.province = province ;
-	}
-	
-	/**
-	 * @return the city
-	 */
-	public String getCity()
-	{
-		return city ;
-	}
-	
-	/**
-	 * @param city the city to set
-	 */
-	public void setCity( String city )
-	{
-		this.city = city ;
 	}
 	
 	/**
@@ -549,30 +208,6 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @param carriers the carriers to set
-	 */
-	public void setCarriers( String carriers )
-	{
-		this.carriers = carriers ;
-	}
-	
-	/**
-	 * @return the merchantSmsUid
-	 */
-	public String getMerchantSmsUid()
-	{
-		return merchantSmsUid ;
-	}
-	
-	/**
-	 * @param merchantSmsUid the merchantSmsUid to set
-	 */
-	public void setMerchantSmsUid( String merchantSmsUid )
-	{
-		this.merchantSmsUid = merchantSmsUid ;
-	}
-	
-	/**
 	 * @return the channelSmsId
 	 */
 	public String getChannelSmsId()
@@ -581,11 +216,19 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @param channelSmsId the channelSmsId to set
+	 * @return the city
 	 */
-	public void setChannelSmsId( String channelSmsId )
+	public String getCity()
 	{
-		this.channelSmsId = channelSmsId ;
+		return city ;
+	}
+	
+	/**
+	 * @return the createTime
+	 */
+	public Date getCreateTime()
+	{
+		return createTime ;
 	}
 	
 	/**
@@ -597,11 +240,51 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @param dataTime the dataTime to set
+	 * @return the id
 	 */
-	public void setDataTime( Date dataTime )
+	public Long getId()
 	{
-		this.dataTime = dataTime ;
+		return id ;
+	}
+	
+	/**
+	 * @return the merchantAccount
+	 */
+	public String getMerchantAccount()
+	{
+		return merchantAccount ;
+	}
+	
+	/**
+	 * @return the merchantSmsUid
+	 */
+	public String getMerchantSmsUid()
+	{
+		return merchantSmsUid ;
+	}
+	
+	/**
+	 * @return the province
+	 */
+	public String getProvince()
+	{
+		return province ;
+	}
+	
+	/**
+	 * @return the receiveMobile
+	 */
+	public String getReceiveMobile()
+	{
+		return receiveMobile ;
+	}
+	
+	/**
+	 * @return the receiveStatus
+	 */
+	public Integer getReceiveStatus()
+	{
+		return receiveStatus ;
 	}
 	
 	/**
@@ -613,14 +296,6 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @param receiveStatusChannel the receiveStatusChannel to set
-	 */
-	public void setReceiveStatusChannel( Integer receiveStatusChannel )
-	{
-		this.receiveStatusChannel = receiveStatusChannel ;
-	}
-	
-	/**
 	 * @return the receiveStatusDesc
 	 */
 	public String getReceiveStatusDesc()
@@ -629,11 +304,27 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @param receiveStatusDesc the receiveStatusDesc to set
+	 * @return the receiveTime
 	 */
-	public void setReceiveStatusDesc( String receiveStatusDesc )
+	public Date getReceiveTime()
 	{
-		this.receiveStatusDesc = receiveStatusDesc ;
+		return receiveTime ;
+	}
+	
+	/**
+	 * @return the resource
+	 */
+	public Integer getResource()
+	{
+		return resource ;
+	}
+	
+	/**
+	 * @return the sendResult
+	 */
+	public Short getSendResult()
+	{
+		return sendResult ;
 	}
 	
 	/**
@@ -645,11 +336,43 @@ public class MerchantSmsSend
 	}
 	
 	/**
-	 * @param sendTime the sendTime to set
+	 * @return the smsChannelCode
 	 */
-	public void setSendTime( String sendTime )
+	public String getSmsChannelCode()
 	{
-		this.sendTime = sendTime ;
+		return smsChannelCode ;
+	}
+	
+	/**
+	 * @return the smsContent
+	 */
+	public String getSmsContent()
+	{
+		return smsContent ;
+	}
+	
+	/**
+	 * @return the smsSignerId
+	 */
+	public Integer getSmsSignerId()
+	{
+		return smsSignerId ;
+	}
+	
+	/**
+	 * @return the smsTemplateId
+	 */
+	public String getSmsTemplateId()
+	{
+		return smsTemplateId ;
+	}
+	
+	/**
+	 * @return the smsType
+	 */
+	public Integer getSmsType()
+	{
+		return smsType ;
 	}
 	
 	/**
@@ -660,12 +383,313 @@ public class MerchantSmsSend
 		return statusTime ;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31 ;
+		int result = 1 ;
+		result = ( prime * result ) + ( ( appId == null ) ? 0 : appId.hashCode() ) ;
+		result = ( prime * result ) + ( ( carriers == null ) ? 0 : carriers.hashCode() ) ;
+		result = ( prime * result ) + ( ( channelSmsId == null ) ? 0 : channelSmsId.hashCode() ) ;
+		result = ( prime * result ) + ( ( city == null ) ? 0 : city.hashCode() ) ;
+		result = ( prime * result ) + ( ( createTime == null ) ? 0 : createTime.hashCode() ) ;
+		result = ( prime * result ) + ( ( dataTime == null ) ? 0 : dataTime.hashCode() ) ;
+		result = ( prime * result ) + ( ( id == null ) ? 0 : id.hashCode() ) ;
+		result = ( prime * result ) + ( ( merchantAccount == null ) ? 0 : merchantAccount.hashCode() ) ;
+		result = ( prime * result ) + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
+		result = ( prime * result ) + ( ( province == null ) ? 0 : province.hashCode() ) ;
+		result = ( prime * result ) + ( ( receiveMobile == null ) ? 0 : receiveMobile.hashCode() ) ;
+		result = ( prime * result ) + ( ( receiveStatus == null ) ? 0 : receiveStatus.hashCode() ) ;
+		result = ( prime * result ) + ( ( receiveStatusChannel == null ) ? 0 : receiveStatusChannel.hashCode() ) ;
+		result = ( prime * result ) + ( ( receiveStatusDesc == null ) ? 0 : receiveStatusDesc.hashCode() ) ;
+		result = ( prime * result ) + ( ( receiveTime == null ) ? 0 : receiveTime.hashCode() ) ;
+		result = ( prime * result ) + ( ( resource == null ) ? 0 : resource.hashCode() ) ;
+		result = ( prime * result ) + ( ( sendResult == null ) ? 0 : sendResult.hashCode() ) ;
+		result = ( prime * result ) + ( ( sendTime == null ) ? 0 : sendTime.hashCode() ) ;
+		result = ( prime * result ) + ( ( smsChannelCode == null ) ? 0 : smsChannelCode.hashCode() ) ;
+		result = ( prime * result ) + ( ( smsContent == null ) ? 0 : smsContent.hashCode() ) ;
+		result = ( prime * result ) + ( ( smsSignerId == null ) ? 0 : smsSignerId.hashCode() ) ;
+		result = ( prime * result ) + ( ( smsTemplateId == null ) ? 0 : smsTemplateId.hashCode() ) ;
+		result = ( prime * result ) + ( ( smsType == null ) ? 0 : smsType.hashCode() ) ;
+		result = ( prime * result ) + ( ( statusTime == null ) ? 0 : statusTime.hashCode() ) ;
+		return result ;
+	}
+	
 	/**
-	 * @param statusTime the statusTime to set
+	 * @param appId
+	 *            the appId to set
+	 */
+	public void setAppId( Integer appId )
+	{
+		this.appId = appId ;
+	}
+	
+	/**
+	 * @param carriers
+	 *            the carriers to set
+	 */
+	public void setCarriers( String carriers )
+	{
+		this.carriers = carriers ;
+	}
+	
+	/**
+	 * @param channelSmsId
+	 *            the channelSmsId to set
+	 */
+	public void setChannelSmsId( String channelSmsId )
+	{
+		this.channelSmsId = channelSmsId ;
+	}
+	
+	/**
+	 * @param city
+	 *            the city to set
+	 */
+	public void setCity( String city )
+	{
+		this.city = city ;
+	}
+	
+	/**
+	 * @param createTime
+	 *            the createTime to set
+	 */
+	public void setCreateTime( Date createTime )
+	{
+		this.createTime = createTime ;
+	}
+	
+	/**
+	 * @param dataTime
+	 *            the dataTime to set
+	 */
+	public void setDataTime( Date dataTime )
+	{
+		this.dataTime = dataTime ;
+	}
+	
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId( Long id )
+	{
+		this.id = id ;
+	}
+	
+	/**
+	 * @param merchantAccount
+	 *            the merchantAccount to set
+	 */
+	public void setMerchantAccount( String merchantAccount )
+	{
+		this.merchantAccount = merchantAccount ;
+	}
+	
+	/**
+	 * @param merchantSmsUid
+	 *            the merchantSmsUid to set
+	 */
+	public void setMerchantSmsUid( String merchantSmsUid )
+	{
+		this.merchantSmsUid = merchantSmsUid ;
+	}
+	
+	/**
+	 * @param province
+	 *            the province to set
+	 */
+	public void setProvince( String province )
+	{
+		this.province = province ;
+	}
+	
+	/**
+	 * @param receiveMobile
+	 *            the receiveMobile to set
+	 */
+	public void setReceiveMobile( String receiveMobile )
+	{
+		this.receiveMobile = receiveMobile ;
+	}
+	
+	/**
+	 * @param receiveStatus
+	 *            the receiveStatus to set
+	 */
+	public void setReceiveStatus( Integer receiveStatus )
+	{
+		this.receiveStatus = receiveStatus ;
+	}
+	
+	/**
+	 * @param receiveStatusChannel
+	 *            the receiveStatusChannel to set
+	 */
+	public void setReceiveStatusChannel( Integer receiveStatusChannel )
+	{
+		this.receiveStatusChannel = receiveStatusChannel ;
+	}
+	
+	/**
+	 * @param receiveStatusDesc
+	 *            the receiveStatusDesc to set
+	 */
+	public void setReceiveStatusDesc( String receiveStatusDesc )
+	{
+		this.receiveStatusDesc = receiveStatusDesc ;
+	}
+	
+	/**
+	 * @param receiveTime
+	 *            the receiveTime to set
+	 */
+	public void setReceiveTime( Date receiveTime )
+	{
+		this.receiveTime = receiveTime ;
+	}
+	
+	/**
+	 * @param resource
+	 *            the resource to set
+	 */
+	public void setResource( Integer resource )
+	{
+		this.resource = resource ;
+	}
+	
+	/**
+	 * @param sendResult
+	 *            the sendResult to set
+	 */
+	public void setSendResult( Short sendResult )
+	{
+		this.sendResult = sendResult ;
+	}
+	
+	/**
+	 * @param sendTime
+	 *            the sendTime to set
+	 */
+	public void setSendTime( String sendTime )
+	{
+		this.sendTime = sendTime ;
+	}
+	
+	/**
+	 * @param smsChannelCode
+	 *            the smsChannelCode to set
+	 */
+	public void setSmsChannelCode( String smsChannelCode )
+	{
+		this.smsChannelCode = smsChannelCode ;
+	}
+	
+	/**
+	 * @param smsContent
+	 *            the smsContent to set
+	 */
+	public void setSmsContent( String smsContent )
+	{
+		this.smsContent = smsContent ;
+	}
+	
+	/**
+	 * @param smsSignerId
+	 *            the smsSignerId to set
+	 */
+	public void setSmsSignerId( Integer smsSignerId )
+	{
+		this.smsSignerId = smsSignerId ;
+	}
+	
+	/**
+	 * @param smsTemplateId
+	 *            the smsTemplateId to set
+	 */
+	public void setSmsTemplateId( String smsTemplateId )
+	{
+		this.smsTemplateId = smsTemplateId ;
+	}
+	
+	/**
+	 * @param smsType
+	 *            the smsType to set
+	 */
+	public void setSmsType( Integer smsType )
+	{
+		this.smsType = smsType ;
+	}
+	
+	/**
+	 * @param statusTime
+	 *            the statusTime to set
 	 */
 	public void setStatusTime( String statusTime )
 	{
 		this.statusTime = statusTime ;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "MerchantSmsSend [id=" + id
+				+ ", merchantAccount="
+				+ merchantAccount
+				+ ", smsSignerId="
+				+ smsSignerId
+				+ ", smsTemplateId="
+				+ smsTemplateId
+				+ ", smsContent="
+				+ smsContent
+				+ ", smsChannelCode="
+				+ smsChannelCode
+				+ ", createTime="
+				+ createTime
+				+ ", receiveMobile="
+				+ receiveMobile
+				+ ", receiveTime="
+				+ receiveTime
+				+ ", sendResult="
+				+ sendResult
+				+ ", resource="
+				+ resource
+				+ ", receiveStatus="
+				+ receiveStatus
+				+ ", appId="
+				+ appId
+				+ ", smsType="
+				+ smsType
+				+ ", province="
+				+ province
+				+ ", city="
+				+ city
+				+ ", carriers="
+				+ carriers
+				+ ", merchantSmsUid="
+				+ merchantSmsUid
+				+ ", channelSmsId="
+				+ channelSmsId
+				+ ", dataTime="
+				+ dataTime
+				+ ", receiveStatusChannel="
+				+ receiveStatusChannel
+				+ ", receiveStatusDesc="
+				+ receiveStatusDesc
+				+ ", sendTime="
+				+ sendTime
+				+ ", statusTime="
+				+ statusTime
+				+ "]" ;
 	}
 	
 }

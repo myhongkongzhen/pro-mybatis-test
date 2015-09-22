@@ -30,23 +30,6 @@ public class BizServiceImplTest
 	private BizServiceImpl	bizServiceImpl ;
 	
 	/**
-	 * Test method for {@link z.z.w.test.service.BizServiceImpl#loadService()}.
-	 */
-	@Test
-	public void testLoadService()
-	{
-		try
-		{
-//			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
-			bizServiceImpl.execute() ;
-		}
-		catch ( Exception e )
-		{
-			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
-		}
-	}
-	
-	/**
 	 * @return the bizServiceImpl
 	 */
 	public BizServiceImpl getBizServiceImpl()
@@ -62,6 +45,23 @@ public class BizServiceImplTest
 	public void setBizServiceImpl( BizServiceImpl bizServiceImpl )
 	{
 		this.bizServiceImpl = bizServiceImpl ;
+	}
+	
+	/**
+	 * Test method for {@link z.z.w.test.service.BizServiceImpl#loadService()}.
+	 */
+	@Test
+	public void testLoadService()
+	{
+		try
+		{
+//			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
+			bizServiceImpl.execute() ;
+		}
+		catch ( Exception e )
+		{
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
+		}
 	}
 	
 }

@@ -24,8 +24,20 @@ public class ContextServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
+	 * @see z.z.w.test.server.IServiceLoader#destroy()
+	 */
+	@Override
+	public void destroy()
+	{
+		// TODO 2015年9月7日 下午12:14:04
+		Thread.currentThread().interrupt() ;
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see z.z.w.test.server.IServiceLoader#loadService()
 	 */
+	@Override
 	public void loadService()
 	{
 		logger.info( "Starting load app context service....." ) ;
@@ -33,23 +45,13 @@ public class ContextServiceImpl implements IServiceLoader
 		{
 			String[] classpaths = new String[] { "classpath:spring/spring.xml" } ;
 			ApplicationContext app = new ClassPathXmlApplicationContext( classpaths ) ;
-			logger.info( "ApplicationContext : {}", app ) ;
+			logger.info( "ApplicationContext : {}" , app ) ;
 		}
 		catch ( BeansException e )
 		{
-			logger.error( "Loading app context error : {}.", e.getMessage(), e ) ;
+			logger.error( "Loading app context error : {}." , e.getMessage() , e ) ;
 		}
 		logger.info( "Loaded app context service." ) ;
 		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#destroy()
-	 */
-	public void destroy()
-	{
-		// TODO 2015年9月7日 下午12:14:04
-		Thread.currentThread().interrupt() ;
 	}
 }

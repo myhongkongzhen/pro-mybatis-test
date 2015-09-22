@@ -1,6 +1,8 @@
 package z.z.w.test.service.biz ;
 
+import java.util.ArrayList ;
 import java.util.Date ;
+import java.util.List ;
 import java.util.Random ;
 import java.util.concurrent.ExecutorService ;
 import java.util.concurrent.Executors ;
@@ -28,19 +30,21 @@ import z.z.w.util.comm.RandomUtil ;
  **************************************************************************/
 public class DBInsertServiceImpl implements IService
 {
-	final static Logger				logger		= LoggerFactory.getLogger( DBInsertServiceImpl.class ) ;
+	final static Logger				logger	= LoggerFactory.getLogger( DBInsertServiceImpl.class ) ;
 	
-	private static AtomicLong		al			= null ;													/*
-																											 * new
-																											 * AtomicLong(
-																											 * 1002258 ) ;
-																											 */
+	private static AtomicLong		al		= null ;													/*
+																										 * new
+																										 * AtomicLong(
+																										 * 1002258 ) ;
+																										 */
 	@Value( "${EXECUTOR.POOL.SIZE}" )
-	private Integer					threadNum	= 100 ;
+	private Integer					threadNum ;
 	@Value( "${OPER.DATASIZE}" )
-	private Long					dataSize	= 10000000l ;
+	private Long					dataSize ;
+	@Value( "${OPER.BATCHSIZE}" )
+	private Integer					batchSize ;
 	
-	private ExecutorService			service		= null ;
+	private ExecutorService			service	= null ;
 	
 	private MerchantSmsSendService	merchantSmsSendService ;
 	
@@ -57,60 +61,104 @@ public class DBInsertServiceImpl implements IService
 		logger.info( "Current table send max id : {}." , maxID ) ;
 		if ( null == maxID ) maxID = 0l ;
 		al = new AtomicLong( maxID + 1000 ) ;
-		logger.info( "{}." , al ) ;
+		logger.debug( "{}." , al ) ;
 		
-//		for ( int i = 0 ; i < dataSize ; i++ )
-//		{
-//			service.execute( new Runnable()
-//			{
-//				@Override
-//				public void run()
-//				{
-//					long startTime = System.currentTimeMillis() ;
-//					try
-//					{
-//						logger.debug( "Start insert data to db ....." ) ;
-//						insertData() ;
-//					}
-//					catch ( Exception e )
-//					{
-//						logger.error( "Insert data to db error :" + e.getMessage() , e ) ;
-//					}
-//					finally
-//					{
-//						logger.info( "Insert data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
-//					}
-//				}
-//			} ) ;
-//			
-//		}
+		List< MerchantSmsSend > list = new ArrayList< MerchantSmsSend >() ;
+		
+		for ( int i = 0 ; i < dataSize ; i++ )
+		{
+			try
+			{
+				MerchantSmsSend record = getMSS() ;
+				list.add( record ) ;
+				
+				if ( ( ( ( i + 1 ) % batchSize ) == 0 ) )
+				{
+					final List< MerchantSmsSend > lt = new ArrayList< MerchantSmsSend >( list ) ;
+					
+					service.execute( new Runnable()
+					{
+						private void insertData( List< MerchantSmsSend > lt )
+						{
+							try
+							{
+								long startTime = System.currentTimeMillis() ;
+								try
+								{
+									merchantSmsSendService.addMerchantSmsSend( lt ) ;
+								}
+								finally
+								{
+									logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
+								}
+							}
+							catch ( Exception e )
+							{
+								logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
+							}
+						}
+						
+						@Override
+						public void run()
+						{
+							try
+							{
+								logger.debug( "Start insert data to db ....." ) ;
+								logger.debug( "{}===>>>>>>>>>{}" , lt.size() , lt ) ;
+								insertData( lt ) ;
+							}
+							catch ( Exception e )
+							{
+								logger.error( "Insert data to db error :" + e.getMessage() , e ) ;
+							}
+							
+						}
+					} ) ;
+					
+					list.clear() ;
+				}
+			}
+			finally
+			{
+				logger.info( "Insert data to db size : {}." , ( i + 1 ) ) ;
+			}
+			
+		}
+	}
+	
+	/**
+	 * @return the merchantSmsSendService
+	 */
+	public MerchantSmsSendService getMerchantSmsSendService()
+	{
+		return merchantSmsSendService ;
 	}
 	
 	/**
 	 * Create by : 2015年9月18日 下午12:31:05
 	 */
-	private void insertData()
-	{
-		try
-		{
-			MerchantSmsSend record = getMSS() ;
-			
-			long startTime = System.currentTimeMillis() ;
-			try
-			{
-				merchantSmsSendService.addMerchantSmsSend( record ) ;
-			}
-			finally
-			{
-				logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
-			}
-		}
-		catch ( Exception e )
-		{
-			logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
-		}
-		
-	}
+//	private void insertData()
+//	{
+//		try
+//		{
+//			MerchantSmsSend record = getMSS() ;
+//			
+//			long startTime = System.currentTimeMillis() ;
+//			try
+//			{
+//				merchantSmsSendService.addMerchantSmsSend( record ) ;
+//			}
+//			finally
+//			{
+//				logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
+//			}
+//		}
+//		catch ( Exception e )
+//		{
+//			logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
+//		}
+//		
+//	}
 	
 	/**
 	 * Create by : 2015年9月21日 下午8:44:00
@@ -157,14 +205,14 @@ public class DBInsertServiceImpl implements IService
 		int min = 0 ;
 		Random random = new Random( System.currentTimeMillis() ) ;
 		
-		record.setReceiveMobile( "1" + Math.round( Math.random() * ( 9999999999l - 100000000l ) + 100000000l ) ) ;
-		record.setSmsContent( ( random.nextInt( max ) % ( max - min + 1 ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
+		record.setReceiveMobile( "1" + Math.round( ( Math.random() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
+		record.setSmsContent( ( ( random.nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
 		
-		record.setSmsChannelCode( channelCodeArr[ ( random.nextInt( cmax ) % ( cmax - min + 1 ) + min ) ] ) ;
+		record.setSmsChannelCode( channelCodeArr[ ( ( random.nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
 		record.setMerchantAccount( RandomUtil.INSTANCE.generateString( 10 ) ) ;
 		record.setCreateTime( new Date() ) ;
-		record.setReceiveTime( DateUtils.addSeconds( new Date() , random.nextInt( 3 ) % 3 + 1 ) ) ;
-		record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , random.nextInt( 3 ) % 3 + 1 ) , "yyyy-MM-dd HH:mm:ss" ) ) ;
+		record.setReceiveTime( DateUtils.addSeconds( new Date() , ( random.nextInt( 3 ) % 3 ) + 1 ) ) ;
+		record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , ( random.nextInt( 3 ) % 3 ) + 1 ) , "yyyy-MM-dd HH:mm:ss" ) ) ;
 		record.setReceiveStatus( random.nextInt( 1 ) % 2 ) ;
 		record.setSendResult( Short.parseShort( String.valueOf( random.nextInt( 1 ) % 2 ) ) ) ;
 		record.setReceiveStatusChannel( random.nextInt( max ) % ( max + 1 ) ) ;
@@ -175,7 +223,7 @@ public class DBInsertServiceImpl implements IService
 		record.setSmsType( 1 ) ;// 默认国内短信
 		record.setResource( 1 ) ;
 		record.setId( al.incrementAndGet() ) ;
-		logger.info( "{}" , record.toString() ) ;
+		logger.debug( "{}" , record.toString() ) ;
 		return record ;
 	}
 	
@@ -195,14 +243,6 @@ public class DBInsertServiceImpl implements IService
 			logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
 		}
 		
-	}
-	
-	/**
-	 * @return the merchantSmsSendService
-	 */
-	public MerchantSmsSendService getMerchantSmsSendService()
-	{
-		return merchantSmsSendService ;
 	}
 	
 	/**

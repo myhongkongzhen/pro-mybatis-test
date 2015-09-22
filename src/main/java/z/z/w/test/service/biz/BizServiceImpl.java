@@ -63,7 +63,7 @@ public class BizServiceImpl implements IService
 			{
 				
 				long idx = ( ( long ) ( Math.random() * 10000 ) ) ;
-				if ( idx / 1000 == 0 )
+				if ( ( idx / 1000 ) == 0 )
 				{
 					Thread.sleep( 1000 * 20 ) ;
 					continue ;
@@ -129,10 +129,7 @@ public class BizServiceImpl implements IService
 							try
 							{
 								future = compService.poll( 3L , TimeUnit.SECONDS ) ;
-								if ( future != null )
-								{
-									logger.info( "===>>>>>>>>Result : {}" , future.get() ) ;
-								}
+								if ( future != null ) logger.info( "===>>>>>>>>Result : {}" , future.get() ) ;
 							}
 							catch ( Exception e )
 							{
@@ -152,6 +149,14 @@ public class BizServiceImpl implements IService
 		
 	}
 	
+	/**
+	 * @return the threadPoolTaskExecutor
+	 */
+	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
+	{
+		return threadPoolTaskExecutor ;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -169,14 +174,6 @@ public class BizServiceImpl implements IService
 			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
 		}
 		
-	}
-	
-	/**
-	 * @return the threadPoolTaskExecutor
-	 */
-	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
-	{
-		return threadPoolTaskExecutor ;
 	}
 	
 	/**

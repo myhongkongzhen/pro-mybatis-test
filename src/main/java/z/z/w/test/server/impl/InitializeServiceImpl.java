@@ -29,6 +29,17 @@ public class InitializeServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
+	 * @see z.z.w.test.server.IServiceLoader#destroy()
+	 */
+	@Override
+	public void destroy()
+	{
+		// TODO 2015年9月22日 上午10:26:36 
+		Thread.currentThread().interrupt() ;
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see z.z.w.test.server.IServiceLoader#loadService()
 	 */
 	@Override
@@ -47,7 +58,6 @@ public class InitializeServiceImpl implements IServiceLoader
 			
 			Enumeration< Object > keys = serviceProps.keys() ;
 			while ( keys.hasMoreElements() )
-			{
 				try
 				{
 					String serviceId = keys.nextElement().toString() ;
@@ -64,7 +74,6 @@ public class InitializeServiceImpl implements IServiceLoader
 				{
 					logger.error( "Loading initialize beans error : {}." , e.getMessage() , e ) ;
 				}
-			}
 		}
 		catch ( Exception e )
 		{
@@ -72,17 +81,6 @@ public class InitializeServiceImpl implements IServiceLoader
 		}
 		logger.info( "Loaded initialize beans service." ) ;
 		
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#destroy()
-	 */
-	@Override
-	public void destroy()
-	{
-		// TODO 2015年9月22日 上午10:26:36 
-		Thread.currentThread().interrupt() ;
 	}
 	
 }
