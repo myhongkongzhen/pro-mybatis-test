@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 
+import z.z.w.test.service.biz.DBInsertServiceImpl ;
+
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.server.impl.DBInsertTestServiceImplTest.java
@@ -23,25 +25,51 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 @ContextConfiguration( locations = { "classpath:spring/spring.xml" } )
 public class DBInsertTestServiceImplTest
 {
-	final static Logger				logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
-	private DBInsertTestServiceImpl	dBInsertTestServiceImpl ;
+	final static Logger			logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
+	private DBInsertServiceImpl	dBInsertServiceImpl ;
 	
 	/**
+<<<<<<< HEAD
 	 * @return the dBInsertTestServiceImpl
+=======
+	 * @return the dBInsertServiceImpl
 	 */
-	public DBInsertTestServiceImpl getdBInsertTestServiceImpl()
+	public DBInsertServiceImpl getdBInsertServiceImpl()
 	{
-		return dBInsertTestServiceImpl ;
+		return dBInsertServiceImpl ;
 	}
 	
 	/**
-	 * @param dBInsertTestServiceImpl
-	 *            the dBInsertTestServiceImpl to set
+	 * @param dBInsertServiceImpl
+	 *            the dBInsertServiceImpl to set
+>>>>>>> demo-dev
 	 */
 	@Resource
-	public void setdBInsertTestServiceImpl( DBInsertTestServiceImpl dBInsertTestServiceImpl )
+	public void setdBInsertServiceImpl( DBInsertServiceImpl dBInsertServiceImpl )
 	{
-		this.dBInsertTestServiceImpl = dBInsertTestServiceImpl ;
+		this.dBInsertServiceImpl = dBInsertServiceImpl ;
+	}
+	
+	/**
+<<<<<<< HEAD
+	 * @param dBInsertTestServiceImpl
+	 *            the dBInsertTestServiceImpl to set
+=======
+	 * Test method for {@link z.z.w.test.service.DBInsertTestServiceImpl#loadService()}.
+>>>>>>> demo-dev
+	 */
+	@Test
+	public void testLoadService()
+	{
+		try
+		{
+			logger.info( "{}" , dBInsertServiceImpl ) ;
+			dBInsertServiceImpl.execute() ;
+		}
+		catch ( Exception e )
+		{
+			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
+		}
 	}
 	
 	/**

@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 
+import z.z.w.test.service.biz.BizServiceImpl ;
+
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.server.impl.BizServiceImplTest.java
@@ -46,7 +48,11 @@ public class BizServiceImplTest
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Test method for {@link z.z.w.test.server.impl.BizServiceImpl#loadService()}.
+=======
+	 * Test method for {@link z.z.w.test.service.BizServiceImpl#loadService()}.
+>>>>>>> demo-dev
 	 */
 	@Test
 	public void testLoadService()
@@ -54,7 +60,11 @@ public class BizServiceImplTest
 		try
 		{
 //			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
+<<<<<<< HEAD
 			bizServiceImpl.loadService() ;
+=======
+			bizServiceImpl.execute() ;
+>>>>>>> demo-dev
 		}
 		catch ( Exception e )
 		{

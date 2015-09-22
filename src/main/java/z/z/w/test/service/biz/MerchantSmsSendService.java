@@ -3,11 +3,8 @@ package z.z.w.test.service.biz ;
 import java.util.List ;
 import java.util.Map ;
 
-import javax.annotation.Resource ;
-
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
-import org.springframework.stereotype.Service ;
 
 import z.z.w.test.dao.biz.MerchantSmsSendMapper ;
 import z.z.w.test.entity.biz.MerchantSmsChannel ;
@@ -23,12 +20,36 @@ import z.z.w.test.entity.biz.MerchantSmsSend ;
  *      History:
  * </pre>
  **************************************************************************/
-@Service
 public class MerchantSmsSendService
 {
 	private static final Logger		logger	= LoggerFactory.getLogger( MerchantSmsSendService.class ) ;
 	
 	private MerchantSmsSendMapper	merchantSmsSendMapper ;
+	
+	/**
+<<<<<<< HEAD
+	 * Create by : 2015年9月17日 下午2:31:43
+	 */
+	public void addMerchantSmsSend( MerchantSmsSend mss )
+	{
+		merchantSmsSendMapper.insertSelective( mss ) ;
+	}
+	
+	/**
+	 * Create by : 2015年9月9日 上午11:41:02
+	 */
+	public int getCount( Map< String, Object > params )
+	{
+=======
+	 * Create by : 2015年9月22日 下午12:17:35
+	 * 
+	 * @param lt
+	 */
+	public void addMerchantSmsSend( List< MerchantSmsSend > lt )
+	{
+		merchantSmsSendMapper.insertSelectiveList( lt ) ;
+		
+	}
 	
 	/**
 	 * Create by : 2015年9月17日 下午2:31:43
@@ -43,6 +64,7 @@ public class MerchantSmsSendService
 	 */
 	public int getCount( Map< String, Object > params )
 	{
+>>>>>>> demo-dev
 		logger.info( "查询（总数）条件：" + params ) ;
 		return merchantSmsSendMapper.getCount( params ) ;
 	}
@@ -57,6 +79,12 @@ public class MerchantSmsSendService
 		return merchantSmsSendMapper.getMaxId() ;
 	}
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * @return the merchantSmsSendMapper
+	 */
+>>>>>>> demo-dev
 	public MerchantSmsSendMapper getMerchantSmsSendMapper()
 	{
 		return merchantSmsSendMapper ;
@@ -116,7 +144,14 @@ public class MerchantSmsSendService
 		return list ;
 	}
 	
+<<<<<<< HEAD
 	@Resource
+=======
+	/**
+	 * @param merchantSmsSendMapper
+	 *            the merchantSmsSendMapper to set
+	 */
+>>>>>>> demo-dev
 	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
 	{
 		this.merchantSmsSendMapper = merchantSmsSendMapper ;
