@@ -23,8 +23,6 @@ public interface MerchantSmsSendMapper
 	
 	Integer getCount( Map< String, Object > params ) ;
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * Create by : 2015年9月21日 下午4:07:04
 	 * 
@@ -37,22 +35,12 @@ public interface MerchantSmsSendMapper
 	 */
 	void insertSelective( /* @Param( value = "merchantSmsSend" ) */MerchantSmsSend merchantSmsSend ) ;
 	
->>>>>>> demo-dev
 	/**
 	 * Create by : 2015年9月22日 下午12:17:51
 	 * 
 	 * @param lt
 	 */
-<<<<<<< HEAD
-	Long getMaxId() ;
-	
-	/**
-	 * Create by : 2015年9月17日 下午2:32:07
-	 */
-	void insertSelective( /* @Param( value = "merchantSmsSend" ) */MerchantSmsSend merchantSmsSend ) ;
-=======
 	void insertSelectiveList( @Param( value = "paramLt" ) List< MerchantSmsSend > lt ) ;
->>>>>>> demo-dev
 	
 	List< MerchantSmsSend > selectResultByPage( Map< String, Object > param ) ;
 	

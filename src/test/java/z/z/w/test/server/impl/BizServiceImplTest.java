@@ -48,11 +48,7 @@ public class BizServiceImplTest
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Test method for {@link z.z.w.test.server.impl.BizServiceImpl#loadService()}.
-=======
 	 * Test method for {@link z.z.w.test.service.BizServiceImpl#loadService()}.
->>>>>>> demo-dev
 	 */
 	@Test
 	public void testLoadService()
@@ -60,11 +56,7 @@ public class BizServiceImplTest
 		try
 		{
 //			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
-<<<<<<< HEAD
-			bizServiceImpl.loadService() ;
-=======
 			bizServiceImpl.execute() ;
->>>>>>> demo-dev
 		}
 		catch ( Exception e )
 		{

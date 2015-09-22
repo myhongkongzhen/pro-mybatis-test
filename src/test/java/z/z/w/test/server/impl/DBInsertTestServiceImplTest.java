@@ -29,9 +29,6 @@ public class DBInsertTestServiceImplTest
 	private DBInsertServiceImpl	dBInsertServiceImpl ;
 	
 	/**
-<<<<<<< HEAD
-	 * @return the dBInsertTestServiceImpl
-=======
 	 * @return the dBInsertServiceImpl
 	 */
 	public DBInsertServiceImpl getdBInsertServiceImpl()
@@ -42,7 +39,6 @@ public class DBInsertTestServiceImplTest
 	/**
 	 * @param dBInsertServiceImpl
 	 *            the dBInsertServiceImpl to set
->>>>>>> demo-dev
 	 */
 	@Resource
 	public void setdBInsertServiceImpl( DBInsertServiceImpl dBInsertServiceImpl )
@@ -51,12 +47,7 @@ public class DBInsertTestServiceImplTest
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * @param dBInsertTestServiceImpl
-	 *            the dBInsertTestServiceImpl to set
-=======
 	 * Test method for {@link z.z.w.test.service.DBInsertTestServiceImpl#loadService()}.
->>>>>>> demo-dev
 	 */
 	@Test
 	public void testLoadService()
@@ -65,22 +56,6 @@ public class DBInsertTestServiceImplTest
 		{
 			logger.info( "{}" , dBInsertServiceImpl ) ;
 			dBInsertServiceImpl.execute() ;
-		}
-		catch ( Exception e )
-		{
-			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
-		}
-	}
-	
-	/**
-	 * Test method for {@link z.z.w.test.server.impl.DBInsertTestServiceImpl#loadService()}.
-	 */
-	@Test
-	public void testLoadService()
-	{
-		try
-		{
-			dBInsertTestServiceImpl.loadService() ;
 		}
 		catch ( Exception e )
 		{

@@ -27,20 +27,6 @@ public class MerchantSmsSendService
 	private MerchantSmsSendMapper	merchantSmsSendMapper ;
 	
 	/**
-<<<<<<< HEAD
-	 * Create by : 2015年9月17日 下午2:31:43
-	 */
-	public void addMerchantSmsSend( MerchantSmsSend mss )
-	{
-		merchantSmsSendMapper.insertSelective( mss ) ;
-	}
-	
-	/**
-	 * Create by : 2015年9月9日 上午11:41:02
-	 */
-	public int getCount( Map< String, Object > params )
-	{
-=======
 	 * Create by : 2015年9月22日 下午12:17:35
 	 * 
 	 * @param lt
@@ -64,7 +50,6 @@ public class MerchantSmsSendService
 	 */
 	public int getCount( Map< String, Object > params )
 	{
->>>>>>> demo-dev
 		logger.info( "查询（总数）条件：" + params ) ;
 		return merchantSmsSendMapper.getCount( params ) ;
 	}
@@ -79,12 +64,9 @@ public class MerchantSmsSendService
 		return merchantSmsSendMapper.getMaxId() ;
 	}
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * @return the merchantSmsSendMapper
 	 */
->>>>>>> demo-dev
 	public MerchantSmsSendMapper getMerchantSmsSendMapper()
 	{
 		return merchantSmsSendMapper ;
@@ -144,14 +126,10 @@ public class MerchantSmsSendService
 		return list ;
 	}
 	
-<<<<<<< HEAD
-	@Resource
-=======
 	/**
 	 * @param merchantSmsSendMapper
 	 *            the merchantSmsSendMapper to set
 	 */
->>>>>>> demo-dev
 	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
 	{
 		this.merchantSmsSendMapper = merchantSmsSendMapper ;
