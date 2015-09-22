@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="z.z.w.test.dao.biz.MerchantSmsSendMapper">
+
+	<resultMap id="BaseResultMap" type="z.z.w.test.entity.biz.MerchantSmsSend">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="MERCHANT_ACCOUNT" property="merchantAccount"
+			jdbcType="VARCHAR" />
+		<result column="SMS_SIGNER_ID" property="smsSignerId" jdbcType="INTEGER" />
+		<result column="SMS_TEMPLATE_ID" property="smsTemplateId"
+			jdbcType="VARCHAR" />
+		<result column="SMS_CONTENT" property="smsContent" jdbcType="VARCHAR" />
+		<result column="SMS_CHANNEL_CODE" property="smsChannelCode"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="RECEIVE_MOBILE" property="receiveMobile"
+			jdbcType="VARCHAR" />
+		<result column="RECEIVE_TIME" property="receiveTime" jdbcType="TIMESTAMP" />
+		<result column="SEND_RESULT" property="sendResult" jdbcType="INTEGER" />
+		<result column="RESOURCE" property="resource" jdbcType="INTEGER" />
+		<result column="RECEIVE_STATUS" property="receiveStatus"
+			jdbcType="INTEGER" />
+		<result column="APP_ID" property="appId" jdbcType="INTEGER" />
+		<result column="SMS_TYPE" property="smsType" jdbcType="INTEGER" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="CARRIERS" property="carriers" jdbcType="VARCHAR" />
+
+		<result column="MERCHANT_SMS_UID" property="merchantSmsUid"
+			jdbcType="VARCHAR" />
+		<result column="CHANNEL_SMS_ID" property="channelSmsId"
+			jdbcType="VARCHAR" />
+		<result column="DATA_TIME" property="dataTime" jdbcType="TIMESTAMP" />
+
+		<result column="RECEIVE_STATUS_CHANNTL" property="receiveStatusChannel"
+			jdbcType="INTEGER" />
+		<result column="RECEIVE_STATUS_DESC" property="receiveStatusDesc"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectResultByPage" resultMap="BaseResultMap"
+		parameterType="Map">
+		SELECT
+		ID,SMS_CHANNEL_CODE,CASE CARRIERS WHEN 'YD' THEN '移动' WHEN 'DX'
+		THEN
+		'电信' ELSE '联通' END AS CARRIERS,CONCAT_WS('',PROVINCE,CITY ) AS
+		CITY,
+		MERCHANT_ACCOUNT,
+		SMS_CONTENT, RECEIVE_MOBILE,SEND_RESULT ,
+		RECEIVE_STATUS ,CREATE_TIME,RECEIVE_TIME,RECEIVE_STATUS_DESC
+		FROM
+		merchant_sms_send
+		<include refid="query_where_condition" />
+		<include refid="query_by_page" />
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer"
+		parameterType="Map">
+		SELECT COUNT(1) FROM merchant_sms_send
+		<include refid="query_where_condition" />
+	</select>
+	<select id="getMaxId" resultType="java.lang.Long">
+		SELECT ID FROM
+		merchant_sms_send ORDER BY ID DESC LIMIT 1
+	</select>
+
+	<sql id="query_where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="smsChannelCode !=null and smsChannelCode != '' ">
+				AND SMS_CHANNEL_CODE = #{smsChannelCode,jdbcType=VARCHAR}
+			</if>
+			<if test="receiveMobile != null and receiveMobile != '' ">
+				AND RECEIVE_MOBILE =#{receiveMobile,jdbcType=VARCHAR}
+			</if>
+			<if test="merchantAccount != null and merchantAccount != '' ">
+				<![CDATA[
+				AND MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR}
+				]]>
+			</if>
+			<!-- 1:success,-1:fail -->
+			<if test="sendResult != null and sendResult !='' ">
+				AND SEND_RESULT = #{sendResult,jdbcType=INTEGER}
+			</if>
+			<!-- 0:success,1:fail -->
+			<if test="receiveStatus != null and receiveStatus != '' ">
+				AND RECEIVE_STATUS = #{receiveStatus,jdbcType=INTEGER}
+			</if>
+
+			<if test="startDate != null  and startDate !=''">
+				<![CDATA[
+				AND CREATE_TIME >= #{startDate,jdbcType=TIMESTAMP}
+				 ]]>
+			</if>
+			<if test="endDate != null  and endDate !=''">
+				<![CDATA[
+				AND CREATE_TIME <= #{endDate,jdbcType=TIMESTAMP}
+				 ]]>
+			</if>
+		</trim>
+	</sql>
+
+	<sql id="query_by_page">
+		ORDER BY ID DESC
+		<if test="pageNum != null and pageSize != null">
+			limit
+			#{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+	</sql>
+
+	<select id="selectSmsSendResultByID" resultMap="BaseResultMap"
+		parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
+		SELECT MERCHANT_SMS_UID,CHANNEL_SMS_ID,DATA_TIME
+		FROM
+		merchant_sms_channel_relation WHERE 1 = 1
+		<if test="merchantSmsSend != null">
+			AND MERCHANT_SMS_SEND_ID = #{merchantSmsSend.id}
+		</if>
+	</select>
+
+	<resultMap id="BaseResultMscMap" type="z.z.w.test.entity.biz.MerchantSmsChannel">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="MER_SMS_CHAN_SIG" property="merSmsChanSig"
+			jdbcType="VARCHAR" />
+		<result column="MERCHANT_SMS_UID" property="merchantSmsUid"
+			jdbcType="VARCHAR" />
+		<result column="CHANNEL_SMS_ID" property="sendSmsCode"
+			jdbcType="VARCHAR" />
+		<result column="MERCHANT_SMS_SEND_ID" property="merchantSmsSendId"
+			jdbcType="BIGINT" />
+		<result column="DATA_TIME" property="dateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="column_msc_list">
+		ID, MER_SMS_CHAN_SIG,
+		MERCHANT_SMS_UID,CHANNEL_SMS_ID,MERCHANT_SMS_SEND_ID,DATA_TIME
+	</sql>
+
+	<select id="selectSmsSendResultByIDs" resultMap="BaseResultMscMap"
+		parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
+		SELECT
+		<include refid="column_msc_list" />
+		FROM
+		MERCHANT_SMS_CHANNEL_RELATION WHERE 1 = 1
+		<if test="paramList != null and paramList.size() > 0">
+			AND MERCHANT_SMS_SEND_ID IN
+			<foreach collection="paramList" item="param" index="index"
+				open="(" separator="," close=")">
+				#{param.id}
+			</foreach>
+		</if>
+	</select>
+
+	<insert id="insertSelectiveList" parameterType="java.util.List">
+		insert into merchant_sms_send (
+		ID,
+		MERCHANT_ACCOUNT,
+		SMS_SIGNER_ID,
+		SMS_TEMPLATE_ID,
+		SMS_CONTENT,
+		SMS_CHANNEL_CODE,
+		CREATE_TIME,
+		RECEIVE_MOBILE,
+		RECEIVE_TIME,
+		SEND_RESULT,
+		RESOURCE,
+		RECEIVE_STATUS,
+		APP_ID,
+		SMS_TYPE,
+		PROVINCE,
+		CITY,
+		CARRIERS,
+		RECEIVE_STATUS_CHANNTL,
+		RECEIVE_STATUS_DESC )
+		values
+		<foreach collection="paramLt" item="param" index="index"
+			separator=",">
+			(#{param.id},
+			#{param.merchantAccount},
+			#{param.smsSignerId},
+			#{param.smsTemplateId},
+			#{param.smsContent},
+			#{param.smsChannelCode},
+			#{param.createTime},
+			#{param.receiveMobile},
+			#{param.receiveTime},
+			#{param.sendResult},
+			#{param.resource},
+			#{param.receiveStatus},
+			#{param.appId},
+			#{param.smsType},
+			#{param.province},
+			#{param.city},
+			#{param.carriers},
+			#{param.receiveStatusChannel},
+			#{param.receiveStatusDesc})
+		</foreach>
+	</insert>
+
+	<insert id="insertSelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
+		insert into merchant_sms_send
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="merchantAccount != null">
+				MERCHANT_ACCOUNT,
+			</if>
+			<if test="smsSignerId != null">
+				SMS_SIGNER_ID,
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID,
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT,
+			</if>
+			<if test="smsChannelCode != null">
+				SMS_CHANNEL_CODE,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="receiveMobile != null">
+				RECEIVE_MOBILE,
+			</if>
+			<if test="receiveTime != null">
+				RECEIVE_TIME,
+			</if>
+			<if test="sendResult != null">
+				SEND_RESULT,
+			</if>
+			<if test="resource != null">
+				RESOURCE,
+			</if>
+			<if test="receiveStatus != null">
+				RECEIVE_STATUS,
+			</if>
+			<if test="appId != null">
+				APP_ID,
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="carriers != null">
+				CARRIERS,
+			</if>
+			<if test="receiveStatusChannel != null">
+				RECEIVE_STATUS_CHANNTL,
+			</if>
+			<if test="receiveStatusDesc != null">
+				RECEIVE_STATUS_DESC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="merchantAccount != null">
+				#{merchantAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSignerId != null">
+				#{smsSignerId,jdbcType=INTEGER},
+			</if>
+			<if test="smsTemplateId != null">
+				#{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="smsContent != null">
+				#{smsContent,jdbcType=VARCHAR},
+			</if>
+			<if test="smsChannelCode != null">
+				#{smsChannelCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveMobile != null">
+				#{receiveMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				#{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendResult != null">
+				#{sendResult,jdbcType=SMALLINT},
+			</if>
+			<if test="resource != null">
+				#{resource,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatus != null">
+				#{receiveStatus,jdbcType=INTEGER},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=INTEGER},
+			</if>
+			<if test="smsType != null">
+				#{smsType,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="carriers != null">
+				#{carriers,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveStatusChannel != null">
+				#{receiveStatusChannel,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatusDesc != null">
+				#{receiveStatusDesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="z.z.w.test.entity.biz.MerchantSmsSend">
+		update merchant_sms_send
+		<set>
+			<if test="merchantAccount != null">
+				MERCHANT_ACCOUNT = #{merchantAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="smsSignerId != null">
+				SMS_SIGNER_ID = #{smsSignerId,jdbcType=INTEGER},
+			</if>
+			<if test="smsTemplateId != null">
+				SMS_TEMPLATE_ID = #{smsTemplateId,jdbcType=VARCHAR},
+			</if>
+			<if test="smsContent != null">
+				SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+			</if>
+			<if test="smsChannelCode != null">
+				SMS_CHANNEL_CODE = #{smsChannelCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="receiveMobile != null">
+				RECEIVE_MOBILE = #{receiveMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendResult != null">
+				SEND_RESULT = #{sendResult,jdbcType=SMALLINT},
+			</if>
+			<if test="resource != null">
+				RESOURCE = #{resource,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatus != null">
+				RECEIVE_STATUS = #{receiveStatus,jdbcType=INTEGER},
+			</if>
+			<if test="appId != null">
+				APP_ID = #{appId,jdbcType=INTEGER},
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE = #{smsType,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="carriers != null">
+				CARRIERS = #{carriers,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveStatusChannel != null">
+				RECEIVE_STATUS_CHANNTL =
+				#{receiveStatusChannel,jdbcType=INTEGER},
+			</if>
+			<if test="receiveStatusDesc != null">
+				RECEIVE_STATUS_DESC =
+				#{receiveStatusDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>
