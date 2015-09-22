@@ -1,13 +1,13 @@
 package z.z.w.test.server.impl ;
 
-import javax.annotation.Resource ;
-
 import org.junit.Test ;
 import org.junit.runner.RunWith ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
+
+import z.z.w.util.SpringContextUtil ;
 
 /**************************************************************************
  * <pre>
@@ -34,29 +34,14 @@ public class DBInsertTestServiceImplTest
 	{
 		try
 		{
+			dBInsertTestServiceImpl = SpringContextUtil.getBean( DBInsertTestServiceImpl.class ) ;
+			logger.info( "{}" , dBInsertTestServiceImpl ) ;
 			dBInsertTestServiceImpl.loadService() ;
 		}
 		catch ( Exception e )
 		{
-			logger.error( "DB insert service error : {}.", e.getMessage(), e ) ;
+			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
 		}
-	}
-	
-	/**
-	 * @return the dBInsertTestServiceImpl
-	 */
-	public DBInsertTestServiceImpl getdBInsertTestServiceImpl()
-	{
-		return dBInsertTestServiceImpl ;
-	}
-	
-	/**
-	 * @param dBInsertTestServiceImpl the dBInsertTestServiceImpl to set
-	 */
-	@Resource
-	public void setdBInsertTestServiceImpl( DBInsertTestServiceImpl dBInsertTestServiceImpl )
-	{
-		this.dBInsertTestServiceImpl = dBInsertTestServiceImpl ;
 	}
 	
 }

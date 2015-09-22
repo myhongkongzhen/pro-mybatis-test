@@ -1,13 +1,13 @@
 package z.z.w.test.server.impl ;
 
-import javax.annotation.Resource ;
-
 import org.junit.Test ;
 import org.junit.runner.RunWith ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 import org.springframework.test.context.ContextConfiguration ;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
+
+import z.z.w.util.SpringContextUtil ;
 
 /**************************************************************************
  * <pre>
@@ -35,12 +35,12 @@ public class BizServiceImplTest
 	{
 		try
 		{
-//			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
+			bizServiceImpl = SpringContextUtil.getBean( BizServiceImpl.class ) ;
 			bizServiceImpl.loadService() ;
 		}
 		catch ( Exception e )
 		{
-			logger.error( "Loading bussiness error : {}.", e.getMessage(), e ) ;
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
 		}
 	}
 	
@@ -53,9 +53,10 @@ public class BizServiceImplTest
 	}
 	
 	/**
-	 * @param bizServiceImpl the bizServiceImpl to set
+	 * @param bizServiceImpl
+	 *            the bizServiceImpl to set
 	 */
-	@Resource
+//	@Resource
 	public void setBizServiceImpl( BizServiceImpl bizServiceImpl )
 	{
 		this.bizServiceImpl = bizServiceImpl ;

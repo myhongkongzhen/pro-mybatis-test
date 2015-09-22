@@ -3,11 +3,8 @@ package z.z.w.test.service.biz ;
 import java.util.List ;
 import java.util.Map ;
 
-import javax.annotation.Resource ;
-
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
-import org.springframework.stereotype.Service ;
 
 import z.z.w.test.dao.biz.MerchantSmsSendMapper ;
 import z.z.w.test.entity.biz.MerchantSmsChannel ;
@@ -23,7 +20,6 @@ import z.z.w.test.entity.biz.MerchantSmsSend ;
  *      History:
  * </pre>
  **************************************************************************/
-@Service
 public class MerchantSmsSendService
 {
 	private static final Logger		logger	= LoggerFactory.getLogger( MerchantSmsSendService.class ) ;
@@ -35,7 +31,6 @@ public class MerchantSmsSendService
 		return merchantSmsSendMapper ;
 	}
 	
-	@Resource
 	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
 	{
 		this.merchantSmsSendMapper = merchantSmsSendMapper ;

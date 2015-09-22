@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor ;
-import org.springframework.stereotype.Service ;
 
 import z.z.w.test.server.IServiceLoader ;
 import z.z.w.util.SpringContextUtil ;
@@ -29,7 +28,6 @@ import z.z.w.util.http.HttpClientUtil ;
  *      History:
  * </pre>
  **************************************************************************/
-@Service
 public class BizServiceImpl implements IServiceLoader
 {
 	final static Logger				logger	= LoggerFactory.getLogger( BizServiceImpl.class ) ;
@@ -50,16 +48,16 @@ public class BizServiceImpl implements IServiceLoader
 			threadPoolTaskExecutor = SpringContextUtil.getBean( ThreadPoolTaskExecutor.class ) ;
 			final CompletionService< String > compService = new ExecutorCompletionService< String >( threadPoolTaskExecutor ) ;
 			final ExecutorService executor = Executors.newFixedThreadPool( 200 ) ;
-			logger.info( "-{}", compService ) ;
+			logger.info( "-{}" , compService ) ;
 			
 			final String[] mobiles =
 			//
 //			{ "15098648522", "18820238065", "17001930700", "17001930700", "18998561327", "13686862157", "13686862157" } ;
-			{ "17001930700", "18123975891" } ;
+			{ "17001930700" , "18123975891" } ;
 			final String[] sgins =
 			//
 //					{ "15098648522", "18820238065", "17001930700", "17001930700", "18998561327", "13686862157", "13686862157" } ;
-			{ "9a63083cafdffb4fbed65cb73ad72c49", "0900b399a328576dde2482026227e288" } ;
+			{ "9a63083cafdffb4fbed65cb73ad72c49" , "0900b399a328576dde2482026227e288" } ;
 			
 			while ( true )
 			{
@@ -84,16 +82,24 @@ public class BizServiceImpl implements IServiceLoader
 								@Override
 								public String call() throws Exception
 								{
-									logger.info( "Start send sms for mobile {}.....", mo ) ;
-									Map< String, String > param = new HashMap< String, String >() ;
-									param.put( "json", sendSmsJson( mo, sgin ) ) ;
-									logger.info( "Http client param -->{}", param ) ;
-									
-									String result = HttpClientUtil.httpPostParticular( url, param, null ) ;
-									logger.info( "RESULT : {}.", result ) ;
-									logger.info( "End send sms for mobile {}.....", mo ) ;
-									
-									return result ;
+									try
+									{
+										logger.info( "Start send sms for mobile {}....." , mo ) ;
+										Map< String, String > param = new HashMap< String, String >() ;
+										param.put( "json" , sendSmsJson( mo , sgin ) ) ;
+										logger.info( "Http client param -->{}" , param ) ;
+										
+										String result = HttpClientUtil.httpPostParticular( url , param , null ) ;
+										logger.info( "RESULT : {}." , result ) ;
+										logger.info( "End send sms for mobile {}....." , mo ) ;
+										
+										return result ;
+									}
+									catch ( Exception e )
+									{
+										logger.error( "Send sms error : {}." , e.getMessage() , e ) ;
+										return null ;
+									}
 								}
 							} ) ;
 						}
@@ -103,15 +109,15 @@ public class BizServiceImpl implements IServiceLoader
 							Future< String > future = null ;
 							try
 							{
-								future = compService.poll( 3L, TimeUnit.SECONDS ) ;
+								future = compService.poll( 3L , TimeUnit.SECONDS ) ;
 								if ( future != null )
 								{
-									logger.info( "===>>>>>>>>Result : {}", future.get() ) ;
+									logger.info( "===>>>>>>>>Result : {}" , future.get() ) ;
 								}
 							}
 							catch ( Exception e )
 							{
-								logger.error( "Send sms error : {}.", e.getMessage(), e ) ;
+								logger.error( "Send sms error : {}." , e.getMessage() , e ) ;
 							}
 						}
 					}
@@ -121,7 +127,7 @@ public class BizServiceImpl implements IServiceLoader
 		}
 		catch ( Exception e )
 		{
-			logger.error( "Loading bussiness error : {}.", e.getMessage(), e ) ;
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
 		}
 		logger.info( "Loaded bussiness service." ) ;
 		
@@ -130,7 +136,7 @@ public class BizServiceImpl implements IServiceLoader
 	/**
 	 * Create by : 2015年9月14日 下午6:19:16
 	 */
-	private String sendSmsJson( String mobile, String sgin )
+	private String sendSmsJson( String mobile , String sgin )
 	{
 		StringBuffer data = new StringBuffer() ;
 		data.append( "{" ) ;

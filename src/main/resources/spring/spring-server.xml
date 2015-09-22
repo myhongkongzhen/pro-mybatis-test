@@ -14,11 +14,19 @@
 				        http://www.springframework.org/schema/tx 
 				        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
-	<bean name="springContextUtil" class="z.z.w.util.SpringContextUtil"></bean>
+	<!-- Biz Service -->
+	<bean id="bizServiceImpl" class="z.z.w.test.server.impl.BizServiceImpl"
+		scope="prototype">
+	</bean>
 
-	<import resource="spring-base.xml" />
-	<import resource="spring-task.xml" />
-	<import resource="spring-mybatis.xml" />
-	<import resource="spring-server.xml" />
+	<!-- Biz Service -->
+	<bean id="merchantSmsSendMapper" class="z.z.w.test.dao.biz.MerchantSmsSendMapper" />
+	<bean id="merchantSmsSendService" class="z.z.w.test.service.biz.MerchantSmsSendService">
+		<property name="merchantSmsSendMapper" ref="merchantSmsSendMapper" />
+	</bean>
+	<bean id="dBInsertTestServiceImpl" class="z.z.w.test.server.impl.DBInsertTestServiceImpl"
+		scope="prototype">
+		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
+	</bean>
 
 </beans>
