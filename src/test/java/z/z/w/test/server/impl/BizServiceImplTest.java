@@ -28,6 +28,24 @@ public class BizServiceImplTest
 	private BizServiceImpl	bizServiceImpl ;
 	
 	/**
+	 * @return the bizServiceImpl
+	 */
+	public BizServiceImpl getBizServiceImpl()
+	{
+		return bizServiceImpl ;
+	}
+	
+	/**
+	 * @param bizServiceImpl
+	 *            the bizServiceImpl to set
+	 */
+	@Resource
+	public void setBizServiceImpl( BizServiceImpl bizServiceImpl )
+	{
+		this.bizServiceImpl = bizServiceImpl ;
+	}
+	
+	/**
 	 * Test method for {@link z.z.w.test.server.impl.BizServiceImpl#loadService()}.
 	 */
 	@Test
@@ -40,25 +58,8 @@ public class BizServiceImplTest
 		}
 		catch ( Exception e )
 		{
-			logger.error( "Loading bussiness error : {}.", e.getMessage(), e ) ;
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
 		}
-	}
-	
-	/**
-	 * @return the bizServiceImpl
-	 */
-	public BizServiceImpl getBizServiceImpl()
-	{
-		return bizServiceImpl ;
-	}
-	
-	/**
-	 * @param bizServiceImpl the bizServiceImpl to set
-	 */
-	@Resource
-	public void setBizServiceImpl( BizServiceImpl bizServiceImpl )
-	{
-		this.bizServiceImpl = bizServiceImpl ;
 	}
 	
 }

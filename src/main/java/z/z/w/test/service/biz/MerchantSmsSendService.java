@@ -30,15 +30,36 @@ public class MerchantSmsSendService
 	
 	private MerchantSmsSendMapper	merchantSmsSendMapper ;
 	
+	/**
+	 * Create by : 2015年9月17日 下午2:31:43
+	 */
+	public void addMerchantSmsSend( MerchantSmsSend mss )
+	{
+		merchantSmsSendMapper.insertSelective( mss ) ;
+	}
+	
+	/**
+	 * Create by : 2015年9月9日 上午11:41:02
+	 */
+	public int getCount( Map< String, Object > params )
+	{
+		logger.info( "查询（总数）条件：" + params ) ;
+		return merchantSmsSendMapper.getCount( params ) ;
+	}
+	
+	/**
+	 * Create by : 2015年9月21日 下午4:06:18
+	 * 
+	 * @return
+	 */
+	public Long getMaxId()
+	{
+		return merchantSmsSendMapper.getMaxId() ;
+	}
+	
 	public MerchantSmsSendMapper getMerchantSmsSendMapper()
 	{
 		return merchantSmsSendMapper ;
-	}
-	
-	@Resource
-	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
-	{
-		this.merchantSmsSendMapper = merchantSmsSendMapper ;
 	}
 	
 	/**
@@ -53,35 +74,31 @@ public class MerchantSmsSendService
 			list = merchantSmsSendMapper.selectResultByPage( params ) ;
 			logger.debug( "根据条件查询发送记录结果： " + list ) ;
 			
-			if ( null != list && !list.isEmpty() )
+			if ( ( null != list ) && !list.isEmpty() )
 			{
 				List< MerchantSmsChannel > nlist = merchantSmsSendMapper.selectSmsSendResultByIDs( list ) ;
 				logger.debug( "根据条件查询状态报告结果： " + nlist ) ;
-				if ( null != nlist && !nlist.isEmpty() )
+				if ( ( null != nlist ) && !nlist.isEmpty() ) for ( MerchantSmsSend mss : list )
 				{
-					for ( MerchantSmsSend mss : list )
-					{
-						for ( MerchantSmsChannel msc : nlist )
+					for ( MerchantSmsChannel msc : nlist )
+						if ( mss.getId().longValue() == msc.getMerchantSmsSendId().longValue() )
 						{
-							if ( mss.getId().longValue() == msc.getMerchantSmsSendId().longValue() )
-							{
-								logger.debug( "Send記錄：" + mss.toString() ) ;
-								logger.debug( "Record記錄：" + msc.toString() ) ;
-								
-								mss.setChannelSmsId( msc.getSendSmsCode() ) ;
-								mss.setDataTime( msc.getDateTime() ) ;
-								
-								break ;
-							}
+							logger.debug( "Send記錄：" + mss.toString() ) ;
+							logger.debug( "Record記錄：" + msc.toString() ) ;
+							
+							mss.setChannelSmsId( msc.getSendSmsCode() ) ;
+							mss.setDataTime( msc.getDateTime() ) ;
+							
+							break ;
 						}
-						
-						if ( null == mss.getReceiveTime() ) mss.setDataTime( null ) ;
-						
-						if ( null != mss.getCreateTime() && null != mss.getReceiveTime() ) mss.setSendTime( String.valueOf( ( mss.getReceiveTime().getTime() - mss.getCreateTime()
-																																									.getTime() ) / 1000 ) ) ;
-						if ( null != mss.getCreateTime() && null != mss.getDataTime() ) mss.setStatusTime( String.valueOf( ( ( mss.getDataTime().getTime() - mss.getCreateTime()
-																																								.getTime() ) / 1000 ) ) ) ;
-					}
+					
+					if ( null == mss.getReceiveTime() ) mss.setDataTime( null ) ;
+					
+					if ( ( null != mss.getCreateTime() ) && ( null != mss.getReceiveTime() ) ) mss.setSendTime( String.valueOf( ( mss.getReceiveTime()
+																																		.getTime() - mss.getCreateTime()
+																																						.getTime() ) / 1000 ) ) ;
+					if ( ( null != mss.getCreateTime() ) && ( null != mss.getDataTime() ) ) mss.setStatusTime( String.valueOf( ( ( mss.getDataTime().getTime() - mss.getCreateTime()
+																																									.getTime() ) / 1000 ) ) ) ;
 				}
 			}
 			
@@ -99,30 +116,9 @@ public class MerchantSmsSendService
 		return list ;
 	}
 	
-	/**
-	 * Create by : 2015年9月9日 上午11:41:02
-	 */
-	public int getCount( Map< String, Object > params )
+	@Resource
+	public void setMerchantSmsSendMapper( MerchantSmsSendMapper merchantSmsSendMapper )
 	{
-		logger.info( "查询（总数）条件：" + params ) ;
-		return merchantSmsSendMapper.getCount( params ) ;
-	}
-	
-	/**
-	 * Create by : 2015年9月17日 下午2:31:43
-	 */
-	public void addMerchantSmsSend( MerchantSmsSend mss )
-	{
-		merchantSmsSendMapper.insertSelective( mss ) ;
-	}
-	
-	/**
-	 * Create by : 2015年9月21日 下午4:06:18
-	 * 
-	 * @return
-	 */
-	public Long getMaxId()
-	{
-		return merchantSmsSendMapper.getMaxId() ;
+		this.merchantSmsSendMapper = merchantSmsSendMapper ;
 	}
 }

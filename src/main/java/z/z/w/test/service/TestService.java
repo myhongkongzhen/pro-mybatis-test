@@ -28,11 +28,6 @@ public class TestService
 	
 	private TestMapper	testMapper	= null ;
 	
-	public List< TbTestUser > queryAllUsers()
-	{
-		return testMapper.selectAll() ;
-	}
-	
 	public TbTestUser findUserById( String id )
 	{
 		return testMapper.selectUserById( id ) ;
@@ -47,6 +42,11 @@ public class TestService
 	public TestMapper getTestMapper()
 	{
 		return testMapper ;
+	}
+	
+	public List< TbTestUser > queryAllUsers()
+	{
+		return testMapper.selectAll() ;
 	}
 	
 	/**

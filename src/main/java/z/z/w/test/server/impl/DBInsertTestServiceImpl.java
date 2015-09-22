@@ -45,42 +45,21 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#loadService()
+	 * @see z.z.w.test.server.IServiceLoader#destroy()
 	 */
 	@Override
-	public void loadService()
+	public void destroy()
 	{
-		merchantSmsSendService = SpringContextUtil.getBean( MerchantSmsSendService.class ) ;
-		Long maxID = merchantSmsSendService.getMaxId() ;
-		logger.info( "Current table send max id : {}." , maxID ) ;
-		if ( null == maxID ) maxID = 0l ;
-		al = new AtomicLong( maxID + 1000 ) ;
-		
-		for ( int i = 0 ; i < 2000000 ; i++ )
-		{
-			service.execute( new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					long startTime = System.currentTimeMillis() ;
-					try
-					{
-						logger.debug( "Start insert data to db ....." ) ;
-						insertData() ;
-					}
-					catch ( Exception e )
-					{
-						logger.error( "Insert data to db error :" + e.getMessage() , e ) ;
-					}
-					finally
-					{
-						logger.info( "Insert data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
-					}
-				}
-			} ) ;
-			
-		}
+		// TODO 2015年9月17日 下午2:28:37
+		Thread.currentThread().interrupt() ;
+	}
+	
+	/**
+	 * @return the merchantSmsSendService
+	 */
+	public MerchantSmsSendService getMerchantSmsSendService()
+	{
+		return merchantSmsSendService ;
 	}
 	
 	/**
@@ -128,14 +107,14 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 			int min = 0 ;
 			Random random = new Random( System.currentTimeMillis() ) ;
 			
-			record.setReceiveMobile( "1" + Math.round( Math.random() * ( 9999999999l - 100000000l ) + 100000000l ) ) ;
-			record.setSmsContent( ( random.nextInt( max ) % ( max - min + 1 ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
+			record.setReceiveMobile( "1" + Math.round( ( Math.random() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
+			record.setSmsContent( ( ( random.nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
 			
-			record.setSmsChannelCode( channelCodeArr[ ( random.nextInt( cmax ) % ( cmax - min + 1 ) + min ) ] ) ;
+			record.setSmsChannelCode( channelCodeArr[ ( ( random.nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
 			record.setMerchantAccount( RandomUtil.INSTANCE.generateString( 10 ) ) ;
 			record.setCreateTime( new Date() ) ;
-			record.setReceiveTime( DateUtils.addSeconds( new Date() , random.nextInt( 3 ) % 3 + 1 ) ) ;
-			record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , random.nextInt( 3 ) % 3 + 1 ) , "yyyy-MM-dd HH:mm:ss" ) ) ;
+			record.setReceiveTime( DateUtils.addSeconds( new Date() , ( random.nextInt( 3 ) % 3 ) + 1 ) ) ;
+			record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , ( random.nextInt( 3 ) % 3 ) + 1 ) , "yyyy-MM-dd HH:mm:ss" ) ) ;
 			record.setReceiveStatus( random.nextInt( 1 ) % 2 ) ;
 			record.setSendResult( Short.parseShort( String.valueOf( random.nextInt( 1 ) % 2 ) ) ) ;
 			record.setReceiveStatusChannel( random.nextInt( max ) % ( max + 1 ) ) ;
@@ -167,21 +146,39 @@ public class DBInsertTestServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#destroy()
+	 * @see z.z.w.test.server.IServiceLoader#loadService()
 	 */
 	@Override
-	public void destroy()
+	public void loadService()
 	{
-		// TODO 2015年9月17日 下午2:28:37
-		Thread.currentThread().interrupt() ;
-	}
-	
-	/**
-	 * @return the merchantSmsSendService
-	 */
-	public MerchantSmsSendService getMerchantSmsSendService()
-	{
-		return merchantSmsSendService ;
+		merchantSmsSendService = SpringContextUtil.getBean( MerchantSmsSendService.class ) ;
+		Long maxID = merchantSmsSendService.getMaxId() ;
+		logger.info( "Current table send max id : {}." , maxID ) ;
+		if ( null == maxID ) maxID = 0l ;
+		al = new AtomicLong( maxID + 1000 ) ;
+		
+		for ( int i = 0 ; i < 2000000 ; i++ )
+			service.execute( new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					long startTime = System.currentTimeMillis() ;
+					try
+					{
+						logger.debug( "Start insert data to db ....." ) ;
+						insertData() ;
+					}
+					catch ( Exception e )
+					{
+						logger.error( "Insert data to db error :" + e.getMessage() , e ) ;
+					}
+					finally
+					{
+						logger.info( "Insert data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
+					}
+				}
+			} ) ;
 	}
 	
 	/**

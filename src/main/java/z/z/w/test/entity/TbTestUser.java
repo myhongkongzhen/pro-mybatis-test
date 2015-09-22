@@ -23,93 +23,9 @@ public class TbTestUser
 	private String	sendSmsCode ;
 	private Integer	merchantSmsSendId ;
 	
-	/**
-	 * @return the id
-	 */
-	public Long getId()
+	public TbTestUser()
 	{
-		return id ;
-	}
-	
-	/**
-	 * @param id the id to set
-	 */
-	public void setId( Long id )
-	{
-		this.id = id ;
-	}
-	
-	/**
-	 * @return the merSmsChanSig
-	 */
-	public String getMerSmsChanSig()
-	{
-		return merSmsChanSig ;
-	}
-	
-	/**
-	 * @param merchantSmsSendId the merchantSmsSendId to set
-	 */
-	public void setMerchantSmsSendId( Integer merchantSmsSendId )
-	{
-		this.merchantSmsSendId = merchantSmsSendId ;
-	}
-	
-	/**
-	 * @param merSmsChanSig the merSmsChanSig to set
-	 */
-	public void setMerSmsChanSig( String merSmsChanSig )
-	{
-		this.merSmsChanSig = merSmsChanSig ;
-	}
-	
-	/**
-	 * @return the merchantSmsUid
-	 */
-	public String getMerchantSmsUid()
-	{
-		return merchantSmsUid ;
-	}
-	
-	/**
-	 * @param merchantSmsUid the merchantSmsUid to set
-	 */
-	public void setMerchantSmsUid( String merchantSmsUid )
-	{
-		this.merchantSmsUid = merchantSmsUid ;
-	}
-	
-	/**
-	 * @return the sendSmsCode
-	 */
-	public String getSendSmsCode()
-	{
-		return sendSmsCode ;
-	}
-	
-	/**
-	 * @param sendSmsCode the sendSmsCode to set
-	 */
-	public void setSendSmsCode( String sendSmsCode )
-	{
-		this.sendSmsCode = sendSmsCode ;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31 ;
-		int result = 1 ;
-		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() ) ;
-		result = prime * result + ( ( merSmsChanSig == null ) ? 0 : merSmsChanSig.hashCode() ) ;
-		result = prime * result + ( ( merchantSmsSendId == null ) ? 0 : merchantSmsSendId.hashCode() ) ;
-		result = prime * result + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
-		result = prime * result + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
-		return result ;
+		super() ;
 	}
 	
 	/*
@@ -151,6 +67,100 @@ public class TbTestUser
 		return true ;
 	}
 	
+	/**
+	 * @return the id
+	 */
+	public Long getId()
+	{
+		return id ;
+	}
+	
+	/**
+	 * @return the merchantSmsUid
+	 */
+	public String getMerchantSmsUid()
+	{
+		return merchantSmsUid ;
+	}
+	
+	/**
+	 * @return the merSmsChanSig
+	 */
+	public String getMerSmsChanSig()
+	{
+		return merSmsChanSig ;
+	}
+	
+	/**
+	 * @return the sendSmsCode
+	 */
+	public String getSendSmsCode()
+	{
+		return sendSmsCode ;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31 ;
+		int result = 1 ;
+		result = ( prime * result ) + ( ( id == null ) ? 0 : id.hashCode() ) ;
+		result = ( prime * result ) + ( ( merSmsChanSig == null ) ? 0 : merSmsChanSig.hashCode() ) ;
+		result = ( prime * result ) + ( ( merchantSmsSendId == null ) ? 0 : merchantSmsSendId.hashCode() ) ;
+		result = ( prime * result ) + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
+		result = ( prime * result ) + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
+		return result ;
+	}
+	
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId( Long id )
+	{
+		this.id = id ;
+	}
+	
+	/**
+	 * @param merchantSmsSendId
+	 *            the merchantSmsSendId to set
+	 */
+	public void setMerchantSmsSendId( Integer merchantSmsSendId )
+	{
+		this.merchantSmsSendId = merchantSmsSendId ;
+	}
+	
+	/**
+	 * @param merchantSmsUid
+	 *            the merchantSmsUid to set
+	 */
+	public void setMerchantSmsUid( String merchantSmsUid )
+	{
+		this.merchantSmsUid = merchantSmsUid ;
+	}
+	
+	/**
+	 * @param merSmsChanSig
+	 *            the merSmsChanSig to set
+	 */
+	public void setMerSmsChanSig( String merSmsChanSig )
+	{
+		this.merSmsChanSig = merSmsChanSig ;
+	}
+	
+	/**
+	 * @param sendSmsCode
+	 *            the sendSmsCode to set
+	 */
+	public void setSendSmsCode( String sendSmsCode )
+	{
+		this.sendSmsCode = sendSmsCode ;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -168,10 +178,5 @@ public class TbTestUser
 				+ ", merchantSmsSendId="
 				+ merchantSmsSendId
 				+ "]" ;
-	}
-	
-	public TbTestUser()
-	{
-		super() ;
 	}
 }

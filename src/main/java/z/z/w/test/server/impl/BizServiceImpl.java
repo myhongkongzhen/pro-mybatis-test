@@ -38,8 +38,20 @@ public class BizServiceImpl implements IServiceLoader
 	
 	/*
 	 * (non-Javadoc)
+	 * @see z.z.w.test.server.IServiceLoader#destroy()
+	 */
+	@Override
+	public void destroy()
+	{
+		// TODO 2015年9月10日 下午4:31:30
+		Thread.currentThread().interrupt() ;
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see z.z.w.test.server.IServiceLoader#loadService()
 	 */
+	@Override
 	public void loadService()
 	{
 		logger.info( "Starting bussiness service....." ) ;
@@ -50,22 +62,22 @@ public class BizServiceImpl implements IServiceLoader
 			threadPoolTaskExecutor = SpringContextUtil.getBean( ThreadPoolTaskExecutor.class ) ;
 			final CompletionService< String > compService = new ExecutorCompletionService< String >( threadPoolTaskExecutor ) ;
 			final ExecutorService executor = Executors.newFixedThreadPool( 200 ) ;
-			logger.info( "-{}", compService ) ;
+			logger.info( "-{}" , compService ) ;
 			
 			final String[] mobiles =
 			//
 //			{ "15098648522", "18820238065", "17001930700", "17001930700", "18998561327", "13686862157", "13686862157" } ;
-			{ "17001930700", "18123975891" } ;
+			{ "17001930700" , "18123975891" } ;
 			final String[] sgins =
 			//
 //					{ "15098648522", "18820238065", "17001930700", "17001930700", "18998561327", "13686862157", "13686862157" } ;
-			{ "9a63083cafdffb4fbed65cb73ad72c49", "0900b399a328576dde2482026227e288" } ;
+			{ "9a63083cafdffb4fbed65cb73ad72c49" , "0900b399a328576dde2482026227e288" } ;
 			
 			while ( true )
 			{
 				
 				long idx = ( ( long ) ( Math.random() * 10000 ) ) ;
-				if ( idx / 1000 == 0 )
+				if ( ( idx / 1000 ) == 0 )
 				{
 					Thread.sleep( 1000 * 20 ) ;
 					continue ;
@@ -84,14 +96,14 @@ public class BizServiceImpl implements IServiceLoader
 								@Override
 								public String call() throws Exception
 								{
-									logger.info( "Start send sms for mobile {}.....", mo ) ;
+									logger.info( "Start send sms for mobile {}....." , mo ) ;
 									Map< String, String > param = new HashMap< String, String >() ;
-									param.put( "json", sendSmsJson( mo, sgin ) ) ;
-									logger.info( "Http client param -->{}", param ) ;
+									param.put( "json" , sendSmsJson( mo , sgin ) ) ;
+									logger.info( "Http client param -->{}" , param ) ;
 									
-									String result = HttpClientUtil.httpPostParticular( url, param, null ) ;
-									logger.info( "RESULT : {}.", result ) ;
-									logger.info( "End send sms for mobile {}.....", mo ) ;
+									String result = HttpClientUtil.httpPostParticular( url , param , null ) ;
+									logger.info( "RESULT : {}." , result ) ;
+									logger.info( "End send sms for mobile {}....." , mo ) ;
 									
 									return result ;
 								}
@@ -103,15 +115,12 @@ public class BizServiceImpl implements IServiceLoader
 							Future< String > future = null ;
 							try
 							{
-								future = compService.poll( 3L, TimeUnit.SECONDS ) ;
-								if ( future != null )
-								{
-									logger.info( "===>>>>>>>>Result : {}", future.get() ) ;
-								}
+								future = compService.poll( 3L , TimeUnit.SECONDS ) ;
+								if ( future != null ) logger.info( "===>>>>>>>>Result : {}" , future.get() ) ;
 							}
 							catch ( Exception e )
 							{
-								logger.error( "Send sms error : {}.", e.getMessage(), e ) ;
+								logger.error( "Send sms error : {}." , e.getMessage() , e ) ;
 							}
 						}
 					}
@@ -121,7 +130,7 @@ public class BizServiceImpl implements IServiceLoader
 		}
 		catch ( Exception e )
 		{
-			logger.error( "Loading bussiness error : {}.", e.getMessage(), e ) ;
+			logger.error( "Loading bussiness error : {}." , e.getMessage() , e ) ;
 		}
 		logger.info( "Loaded bussiness service." ) ;
 		
@@ -130,7 +139,7 @@ public class BizServiceImpl implements IServiceLoader
 	/**
 	 * Create by : 2015年9月14日 下午6:19:16
 	 */
-	private String sendSmsJson( String mobile, String sgin )
+	private String sendSmsJson( String mobile , String sgin )
 	{
 		StringBuffer data = new StringBuffer() ;
 		data.append( "{" ) ;
@@ -147,16 +156,6 @@ public class BizServiceImpl implements IServiceLoader
 		data.append( "}" ) ;
 		data.append( "}" ) ;
 		return data.toString() ;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see z.z.w.test.server.IServiceLoader#destroy()
-	 */
-	public void destroy()
-	{
-		// TODO 2015年9月10日 下午4:31:30
-		Thread.currentThread().interrupt() ;
 	}
 	
 }

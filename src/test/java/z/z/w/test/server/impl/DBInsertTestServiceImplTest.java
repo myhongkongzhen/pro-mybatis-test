@@ -27,6 +27,24 @@ public class DBInsertTestServiceImplTest
 	private DBInsertTestServiceImpl	dBInsertTestServiceImpl ;
 	
 	/**
+	 * @return the dBInsertTestServiceImpl
+	 */
+	public DBInsertTestServiceImpl getdBInsertTestServiceImpl()
+	{
+		return dBInsertTestServiceImpl ;
+	}
+	
+	/**
+	 * @param dBInsertTestServiceImpl
+	 *            the dBInsertTestServiceImpl to set
+	 */
+	@Resource
+	public void setdBInsertTestServiceImpl( DBInsertTestServiceImpl dBInsertTestServiceImpl )
+	{
+		this.dBInsertTestServiceImpl = dBInsertTestServiceImpl ;
+	}
+	
+	/**
 	 * Test method for {@link z.z.w.test.server.impl.DBInsertTestServiceImpl#loadService()}.
 	 */
 	@Test
@@ -38,25 +56,8 @@ public class DBInsertTestServiceImplTest
 		}
 		catch ( Exception e )
 		{
-			logger.error( "DB insert service error : {}.", e.getMessage(), e ) ;
+			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
 		}
-	}
-	
-	/**
-	 * @return the dBInsertTestServiceImpl
-	 */
-	public DBInsertTestServiceImpl getdBInsertTestServiceImpl()
-	{
-		return dBInsertTestServiceImpl ;
-	}
-	
-	/**
-	 * @param dBInsertTestServiceImpl the dBInsertTestServiceImpl to set
-	 */
-	@Resource
-	public void setdBInsertTestServiceImpl( DBInsertTestServiceImpl dBInsertTestServiceImpl )
-	{
-		this.dBInsertTestServiceImpl = dBInsertTestServiceImpl ;
 	}
 	
 }

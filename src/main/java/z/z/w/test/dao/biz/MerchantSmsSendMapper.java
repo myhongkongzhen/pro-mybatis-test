@@ -21,18 +21,7 @@ import z.z.w.test.entity.biz.MerchantSmsSend ;
 public interface MerchantSmsSendMapper
 {
 	
-	List< MerchantSmsSend > selectResultByPage( Map< String, Object > param ) ;
-	
 	Integer getCount( Map< String, Object > params ) ;
-	
-	MerchantSmsSend selectSmsSendResultByID( @Param( value = "merchantSmsSend" ) MerchantSmsSend merchantSmsSend ) ;
-	
-	List< MerchantSmsChannel > selectSmsSendResultByIDs( @Param( value = "paramList" ) List< MerchantSmsSend > paramList ) ;
-	
-	/**
-	 * Create by : 2015年9月17日 下午2:32:07
-	 */
-	void insertSelective( /* @Param( value = "merchantSmsSend" ) */MerchantSmsSend merchantSmsSend ) ;
 	
 	/**
 	 * Create by : 2015年9月21日 下午4:07:04
@@ -40,4 +29,15 @@ public interface MerchantSmsSendMapper
 	 * @return
 	 */
 	Long getMaxId() ;
+	
+	/**
+	 * Create by : 2015年9月17日 下午2:32:07
+	 */
+	void insertSelective( /* @Param( value = "merchantSmsSend" ) */MerchantSmsSend merchantSmsSend ) ;
+	
+	List< MerchantSmsSend > selectResultByPage( Map< String, Object > param ) ;
+	
+	MerchantSmsSend selectSmsSendResultByID( @Param( value = "merchantSmsSend" ) MerchantSmsSend merchantSmsSend ) ;
+	
+	List< MerchantSmsChannel > selectSmsSendResultByIDs( @Param( value = "paramList" ) List< MerchantSmsSend > paramList ) ;
 }
