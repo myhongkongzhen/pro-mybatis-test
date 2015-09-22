@@ -5,7 +5,7 @@ import java.util.ServiceLoader ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 
-import z.z.w.test.server.IServiceLoader ;
+import z.z.w.server.IServiceLoader ;
 import z.z.w.util.SpringContextUtil ;
 
 /**************************************************************************
