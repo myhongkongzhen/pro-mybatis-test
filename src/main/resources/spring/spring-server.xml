@@ -29,9 +29,22 @@
 	<bean id="merchantSmsSendService" class="z.z.w.test.service.biz.MerchantSmsSendService">
 		<property name="merchantSmsSendMapper" ref="merchantSmsSendMapper" />
 	</bean>
+
 	<bean id="dBInsertServiceImpl" class="z.z.w.test.service.biz.DBInsertServiceImpl"
 		scope="prototype">
 		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
+	</bean>
+
+	<bean id="dBDeleteServiceImpl" class="z.z.w.test.service.biz.DBDeleteServiceImpl"
+		scope="prototype">
+		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
+		<property name="threadPoolTaskExecutor" ref="threadPoolTaskExecutor" />
+	</bean>
+
+	<bean id="dBSelectServcieImpl" class="z.z.w.test.service.biz.DBSelectServcieImpl"
+		scope="prototype">
+		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
+		<property name="threadPoolTaskExecutor" ref="threadPoolTaskExecutor" />
 	</bean>
 
 </beans>
