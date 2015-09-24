@@ -24,6 +24,33 @@ public class DBSelectServcieImpl implements IService
 	
 	/*
 	 * (non-Javadoc)
+	 * @see z.z.w.test.service.IService#execute()
+	 */
+	@Override
+	public void execute() throws Exception
+	{
+		// TODO 2015年9月23日 上午9:19:26 
+		logger.info( "開始查詢數據庫數據...." ) ;
+	}
+	
+	/**
+	 * @return the merchantSmsSendService
+	 */
+	public MerchantSmsSendService getMerchantSmsSendService()
+	{
+		return merchantSmsSendService ;
+	}
+	
+	/**
+	 * @return the threadPoolTaskExecutor
+	 */
+	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
+	{
+		return threadPoolTaskExecutor ;
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -39,23 +66,13 @@ public class DBSelectServcieImpl implements IService
 		}
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see z.z.w.test.service.IService#execute()
-	 */
-	@Override
-	public void execute() throws Exception
-	{
-		// TODO 2015年9月23日 上午9:19:26 
-		logger.info( "開始查詢數據庫數據...." ) ;
-	}
-	
 	/**
-	 * @return the threadPoolTaskExecutor
+	 * @param merchantSmsSendService
+	 *            the merchantSmsSendService to set
 	 */
-	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
+	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
 	{
-		return threadPoolTaskExecutor ;
+		this.merchantSmsSendService = merchantSmsSendService ;
 	}
 	
 	/**
@@ -65,23 +82,6 @@ public class DBSelectServcieImpl implements IService
 	public void setThreadPoolTaskExecutor( ThreadPoolTaskExecutor threadPoolTaskExecutor )
 	{
 		this.threadPoolTaskExecutor = threadPoolTaskExecutor ;
-	}
-	
-	/**
-	 * @return the merchantSmsSendService
-	 */
-	public MerchantSmsSendService getMerchantSmsSendService()
-	{
-		return merchantSmsSendService ;
-	}
-	
-	/**
-	 * @param merchantSmsSendService
-	 *            the merchantSmsSendService to set
-	 */
-	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
-	{
-		this.merchantSmsSendService = merchantSmsSendService ;
 	}
 	
 }

@@ -24,23 +24,6 @@ public class DBDeleteServiceImpl implements IService
 	
 	/*
 	 * (non-Javadoc)
-	 * @see java.lang.Runnable#run()
-	 */
-	@Override
-	public void run()
-	{
-		try
-		{
-			execute() ;
-		}
-		catch ( Exception e )
-		{
-			logger.error( "刪除數據出错:" + e.getMessage() , e ) ;
-		}
-	}
-	
-	/*
-	 * (non-Javadoc)
 	 * @see z.z.w.test.service.IService#execute()
 	 */
 	@Override
@@ -58,20 +41,37 @@ public class DBDeleteServiceImpl implements IService
 	}
 	
 	/**
+	 * @return the threadPoolTaskExecutor
+	 */
+	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
+	{
+		return threadPoolTaskExecutor ;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
+	@Override
+	public void run()
+	{
+		try
+		{
+			execute() ;
+		}
+		catch ( Exception e )
+		{
+			logger.error( "刪除數據出错:" + e.getMessage() , e ) ;
+		}
+	}
+	
+	/**
 	 * @param merchantSmsSendService
 	 *            the merchantSmsSendService to set
 	 */
 	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
 	{
 		this.merchantSmsSendService = merchantSmsSendService ;
-	}
-	
-	/**
-	 * @return the threadPoolTaskExecutor
-	 */
-	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
-	{
-		return threadPoolTaskExecutor ;
 	}
 	
 	/**

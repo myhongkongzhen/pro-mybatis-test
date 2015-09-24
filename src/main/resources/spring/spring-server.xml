@@ -46,5 +46,10 @@
 		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
 		<property name="threadPoolTaskExecutor" ref="threadPoolTaskExecutor" />
 	</bean>
+	
+	<bean id="poolSizeCalServiceImpl" class="z.z.w.test.service.biz.PoolSizeCalServiceImpl"
+		scope="prototype">
+		<property name="merchantSmsSendService" ref="merchantSmsSendService" />
+	</bean>
 
 </beans>
