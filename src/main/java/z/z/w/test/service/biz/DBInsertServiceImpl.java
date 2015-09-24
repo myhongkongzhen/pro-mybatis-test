@@ -5,7 +5,9 @@ import java.util.Date ;
 import java.util.List ;
 import java.util.Random ;
 import java.util.concurrent.ExecutorService ;
-import java.util.concurrent.Executors ;
+import java.util.concurrent.LinkedBlockingQueue ;
+import java.util.concurrent.ThreadPoolExecutor ;
+import java.util.concurrent.TimeUnit ;
 import java.util.concurrent.atomic.AtomicLong ;
 
 import org.apache.commons.lang3.time.DateFormatUtils ;
@@ -37,12 +39,16 @@ public class DBInsertServiceImpl implements IService
 																										 * AtomicLong(
 																										 * 1002258 ) ;
 																										 */
-	@Value( "${EXECUTOR.POOL.SIZE}" )
+	@Value( "${EXECUTOR.POOL.THREAD.SIZE}" )
 	private Integer					threadNum ;
 	@Value( "${OPER.DATASIZE}" )
 	private Long					dataSize ;
+	@Value( "${OPER.PER.DATASIZE}" )
+	private Long					dataSizePer ;
 	@Value( "${OPER.BATCHSIZE}" )
 	private Integer					batchSize ;
+	@Value( "${EXECUTOR.POOL.QUEUESIZE}" )
+	private Integer					queueSize ;
 	
 	private ExecutorService			service	= null ;
 	
@@ -55,8 +61,9 @@ public class DBInsertServiceImpl implements IService
 	@Override
 	public void execute() throws Exception
 	{
-		logger.info( "Thread size : {}. data size : {}." , threadNum , dataSize ) ;
-		service = Executors.newFixedThreadPool( threadNum ) ;
+		logger.info( "Thread size : {}. data size : {}. per data size :{},queue size : {}." , threadNum , dataSize , dataSizePer , queueSize ) ;
+//		service = Executors.newFixedThreadPool( threadNum ) ;
+		service = new ThreadPoolExecutor( threadNum , threadNum , 0L , TimeUnit.MILLISECONDS , new LinkedBlockingQueue< Runnable >( queueSize ) ) ;
 		Long maxID = merchantSmsSendService.getMaxId() ;
 		logger.info( "Current table send max id : {}." , maxID ) ;
 		if ( null == maxID ) maxID = 0l ;
@@ -65,8 +72,12 @@ public class DBInsertServiceImpl implements IService
 		
 		List< MerchantSmsSend > list = new ArrayList< MerchantSmsSend >() ;
 		
-		for ( int i = 0 ; i < dataSize ; i++ )
-		{
+//		int idx = new Long( ( dataSize.longValue() / dataSizePer.longValue() ) ).intValue() ;
+//		logger.info( "IDX===>{}" , idx ) ;
+		
+//		for ( int j = 0 ; j < idx ; j++ )
+//		{
+		for ( int i = 0 ; i < dataSizePer ; i++ )
 			try
 			{
 				MerchantSmsSend record = getMSS() ;
@@ -76,6 +87,11 @@ public class DBInsertServiceImpl implements IService
 				{
 					final List< MerchantSmsSend > lt = new ArrayList< MerchantSmsSend >( list ) ;
 					
+					if ( service.isShutdown() )
+					{
+						logger.warn( "Executors shutdown......break..." ) ;
+						break ;
+					}
 					service.execute( new Runnable()
 					{
 						private void insertData( List< MerchantSmsSend > lt )
@@ -120,10 +136,13 @@ public class DBInsertServiceImpl implements IService
 			}
 			finally
 			{
-				logger.info( "Insert data to db size : {}." , ( i + 1 ) ) ;
+				logger.debug( "Insert data to db size : {}." , ( i + 1 ) ) ;
 			}
-			
-		}
+		
+//			Thread.sleep( 1000 * 30 ) ;
+//			logger.info( "IDX---->>{}" , j ) ;
+//		}
+		
 	}
 	
 	/**
