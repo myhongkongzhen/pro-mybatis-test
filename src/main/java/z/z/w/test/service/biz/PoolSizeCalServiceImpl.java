@@ -8,6 +8,7 @@ import java.util.List ;
 import java.util.Random ;
 import java.util.concurrent.BlockingQueue ;
 import java.util.concurrent.LinkedBlockingQueue ;
+import java.util.concurrent.ThreadLocalRandom ;
 import java.util.concurrent.atomic.AtomicLong ;
 
 import org.apache.commons.lang3.time.DateFormatUtils ;
@@ -99,9 +100,9 @@ public class PoolSizeCalServiceImpl extends PoolSizeCalculator implements IServi
 				int cmax = idx - 1 ;
 				int max = 9999 ;
 				int min = 0 ;
-				Random random = new Random( System.currentTimeMillis() ) ;
+				Random random = ThreadLocalRandom.current() ;//new Random( System.currentTimeMillis() ) ;
 				
-				record.setReceiveMobile( "1" + Math.round( ( Math.random() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
+				record.setReceiveMobile( "1" + Math.round( ( ThreadLocalRandom.current().nextDouble() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
 				record.setSmsContent( ( ( random.nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
 				
 				record.setSmsChannelCode( channelCodeArr[ ( ( random.nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;

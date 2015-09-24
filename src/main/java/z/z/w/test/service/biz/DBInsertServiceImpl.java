@@ -3,9 +3,9 @@ package z.z.w.test.service.biz ;
 import java.util.ArrayList ;
 import java.util.Date ;
 import java.util.List ;
-import java.util.Random ;
 import java.util.concurrent.ExecutorService ;
 import java.util.concurrent.LinkedBlockingQueue ;
+import java.util.concurrent.ThreadLocalRandom ;
 import java.util.concurrent.ThreadPoolExecutor ;
 import java.util.concurrent.TimeUnit ;
 import java.util.concurrent.atomic.AtomicLong ;
@@ -222,19 +222,20 @@ public class DBInsertServiceImpl implements IService
 		int cmax = idx - 1 ;
 		int max = 9999 ;
 		int min = 0 ;
-		Random random = new Random( System.currentTimeMillis() ) ;
+//		Random random = new Random( System.currentTimeMillis() ) ;
 		
-		record.setReceiveMobile( "1" + Math.round( ( Math.random() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
-		record.setSmsContent( ( ( random.nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
+		record.setReceiveMobile( "1" + Math.round( ( ThreadLocalRandom.current().nextDouble() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
+		record.setSmsContent( ( ( ThreadLocalRandom.current().nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
 		
-		record.setSmsChannelCode( channelCodeArr[ ( ( random.nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
+		record.setSmsChannelCode( channelCodeArr[ ( ( ThreadLocalRandom.current().nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
 		record.setMerchantAccount( RandomUtil.INSTANCE.generateString( 10 ) ) ;
 		record.setCreateTime( new Date() ) ;
-		record.setReceiveTime( DateUtils.addSeconds( new Date() , ( random.nextInt( 3 ) % 3 ) + 1 ) ) ;
-		record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , ( random.nextInt( 3 ) % 3 ) + 1 ) , "yyyy-MM-dd HH:mm:ss" ) ) ;
-		record.setReceiveStatus( random.nextInt( 1 ) % 2 ) ;
-		record.setSendResult( Short.parseShort( String.valueOf( random.nextInt( 1 ) % 2 ) ) ) ;
-		record.setReceiveStatusChannel( random.nextInt( max ) % ( max + 1 ) ) ;
+		record.setReceiveTime( DateUtils.addSeconds( new Date() , ( ThreadLocalRandom.current().nextInt( 3 ) % 3 ) + 1 ) ) ;
+		record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , ( ThreadLocalRandom.current().nextInt( 3 ) % 3 ) + 1 ) ,
+													"yyyy-MM-dd HH:mm:ss" ) ) ;
+		record.setReceiveStatus( ThreadLocalRandom.current().nextInt( 1 ) % 2 ) ;
+		record.setSendResult( Short.parseShort( String.valueOf( ThreadLocalRandom.current().nextInt( 1 ) % 2 ) ) ) ;
+		record.setReceiveStatusChannel( ThreadLocalRandom.current().nextInt( max ) % ( max + 1 ) ) ;
 		record.setMerchantSmsUid( RandomUtil.INSTANCE.generateLowerString( 32 ) ) ;
 		record.setChannelSmsId( record.getMerchantSmsUid().substring( 20 ) ) ;
 		record.setSmsSignerId( -1 ) ;
