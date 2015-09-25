@@ -1,93 +1,89 @@
-package z.z.w.test.service.biz ;
+package z.z.w.test.service.biz;
 
-import java.util.ArrayList ;
-import java.util.Date ;
-import java.util.List ;
-import java.util.concurrent.ExecutorService ;
-import java.util.concurrent.LinkedBlockingQueue ;
-import java.util.concurrent.ThreadPoolExecutor ;
-import java.util.concurrent.TimeUnit ;
-import java.util.concurrent.atomic.AtomicLong ;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang3.time.DateFormatUtils ;
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-import org.springframework.beans.factory.annotation.Value ;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
-import z.z.w.test.entity.biz.MerchantSmsSend ;
-import z.z.w.test.service.IService ;
+import z.z.w.test.entity.biz.MerchantSmsSend;
+import z.z.w.test.service.IService;
 
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.service.biz.DBInsertServiceImpl.java
- *         Desc: 
- *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月22日 上午10:50:11 
- *   LastChange: 2015年9月22日 上午10:50:11 
+ *         Desc:
+ *       author: Z_Z.W - myhongkongzhen@gmail.com
+ *      version: 2015年9月22日 上午10:50:11
+ *   LastChange: 2015年9月22日 上午10:50:11
  *      History:
  * </pre>
  **************************************************************************/
 public class DBInsertServiceImpl implements IService
 {
-	final static Logger				logger	= LoggerFactory.getLogger( DBInsertServiceImpl.class ) ;
+	final static Logger logger = LoggerFactory.getLogger( DBInsertServiceImpl.class );
 	
-	private static AtomicLong		al		= null ;													/*
-																										 * new
-																										 * AtomicLong(
-																										 * 1002258 ) ;
-																										 */
+	private static AtomicLong		al		= null;									/*
+																					 * new
+																					 * AtomicLong(
+																					 * 1002258 ) ;
+																					 */
+	private static int				idx		= ThreadLocalRandom.current().nextInt();
 	@Value( "${EXECUTOR.POOL.THREAD.SIZE}" )
-	private Integer					threadNum ;
+	private Integer					threadNum;
 	@Value( "${OPER.DATASIZE}" )
-	private Long					dataSize ;
+	private Long					dataSize;
 	@Value( "${OPER.PER.DATASIZE}" )
-	private Long					dataSizePer ;
+	private Long					dataSizePer;
 	@Value( "${OPER.BATCHSIZE}" )
-	private Integer					batchSize ;
+	private Integer					batchSize;
 	@Value( "${EXECUTOR.POOL.QUEUESIZE}" )
-	private Integer					queueSize ;
-	
-	private ExecutorService			service	= null ;
-	
-	private MerchantSmsSendService	merchantSmsSendService ;
+	private Integer					queueSize;
+	private ExecutorService			service	= null;
+	private MerchantSmsSendService	merchantSmsSendService;
 	
 	/*
 	 * (non-Javadoc)
 	 * @see z.z.w.test.service.IService#execute()
 	 */
-	@Override
+	
 	public void execute() throws Exception
 	{
-		logger.info( "Thread size : {}. data size : {}. per data size :{},queue size : {}." , threadNum , dataSize , dataSizePer , queueSize ) ;
+		logger.info( "Thread size : {}. data size : {}. per data size :{},queue size : {}." , threadNum , dataSize , dataSizePer , queueSize );
 //		service = Executors.newFixedThreadPool( threadNum ) ;
-		service = new ThreadPoolExecutor( threadNum , threadNum , 0L , TimeUnit.MILLISECONDS , new LinkedBlockingQueue< Runnable >( queueSize ) ) ;
-		Long maxID = merchantSmsSendService.getMaxId() ;
-		logger.info( "Current table send max id : {}." , maxID ) ;
-		if ( null == maxID ) maxID = 0l ;
-		al = new AtomicLong( maxID + 1000 ) ;
-		logger.debug( "{}." , al ) ;
+		service = new ThreadPoolExecutor( threadNum , threadNum , 0L , TimeUnit.MILLISECONDS , new LinkedBlockingQueue< Runnable >( queueSize ) );
+		Long maxID = merchantSmsSendService.getMaxId();
+		logger.info( "Current table send max id : {}." , maxID );
+		if ( null == maxID ) maxID = 0l;
+		al = new AtomicLong( maxID + 1000 );
+		logger.debug( "{}." , al );
 		
-		List< MerchantSmsSend > list = new ArrayList< MerchantSmsSend >() ;
+		List< MerchantSmsSend > list = new ArrayList< MerchantSmsSend >();
 		
 //		int idx = new Long( ( dataSize.longValue() / dataSizePer.longValue() ) ).intValue() ;
 //		logger.info( "IDX===>{}" , idx ) ;
-		
+
 //		for ( int j = 0 ; j < idx ; j++ )
 //		{
 		for ( int i = 0 ; i < dataSizePer ; i++ )
 			try
 			{
-				MerchantSmsSend record = getMSS( i ) ;
-				list.add( record ) ;
+				MerchantSmsSend record = getMSS( ++idx );
+				list.add( record );
 				
 				if ( ( ( ( i + 1 ) % batchSize ) == 0 ) )
 				{
-					final List< MerchantSmsSend > lt = new ArrayList< MerchantSmsSend >( list ) ;
+					final List< MerchantSmsSend > lt = new ArrayList< MerchantSmsSend >( list );
 					
 					if ( service.isShutdown() )
 					{
-						logger.warn( "Executors shutdown......break..." ) ;
-						break ;
+						logger.warn( "Executors shutdown......break..." );
+						break;
 					}
 					service.execute( new Runnable()
 					{
@@ -95,51 +91,50 @@ public class DBInsertServiceImpl implements IService
 						{
 							try
 							{
-								long startTime = System.currentTimeMillis() ;
+								long startTime = System.currentTimeMillis();
 								try
 								{
-									merchantSmsSendService.addMerchantSmsSend( lt ) ;
+									merchantSmsSendService.addMerchantSmsSend( lt );
 								}
 								finally
 								{
-									logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) ) ;
+									logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) );
 								}
 							}
 							catch ( Exception e )
 							{
-								logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
+								logger.error( "分庫插入數據出错:" + e.getMessage() , e );
 							}
 						}
 						
-						@Override
 						public void run()
 						{
 							try
 							{
-								logger.debug( "Start insert data to db ....." ) ;
-								logger.debug( "{}===>>>>>>>>>{}" , lt.size() , lt ) ;
-								insertData( lt ) ;
+								logger.debug( "Start insert data to db ....." );
+								logger.debug( "{}===>>>>>>>>>{}" , lt.size() , lt );
+								insertData( lt );
 							}
 							catch ( Exception e )
 							{
-								logger.error( "Insert data to db error :" + e.getMessage() , e ) ;
+								logger.error( "Insert data to db error :" + e.getMessage() , e );
 							}
 							
 						}
-					} ) ;
+					} );
 					
-					list.clear() ;
+					list.clear();
 				}
 			}
 			finally
 			{
-				logger.debug( "Insert data to db size : {}." , ( i + 1 ) ) ;
+				logger.debug( "Insert data to db size : {}." , ( i + 1 ) );
 			}
-		
+			
 //			Thread.sleep( 1000 * 30 ) ;
 //			logger.info( "IDX---->>{}" , j ) ;
 //		}
-		
+	
 	}
 	
 	/**
@@ -147,7 +142,7 @@ public class DBInsertServiceImpl implements IService
 	 */
 	public MerchantSmsSendService getMerchantSmsSendService()
 	{
-		return merchantSmsSendService ;
+		return merchantSmsSendService;
 	}
 	
 	/**
@@ -158,7 +153,7 @@ public class DBInsertServiceImpl implements IService
 //		try
 //		{
 //			MerchantSmsSend record = getMSS() ;
-//			
+//
 //			long startTime = System.currentTimeMillis() ;
 //			try
 //			{
@@ -173,43 +168,57 @@ public class DBInsertServiceImpl implements IService
 //		{
 //			logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
 //		}
-//		
+//
 //	}
 	
 	/**
+	 * @param merchantSmsSendService
+	 *            the merchantSmsSendService to set
+	 */
+	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
+	{
+		this.merchantSmsSendService = merchantSmsSendService;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
+	
+	/**
 	 * Create by : 2015年9月21日 下午8:44:00
-	 * 
+	 *
 	 * @return
 	 */
 	private MerchantSmsSend getMSS( int i )
 	{
-		String[] channelCodeArr = { "AH_UNICOM_CHANNEL001" ,
-				"BJ_CT_CHANNEL001" ,
-				"BJ_CT_CHANNEL002" ,
-				"BJ_CT_CHANNEL003" ,
-				"BJ_JTD_DX_SINGLE_CHANNEL" ,
-				"BJ_JTD_LT_SINGLE_CHANNEL" ,
-				"BJ_JTD_YDSW_CHANNEL001" ,
-				"BJ_JTD_YDSW_CHANNEL002" ,
-				"BJ_JTD_YDSW_CHANNEL003" ,
-				"BJ_JTD_YD_CHANNEL001" ,
-				"DG_UNICOM_CHANNEL001" ,
-				"DG_UNICOM_CHANNEL002" ,
-				"DG_UNICOM_CHANNEL003" ,
-				"FX_YD_CHANNEL_001" ,
-				"GZ_LY_DX_CHANNEL001" ,
-				"GZ_LY_LT_CHANNEL001" ,
-				"GZ_LY_YD_CHANNEL001" ,
-				"HZ_YD_CHANNEL001" ,
-				"TJ_COMM_CHANNEL001" ,
-				"TJ_COMM_CHANNEL002" ,
-				"TJ_COMM_CHANNEL003" ,
-				"ZS_P2P_CHANNEL001" ,
-				"ZS_P2P_CHANNEL002" ,
-				"ZS_P2P_CHANNEL003" } ;
+//		String[] channelCodeArr = { "AH_UNICOM_CHANNEL001" ,
+//				"BJ_CT_CHANNEL001" ,
+//				"BJ_CT_CHANNEL002" ,
+//				"BJ_CT_CHANNEL003" ,
+//				"BJ_JTD_DX_SINGLE_CHANNEL" ,
+//				"BJ_JTD_LT_SINGLE_CHANNEL" ,
+//				"BJ_JTD_YDSW_CHANNEL001" ,
+//				"BJ_JTD_YDSW_CHANNEL002" ,
+//				"BJ_JTD_YDSW_CHANNEL003" ,
+//				"BJ_JTD_YD_CHANNEL001" ,
+//				"DG_UNICOM_CHANNEL001" ,
+//				"DG_UNICOM_CHANNEL002" ,
+//				"DG_UNICOM_CHANNEL003" ,
+//				"FX_YD_CHANNEL_001" ,
+//				"GZ_LY_DX_CHANNEL001" ,
+//				"GZ_LY_LT_CHANNEL001" ,
+//				"GZ_LY_YD_CHANNEL001" ,
+//				"HZ_YD_CHANNEL001" ,
+//				"TJ_COMM_CHANNEL001" ,
+//				"TJ_COMM_CHANNEL002" ,
+//				"TJ_COMM_CHANNEL003" ,
+//				"ZS_P2P_CHANNEL001" ,
+//				"ZS_P2P_CHANNEL002" ,
+//				"ZS_P2P_CHANNEL003" } ;
 		
-		MerchantSmsSend record = new MerchantSmsSend() ;
-		int idx = channelCodeArr.length ;
+		MerchantSmsSend record = new MerchantSmsSend();
+//		int idx = channelCodeArr.length ;
 		
 		/**
 		 * 'zhisen007','1','ADSF23A4DFAS','1234（验证码），#time#内有效，请尽快验证。【【智验】】','TJ_COMM_CHANNEL001','2015-07-06
@@ -218,7 +227,7 @@ public class DBInsertServiceImpl implements IService
 		
 //		record.setReceiveMobile( "1" + Math.round( ( ThreadLocalRandom.current().nextDouble() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
 //		record.setSmsContent( ( ( ThreadLocalRandom.current().nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
-//		
+//
 //		record.setSmsChannelCode( channelCodeArr[ ( ( ThreadLocalRandom.current().nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
 //		record.setMerchantAccount( RandomUtil.INSTANCE.generateString( 10 ) ) ;
 //		record.setCreateTime( new Date() ) ;
@@ -237,53 +246,41 @@ public class DBInsertServiceImpl implements IService
 //		record.setId( al.incrementAndGet() ) ;
 //		logger.debug( "{}" , record.toString() ) ;
 		
-		record.setReceiveMobile( "15098648522" ) ;
-		record.setSmsContent( i + "（验证码），请尽快验证。【有道】" ) ;
+		record.setReceiveMobile( "15098648522" );
+		record.setSmsContent( i + "（验证码），请尽快验证。【有道】" );
 		
-		record.setSmsChannelCode( i + "ZS_P2P_CHANNEL003" ) ;
-		record.setMerchantAccount( i + "ZS_P2P_CHANNEL003" ) ;
-		record.setCreateTime( new Date() ) ;
-		record.setReceiveTime( new Date() ) ;
-		record.setSendTime( DateFormatUtils.format( new Date() , "yyyy-MM-dd HH:mm:ss" ) ) ;
-		record.setReceiveStatus( 1 ) ;
-		record.setSendResult( ( short ) 1 ) ;
-		record.setReceiveStatusChannel( i ) ;
-		record.setMerchantSmsUid( i + "ZS_P2P_CHANNEL003" ) ;
-		record.setChannelSmsId( i + "ZS_P2P_CHANNEL003" ) ;
-		record.setSmsSignerId( -1 ) ;
-		record.setSmsTemplateId( "-1" ) ;
-		record.setSmsType( 1 ) ;// 默认国内短信
-		record.setResource( 1 ) ;
-		record.setId( al.incrementAndGet() ) ;
-		logger.debug( "{}" , record.toString() ) ;
+		record.setSmsChannelCode( i + "ZS_P2P_CHANNEL003" );
+		record.setMerchantAccount( i + "ZS_P2P_CHANNEL003" );
+		record.setCreateTime( new Date() );
+		record.setReceiveTime( new Date() );
+		record.setSendTime( DateFormatUtils.format( new Date() , "yyyy-MM-dd HH:mm:ss" ) );
+		record.setReceiveStatus( 1 );
+		record.setSendResult( ( short ) 1 );
+		record.setReceiveStatusChannel( i );
+		record.setMerchantSmsUid( i + "ZS_P2P_CHANNEL003" );
+		record.setChannelSmsId( i + "ZS_P2P_CHANNEL003" );
+		record.setSmsSignerId( -1 );
+		record.setSmsTemplateId( "-1" );
+		record.setSmsType( 1 );// 默认国内短信
+		record.setResource( 1 );
+		record.setId( al.incrementAndGet() );
+		logger.debug( "{}" , record.toString() );
 		
-		return record ;
+		return record;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Runnable#run()
-	 */
-	@Override
 	public void run()
 	{
 		try
 		{
-			execute() ;
+			execute();
+			
+			service.shutdown();
 		}
 		catch ( Exception e )
 		{
-			logger.error( "分庫插入數據出错:" + e.getMessage() , e ) ;
+			logger.error( "分庫插入數據出错:" + e.getMessage() , e );
 		}
 		
-	}
-	
-	/**
-	 * @param merchantSmsSendService
-	 *            the merchantSmsSendService to set
-	 */
-	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
-	{
-		this.merchantSmsSendService = merchantSmsSendService ;
 	}
 }
