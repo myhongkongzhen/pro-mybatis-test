@@ -22,12 +22,14 @@ hs_err_pid*
 *.ear
 
 **/.metadata/
+**/.idea/
 **/.settings/
 **/target/
 **/*.classpath
 **/*.project
 **/*.class
 **/*.swp
+**/*.iml
 **/HttpClientUtil_Test.java
 **/HttpClientUtilTest.java
 

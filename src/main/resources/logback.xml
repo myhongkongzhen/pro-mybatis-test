@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+	<property name="BaseLogPath" value="${logback.target}" />
 	<property name="ErrorStart"
 		value="-------------------------------------------------------Error Start--------------------------------------------------------" />
 	<property name="ErrorEnd"
@@ -8,16 +9,16 @@
 
 	<appender name="commonFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${logback.target}/logs/infoFile.log</file>
+		<file>${BaseLogPath}/logs/infoFile.log</file>
 		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> -->
-		<!-- <fileNamePattern>${logback.target}/logs/infoFile.log.%i -->
+		<!-- <fileNamePattern>${BaseLogPath}/logs/infoFile.log.%i -->
 		<!-- </fileNamePattern> -->
 		<!-- <minIndex>1</minIndex> -->
 		<!-- <maxIndex>6</maxIndex> -->
 		<!-- </rollingPolicy> -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 -->
-			<FileNamePattern>${logback.target}/logs/infoFile.log.%d{yyyy-MM-dd}
+			<FileNamePattern>${BaseLogPath}/logs/infoFile.log.%d{yyyy-MM-dd}
 			</FileNamePattern>
 			<MaxHistory>30</MaxHistory>
 		</rollingPolicy>
@@ -33,12 +34,13 @@
 	<!-- 文件記錄錯誤日誌 ERROR 簡單記錄 -->
 	<appender name="errorFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${logback.target}/logs/errorFile.log</file>
+		<file>${BaseLogPath}/logs/errorFile.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>${logback.target}/logs/errorFile.log.%i
+			<fileNamePattern>
+	${BaseLogPath}/logs/errorFile.log.%i
 			</fileNamePattern>
 			<minIndex>1</minIndex>
-			<maxIndex>3</maxIndex>
+			<maxIndex>6</maxIndex>
 		</rollingPolicy>
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">

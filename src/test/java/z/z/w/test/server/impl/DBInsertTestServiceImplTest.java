@@ -1,22 +1,22 @@
-package z.z.w.test.server.impl ;
+package z.z.w.test.server.impl;
 
-import javax.annotation.Resource ;
+import javax.annotation.Resource;
 
-import org.junit.Test ;
-import org.junit.runner.RunWith ;
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-import org.springframework.test.context.ContextConfiguration ;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import z.z.w.test.service.biz.DBInsertServiceImpl ;
+import z.z.w.test.service.biz.DBInsertServiceImpl;
 
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.server.impl.DBInsertTestServiceImplTest.java
  *         Desc: 
- *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月17日 下午4:15:48 
+ *      &#64;author: Z_Z.W - myhongkongzhen@gmail.com
+ *     &#64;version: 2015年9月17日 下午4:15:48 
  *   LastChange: 2015年9月17日 下午4:15:48 
  *      History:
  * </pre>
@@ -25,15 +25,15 @@ import z.z.w.test.service.biz.DBInsertServiceImpl ;
 @ContextConfiguration( locations = { "classpath:spring/spring.xml" } )
 public class DBInsertTestServiceImplTest
 {
-	final static Logger			logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class ) ;
-	private DBInsertServiceImpl	dBInsertServiceImpl ;
+	final static Logger			logger	= LoggerFactory.getLogger( DBInsertTestServiceImplTest.class );
+	private DBInsertServiceImpl	dBInsertServiceImpl;
 	
 	/**
 	 * @return the dBInsertServiceImpl
 	 */
 	public DBInsertServiceImpl getdBInsertServiceImpl()
 	{
-		return dBInsertServiceImpl ;
+		return dBInsertServiceImpl;
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class DBInsertTestServiceImplTest
 	@Resource
 	public void setdBInsertServiceImpl( DBInsertServiceImpl dBInsertServiceImpl )
 	{
-		this.dBInsertServiceImpl = dBInsertServiceImpl ;
+		this.dBInsertServiceImpl = dBInsertServiceImpl;
 	}
 	
 	/**
@@ -54,12 +54,12 @@ public class DBInsertTestServiceImplTest
 	{
 		try
 		{
-			logger.info( "{}" , dBInsertServiceImpl ) ;
-			dBInsertServiceImpl.execute() ;
+			logger.info( "{}" , dBInsertServiceImpl );
+			dBInsertServiceImpl.execute();
 		}
 		catch ( Exception e )
 		{
-			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
+			logger.error( "DB insert service error : {}." , e.getMessage() , e );
 		}
 	}
 	
