@@ -5,20 +5,17 @@ import java.util.Date ;
 import java.util.List ;
 import java.util.concurrent.ExecutorService ;
 import java.util.concurrent.LinkedBlockingQueue ;
-import java.util.concurrent.ThreadLocalRandom ;
 import java.util.concurrent.ThreadPoolExecutor ;
 import java.util.concurrent.TimeUnit ;
 import java.util.concurrent.atomic.AtomicLong ;
 
 import org.apache.commons.lang3.time.DateFormatUtils ;
-import org.apache.commons.lang3.time.DateUtils ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 import org.springframework.beans.factory.annotation.Value ;
 
 import z.z.w.test.entity.biz.MerchantSmsSend ;
 import z.z.w.test.service.IService ;
-import z.z.w.util.comm.RandomUtil ;
 
 /**************************************************************************
  * <pre>
@@ -80,7 +77,7 @@ public class DBInsertServiceImpl implements IService
 		for ( int i = 0 ; i < dataSizePer ; i++ )
 			try
 			{
-				MerchantSmsSend record = getMSS() ;
+				MerchantSmsSend record = getMSS( i ) ;
 				list.add( record ) ;
 				
 				if ( ( ( ( i + 1 ) % batchSize ) == 0 ) )
@@ -184,7 +181,7 @@ public class DBInsertServiceImpl implements IService
 	 * 
 	 * @return
 	 */
-	private MerchantSmsSend getMSS()
+	private MerchantSmsSend getMSS( int i )
 	{
 		String[] channelCodeArr = { "AH_UNICOM_CHANNEL001" ,
 				"BJ_CT_CHANNEL001" ,
@@ -219,31 +216,47 @@ public class DBInsertServiceImpl implements IService
 		 * 10:56:16','13169919817',NULL,'1','0',NULL,'1','1','广东','深圳','LT',NULL,NULL
 		 */
 		
-		int cmax = idx - 1 ;
-		int max = 9999 ;
-		int min = 0 ;
-//		Random random = new Random( System.currentTimeMillis() ) ;
+//		record.setReceiveMobile( "1" + Math.round( ( ThreadLocalRandom.current().nextDouble() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
+//		record.setSmsContent( ( ( ThreadLocalRandom.current().nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
+//		
+//		record.setSmsChannelCode( channelCodeArr[ ( ( ThreadLocalRandom.current().nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
+//		record.setMerchantAccount( RandomUtil.INSTANCE.generateString( 10 ) ) ;
+//		record.setCreateTime( new Date() ) ;
+//		record.setReceiveTime( DateUtils.addSeconds( new Date() , ( ThreadLocalRandom.current().nextInt( 3 ) % 3 ) + 1 ) ) ;
+//		record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , ( ThreadLocalRandom.current().nextInt( 3 ) % 3 ) + 1 ) ,
+//													"yyyy-MM-dd HH:mm:ss" ) ) ;
+//		record.setReceiveStatus( ThreadLocalRandom.current().nextInt( 1 ) % 2 ) ;
+//		record.setSendResult( Short.parseShort( String.valueOf( ThreadLocalRandom.current().nextInt( 1 ) % 2 ) ) ) ;
+//		record.setReceiveStatusChannel( ThreadLocalRandom.current().nextInt( max ) % ( max + 1 ) ) ;
+//		record.setMerchantSmsUid( RandomUtil.INSTANCE.generateLowerString( 32 ) ) ;
+//		record.setChannelSmsId( record.getMerchantSmsUid().substring( 20 ) ) ;
+//		record.setSmsSignerId( -1 ) ;
+//		record.setSmsTemplateId( "-1" ) ;
+//		record.setSmsType( 1 ) ;// 默认国内短信
+//		record.setResource( 1 ) ;
+//		record.setId( al.incrementAndGet() ) ;
+//		logger.debug( "{}" , record.toString() ) ;
 		
-		record.setReceiveMobile( "1" + Math.round( ( ThreadLocalRandom.current().nextDouble() * ( 9999999999l - 100000000l ) ) + 100000000l ) ) ;
-		record.setSmsContent( ( ( ThreadLocalRandom.current().nextInt( max ) % ( ( max - min ) + 1 ) ) + min ) + "（验证码），请尽快验证。【有道】" ) ;
+		record.setReceiveMobile( "15098648522" ) ;
+		record.setSmsContent( i + "（验证码），请尽快验证。【有道】" ) ;
 		
-		record.setSmsChannelCode( channelCodeArr[ ( ( ThreadLocalRandom.current().nextInt( cmax ) % ( ( cmax - min ) + 1 ) ) + min ) ] ) ;
-		record.setMerchantAccount( RandomUtil.INSTANCE.generateString( 10 ) ) ;
+		record.setSmsChannelCode( i + "ZS_P2P_CHANNEL003" ) ;
+		record.setMerchantAccount( i + "ZS_P2P_CHANNEL003" ) ;
 		record.setCreateTime( new Date() ) ;
-		record.setReceiveTime( DateUtils.addSeconds( new Date() , ( ThreadLocalRandom.current().nextInt( 3 ) % 3 ) + 1 ) ) ;
-		record.setSendTime( DateFormatUtils.format( DateUtils.addSeconds( new Date() , ( ThreadLocalRandom.current().nextInt( 3 ) % 3 ) + 1 ) ,
-													"yyyy-MM-dd HH:mm:ss" ) ) ;
-		record.setReceiveStatus( ThreadLocalRandom.current().nextInt( 1 ) % 2 ) ;
-		record.setSendResult( Short.parseShort( String.valueOf( ThreadLocalRandom.current().nextInt( 1 ) % 2 ) ) ) ;
-		record.setReceiveStatusChannel( ThreadLocalRandom.current().nextInt( max ) % ( max + 1 ) ) ;
-		record.setMerchantSmsUid( RandomUtil.INSTANCE.generateLowerString( 32 ) ) ;
-		record.setChannelSmsId( record.getMerchantSmsUid().substring( 20 ) ) ;
+		record.setReceiveTime( new Date() ) ;
+		record.setSendTime( DateFormatUtils.format( new Date() , "yyyy-MM-dd HH:mm:ss" ) ) ;
+		record.setReceiveStatus( 1 ) ;
+		record.setSendResult( ( short ) 1 ) ;
+		record.setReceiveStatusChannel( i ) ;
+		record.setMerchantSmsUid( i + "ZS_P2P_CHANNEL003" ) ;
+		record.setChannelSmsId( i + "ZS_P2P_CHANNEL003" ) ;
 		record.setSmsSignerId( -1 ) ;
 		record.setSmsTemplateId( "-1" ) ;
 		record.setSmsType( 1 ) ;// 默认国内短信
 		record.setResource( 1 ) ;
 		record.setId( al.incrementAndGet() ) ;
 		logger.debug( "{}" , record.toString() ) ;
+		
 		return record ;
 	}
 	

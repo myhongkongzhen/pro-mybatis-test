@@ -23,7 +23,7 @@ done
 PRGDIR=`dirname "$PRG"`
 BASEDIR=`cd "$PRGDIR/.." >/dev/null; pwd`
 
-gbpdpproc=`ps -ef|grep -v grep|grep ${project.build.finalName}|awk 'BEGIN \
+gbpdpproc=`ps -ef | grep -v grep | grep ${project.build.finalName} | awk 'BEGIN \
 { 
 	while(getline){
  	    print($2);

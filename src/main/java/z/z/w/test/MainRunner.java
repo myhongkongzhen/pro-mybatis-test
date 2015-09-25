@@ -1,12 +1,16 @@
 package z.z.w.test ;
 
+import java.net.ServerSocket ;
+import java.util.Properties ;
 import java.util.ServiceLoader ;
 
+import org.apache.commons.lang3.StringUtils ;
 import org.slf4j.Logger ;
 import org.slf4j.LoggerFactory ;
 
 import z.z.w.server.IServiceLoader ;
 import z.z.w.util.SpringContextUtil ;
+import z.z.w.util.comm.PropertiesUtils ;
 
 /**************************************************************************
  * <pre>
@@ -20,14 +24,34 @@ import z.z.w.util.SpringContextUtil ;
  **************************************************************************/
 public class MainRunner
 {
-	private static final Logger		logger	= LoggerFactory.getLogger( MainRunner.class ) ;
-	private static volatile boolean	running	= true ;
+	private static final Logger	logger			= LoggerFactory.getLogger( MainRunner.class ) ;
+//	private static volatile boolean	running			= true ;
+	final static String			RELATIVE_PATH	= "pro/config.properties" ;
+	private static ServerSocket	serverSocket	= null ;
 	
 	/**
 	 * Create by : 2015年9月7日 下午12:12:32
 	 */
 	public static void main( String[] args )
 	{
+		
+		try
+		{
+			Properties props = PropertiesUtils.INSTANCE.getProperties( RELATIVE_PATH ) ;
+			if ( !props.isEmpty() )
+			{
+				String port = props.getProperty( "SINGLE.PROCESS.PORT" ) ;
+				logger.info( "Single process listen port : {}." , port ) ;
+				if ( StringUtils.isNotBlank( port ) ) serverSocket = new ServerSocket( Integer.parseInt( port ) ) ;
+				logger.debug( "serverSocket=>{}." , serverSocket ) ;
+			}
+		}
+		catch ( Exception e )
+		{
+			logger.error( "Single mainRunner processor error : {}." , e.getMessage() ) ;
+			System.exit( 1 ) ;
+		}
+		
 		final ServiceLoader< IServiceLoader > loader = ServiceLoader.load( IServiceLoader.class ) ;
 		
 		Runtime.getRuntime().addShutdownHook( new Thread()
@@ -48,19 +72,18 @@ public class MainRunner
 		logger.debug( "Service is started!" ) ;
 		logger.debug( "@@{}" , SpringContextUtil.getApplicationContext() ) ;
 		
-		synchronized ( MainRunner.class )
-		{
-			while ( running )
-				try
-				{
-					MainRunner.class.wait() ;
-				}
-				catch ( Throwable e )
-				{
-					logger.error( "Single mainRunner processor error : {}." , e.getMessage() , e ) ;
-				}
-		}
+//		synchronized ( MainRunner.class )
+//		{
+//			while ( running )
+//				try
+//				{
+//					MainRunner.class.wait() ;
+//				}
+//				catch ( Throwable e )
+//				{
+//					logger.error( "Single mainRunner processor error : {}." , e.getMessage() , e ) ;
+//				}
+//		}
 		
 	}
-	
 }
