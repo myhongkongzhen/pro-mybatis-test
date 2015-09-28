@@ -1,20 +1,20 @@
-package z.z.w.test.service.biz ;
+package z.z.w.test.service.biz;
 
-import javax.annotation.Resource ;
+import javax.annotation.Resource;
 
-import org.junit.Test ;
-import org.junit.runner.RunWith ;
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-import org.springframework.test.context.ContextConfiguration ;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.service.biz.PoolSizeCalServiceImplTest.java
  *         Desc: 
- *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月24日 上午9:45:20 
+ *      &#64;author: Z_Z.W - myhongkongzhen@gmail.com
+ *     &#64;version: 2015年9月24日 上午9:45:20 
  *   LastChange: 2015年9月24日 上午9:45:20 
  *      History:
  * </pre>
@@ -23,15 +23,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner ;
 @ContextConfiguration( locations = { "classpath:spring/spring.xml" } )
 public class PoolSizeCalServiceImplTest
 {
-	final static Logger				logger	= LoggerFactory.getLogger( PoolSizeCalServiceImplTest.class ) ;
-	private PoolSizeCalServiceImpl	poolSizeCalServiceImpl ;
+	final static Logger				logger	= LoggerFactory.getLogger( PoolSizeCalServiceImplTest.class );
+	private PoolSizeCalServiceImpl	poolSizeCalServiceImpl;
 	
 	/**
 	 * @return the poolSizeCalServiceImpl
 	 */
 	public PoolSizeCalServiceImpl getPoolSizeCalServiceImpl()
 	{
-		return poolSizeCalServiceImpl ;
+		return poolSizeCalServiceImpl;
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class PoolSizeCalServiceImplTest
 	@Resource
 	public void setPoolSizeCalServiceImpl( PoolSizeCalServiceImpl poolSizeCalServiceImpl )
 	{
-		this.poolSizeCalServiceImpl = poolSizeCalServiceImpl ;
+		this.poolSizeCalServiceImpl = poolSizeCalServiceImpl;
 	}
 	
 	/**
@@ -52,12 +52,12 @@ public class PoolSizeCalServiceImplTest
 	{
 		try
 		{
-			logger.info( "{}" , poolSizeCalServiceImpl ) ;
-			poolSizeCalServiceImpl.execute() ;
+			logger.info( "{}" , poolSizeCalServiceImpl );
+			poolSizeCalServiceImpl.execute();
 		}
 		catch ( Exception e )
 		{
-			logger.error( "DB insert service error : {}." , e.getMessage() , e ) ;
+			logger.error( "DB insert service error : {}." , e.getMessage() , e );
 		}
 	}
 	
