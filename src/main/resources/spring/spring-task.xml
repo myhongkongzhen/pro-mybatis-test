@@ -1,27 +1,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-				        http://www.springframework.org/schema/context 
-				        http://www.springframework.org/schema/context/spring-context-3.2.xsd
-				        http://www.springframework.org/schema/jee 
-				        http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
-				        http://www.springframework.org/schema/fex   
-                        http://www.springframework.org/schema/fex/spring-fex-1.5.xsd 
-                        http://www.springframework.org/schema/task    
-                        http://www.springframework.org/schema/task/spring-task-3.2.xsd
-				        http://www.springframework.org/schema/jdbc 
-				        http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
-				        http://www.springframework.org/schema/tx 
-				        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--<task:executor />配置参数：-->
+    <!--id：当配置多个executor时，被@Async("id")指定使用；也被作为线程名的前缀。-->
+    <!--pool-size：-->
+    <!--core size：最小的线程数，缺省：1-->
+    <!--max size：最大的线程数，缺省：Integer.MAX_VALUE-->
+    <!--queue-capacity：当最小的线程数已经被占用满后，新的任务会被放进queue里面，当这个queue的capacity也被占满之后，pool里面会创建新线程处理这个任务，直到总线程数达到了max size，这时系统会拒绝这个任务并抛出TaskRejectedException异常（缺省配置的情况下，可以通过rejection-policy来决定如何处理这种情况）。缺省值为：Integer.MAX_VALUE-->
+    <!--keep-alive：超过core size的那些线程，任务完成后，再经过这个时长（秒）会被结束掉-->
+    <!--rejection-policy：当pool已经达到max size的时候，如何处理新任务-->
+    <!--ABORT（缺省）：抛出TaskRejectedException异常，然后不执行-->
+    <!--DISCARD：不执行，也不抛出异常-->
+    <!--DISCARD_OLDEST：丢弃queue中最旧的那个任务-->
+    <!--CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行-->
 
 
-	<!-- <task:executor id="executor" pool-size="1-10" -->
-	<!-- queue-capacity="128" /> -->
-	<!-- <task:scheduler id="scheduler" pool-size="10" /> -->
-	<!-- <task:annotation-driven executor="executor" -->
-	<!-- scheduler="scheduler" /> -->
+    <!--<bean id="threadPoolTaskExecutor"-->
+    <!--class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+    <!--<property name="corePoolSize" value="100"/>-->
+    <!--<property name="keepAliveSeconds" value="300"/>-->
+    <!--<property name="maxPoolSize" value="200"/>-->
+    <!--<property name="queueCapacity" value="2000"/>-->
+    <!--</bean>-->
+
+    <task:executor id="executor" pool-size="1-10"
+                   queue-capacity="128" rejection-policy="CALLER_RUNS"/>
+    <task:annotation-driven executor="executor"/>
+
+    <task:scheduler id="scheduler" pool-size="10"/>
+
+    <task:scheduled-tasks scheduler="scheduler">
+        <task:scheduled ref="taskTestServiceImpl" method="execute" fixed-delay="3000"/>
+        <!--<task:scheduled ref="taskTestTwoServiceImpl" method="execute" fixed-delay="3000"/>-->
+    </task:scheduled-tasks>
 
 </beans>

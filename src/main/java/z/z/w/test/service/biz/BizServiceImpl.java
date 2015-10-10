@@ -1,15 +1,14 @@
 package z.z.w.test.service.biz;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
 import z.z.w.test.service.IService;
 import z.z.w.util.http.HttpClientUtil;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.*;
 
 /**************************************************************************
  * <pre>
@@ -23,8 +22,8 @@ import z.z.w.util.http.HttpClientUtil;
  **************************************************************************/
 public class BizServiceImpl implements IService
 {
-	final static Logger				logger	= LoggerFactory.getLogger( BizServiceImpl.class );
-	private ThreadPoolTaskExecutor	threadPoolTaskExecutor;
+	private final static Logger logger = LoggerFactory.getLogger( BizServiceImpl.class );
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 	
 	/*
 	 * (non-Javadoc)
@@ -175,7 +174,7 @@ public class BizServiceImpl implements IService
 		{
 			logger.error( "Loading bussiness error : {}." , e.getMessage() , e );
 		}
-
+		
 	}
 	
 }

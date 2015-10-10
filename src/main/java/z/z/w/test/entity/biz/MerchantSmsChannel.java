@@ -5,10 +5,10 @@ import java.util.Date ;
 /**************************************************************************
  * <pre>
  *     FileName: com.zy.sms.domain.entity.MerchantSmsChannel.java
- *         Desc: 
- *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年7月24日 下午6:30:32 
- *   LastChange: 2015年7月24日 下午6:30:32 
+ *         Desc:
+ *      &#64;author: Z_Z.W - myhongkongzhen@gmail.com
+ *     &#64;version: 2015年7月24日 下午6:30:32
+ *   LastChange: 2015年7月24日 下午6:30:32
  *      History:
  * </pre>
  **************************************************************************/
@@ -90,11 +90,29 @@ public class MerchantSmsChannel
 	}
 	
 	/**
+	 * @param dateTime
+	 *            the dateTime to set
+	 */
+	public void setDateTime( Date dateTime )
+	{
+		this.dateTime = dateTime ;
+	}
+	
+	/**
 	 * @return the id
 	 */
 	public Long getId()
 	{
 		return id ;
+	}
+	
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId( Long id )
+	{
+		this.id = id ;
 	}
 	
 	/**
@@ -106,11 +124,29 @@ public class MerchantSmsChannel
 	}
 	
 	/**
+	 * @param merchantSmsSendId
+	 *            the merchantSmsSendId to set
+	 */
+	public void setMerchantSmsSendId( Long merchantSmsSendId )
+	{
+		this.merchantSmsSendId = merchantSmsSendId ;
+	}
+	
+	/**
 	 * @return the merchantSmsUid
 	 */
 	public String getMerchantSmsUid()
 	{
 		return merchantSmsUid ;
+	}
+	
+	/**
+	 * @param merchantSmsUid
+	 *            the merchantSmsUid to set
+	 */
+	public void setMerchantSmsUid( String merchantSmsUid )
+	{
+		this.merchantSmsUid = merchantSmsUid ;
 	}
 	
 	/**
@@ -122,11 +158,29 @@ public class MerchantSmsChannel
 	}
 	
 	/**
+	 * @param merSmsChanSig
+	 *            the merSmsChanSig to set
+	 */
+	public void setMerSmsChanSig( String merSmsChanSig )
+	{
+		this.merSmsChanSig = merSmsChanSig ;
+	}
+	
+	/**
 	 * @return the sendSmsCode
 	 */
 	public String getSendSmsCode()
 	{
 		return sendSmsCode ;
+	}
+	
+	/**
+	 * @param sendSmsCode
+	 *            the sendSmsCode to set
+	 */
+	public void setSendSmsCode( String sendSmsCode )
+	{
+		this.sendSmsCode = sendSmsCode ;
 	}
 	
 	/*
@@ -145,60 +199,6 @@ public class MerchantSmsChannel
 		result = ( prime * result ) + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
 		result = ( prime * result ) + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
 		return result ;
-	}
-	
-	/**
-	 * @param dateTime
-	 *            the dateTime to set
-	 */
-	public void setDateTime( Date dateTime )
-	{
-		this.dateTime = dateTime ;
-	}
-	
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId( Long id )
-	{
-		this.id = id ;
-	}
-	
-	/**
-	 * @param merchantSmsSendId
-	 *            the merchantSmsSendId to set
-	 */
-	public void setMerchantSmsSendId( Long merchantSmsSendId )
-	{
-		this.merchantSmsSendId = merchantSmsSendId ;
-	}
-	
-	/**
-	 * @param merchantSmsUid
-	 *            the merchantSmsUid to set
-	 */
-	public void setMerchantSmsUid( String merchantSmsUid )
-	{
-		this.merchantSmsUid = merchantSmsUid ;
-	}
-	
-	/**
-	 * @param merSmsChanSig
-	 *            the merSmsChanSig to set
-	 */
-	public void setMerSmsChanSig( String merSmsChanSig )
-	{
-		this.merSmsChanSig = merSmsChanSig ;
-	}
-	
-	/**
-	 * @param sendSmsCode
-	 *            the sendSmsCode to set
-	 */
-	public void setSendSmsCode( String sendSmsCode )
-	{
-		this.sendSmsCode = sendSmsCode ;
 	}
 	
 	/*

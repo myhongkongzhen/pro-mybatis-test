@@ -1,18 +1,18 @@
 package z.z.w.test.service.biz ;
 
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor ;
-
-import z.z.w.test.service.IService ;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import z.z.w.test.service.IService;
+import z.z.w.util.RedisOperator;
 
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.service.biz.DBSelectServcieImpl.java
- *         Desc: 
+ *         Desc:
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月23日 上午9:19:26 
- *   LastChange: 2015年9月23日 上午9:19:26 
+ *     @version: 2015年9月23日 上午9:19:26
+ *   LastChange: 2015年9月23日 上午9:19:26
  *      History:
  * </pre>
  **************************************************************************/
@@ -21,18 +21,35 @@ public class DBSelectServcieImpl implements IService
 	final static Logger				logger	= LoggerFactory.getLogger( DBSelectServcieImpl.class ) ;
 	private MerchantSmsSendService	merchantSmsSendService ;
 	private ThreadPoolTaskExecutor	threadPoolTaskExecutor ;
-	
+
+	private RedisOperator redisOperator;
+
+	public RedisOperator getRedisOperator()
+	{
+		return redisOperator;
+	}
+
+	public void setRedisOperator( RedisOperator redisOperator )
+	{
+		this.redisOperator = redisOperator;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * @see z.z.w.test.service.IService#execute()
-	 */
+		 * (non-Javadoc)
+		 * @see z.z.w.test.service.IService#execute()
+		 */
 	@Override
 	public void execute() throws Exception
 	{
 		// TODO 2015年9月23日 上午9:19:26 
 		logger.info( "開始查詢數據庫數據...." ) ;
+		logger.info( "====={}.",redisOperator );
+
+		String value="test1";
+		String key="test2";
+		logger.info( "====={}...",redisOperator.set( key, value ) );
 	}
-	
+
 	/**
 	 * @return the merchantSmsSendService
 	 */
@@ -40,7 +57,7 @@ public class DBSelectServcieImpl implements IService
 	{
 		return merchantSmsSendService ;
 	}
-	
+
 	/**
 	 * @return the threadPoolTaskExecutor
 	 */
@@ -48,7 +65,7 @@ public class DBSelectServcieImpl implements IService
 	{
 		return threadPoolTaskExecutor ;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -65,7 +82,7 @@ public class DBSelectServcieImpl implements IService
 			logger.error( "查詢數據出错:" + e.getMessage() , e ) ;
 		}
 	}
-	
+
 	/**
 	 * @param merchantSmsSendService
 	 *            the merchantSmsSendService to set
@@ -74,7 +91,7 @@ public class DBSelectServcieImpl implements IService
 	{
 		this.merchantSmsSendService = merchantSmsSendService ;
 	}
-	
+
 	/**
 	 * @param threadPoolTaskExecutor
 	 *            the threadPoolTaskExecutor to set
@@ -83,5 +100,5 @@ public class DBSelectServcieImpl implements IService
 	{
 		this.threadPoolTaskExecutor = threadPoolTaskExecutor ;
 	}
-	
+
 }

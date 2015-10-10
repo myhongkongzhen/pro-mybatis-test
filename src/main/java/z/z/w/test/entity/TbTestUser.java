@@ -3,8 +3,8 @@
  *     FileName: z.z.w.test.entity.TbTestUser.java
  *         Desc: 
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2014-10-14 上午10:31:40 
- *   LastChange: 2014-10-14 上午10:31:40 
+ *     @version: 2014-10-14 上午10:31:40
+ *   LastChange: 2014-10-14 上午10:31:40
  *      History:
  * </pre>
  **************************************************************************/
@@ -16,18 +16,18 @@ package z.z.w.test.entity ;
 
 public class TbTestUser
 {
-	
+
 	private Long	id ;
 	private String	merSmsChanSig ;
 	private String	merchantSmsUid ;
 	private String	sendSmsCode ;
 	private Integer	merchantSmsSendId ;
-	
+
 	public TbTestUser()
 	{
 		super() ;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -66,7 +66,7 @@ public class TbTestUser
 		else if ( !sendSmsCode.equals( other.sendSmsCode ) ) return false ;
 		return true ;
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -74,7 +74,7 @@ public class TbTestUser
 	{
 		return id ;
 	}
-	
+
 	/**
 	 * @return the merchantSmsUid
 	 */
@@ -82,7 +82,7 @@ public class TbTestUser
 	{
 		return merchantSmsUid ;
 	}
-	
+
 	/**
 	 * @return the merSmsChanSig
 	 */
@@ -90,7 +90,7 @@ public class TbTestUser
 	{
 		return merSmsChanSig ;
 	}
-	
+
 	/**
 	 * @return the sendSmsCode
 	 */
@@ -98,7 +98,7 @@ public class TbTestUser
 	{
 		return sendSmsCode ;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -115,7 +115,7 @@ public class TbTestUser
 		result = ( prime * result ) + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
 		return result ;
 	}
-	
+
 	/**
 	 * @param id
 	 *            the id to set
@@ -124,7 +124,7 @@ public class TbTestUser
 	{
 		this.id = id ;
 	}
-	
+
 	/**
 	 * @param merchantSmsSendId
 	 *            the merchantSmsSendId to set
@@ -133,7 +133,7 @@ public class TbTestUser
 	{
 		this.merchantSmsSendId = merchantSmsSendId ;
 	}
-	
+
 	/**
 	 * @param merchantSmsUid
 	 *            the merchantSmsUid to set
@@ -142,7 +142,7 @@ public class TbTestUser
 	{
 		this.merchantSmsUid = merchantSmsUid ;
 	}
-	
+
 	/**
 	 * @param merSmsChanSig
 	 *            the merSmsChanSig to set
@@ -151,7 +151,7 @@ public class TbTestUser
 	{
 		this.merSmsChanSig = merSmsChanSig ;
 	}
-	
+
 	/**
 	 * @param sendSmsCode
 	 *            the sendSmsCode to set
@@ -160,7 +160,7 @@ public class TbTestUser
 	{
 		this.sendSmsCode = sendSmsCode ;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
