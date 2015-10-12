@@ -1,86 +1,110 @@
-package z.z.w.test.service.biz ;
+package z.z.w.test.service.biz;
 
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor ;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import z.z.w.test.service.IService;
+import z.z.w.util.RedisOperator;
 
-import z.z.w.test.service.IService ;
+import javax.annotation.Resource;
 
 /**************************************************************************
  * <pre>
  *     FileName: z.z.w.test.service.biz.DBDeleteServiceImpl.java
- *         Desc: 
+ *         Desc:
  *      @author: Z_Z.W - myhongkongzhen@gmail.com
- *     @version: 2015年9月23日 上午9:18:56 
- *   LastChange: 2015年9月23日 上午9:18:56 
+ *     @version: 2015年9月23日 上午9:18:56
+ *   LastChange: 2015年9月23日 上午9:18:56
  *      History:
  * </pre>
  **************************************************************************/
 public class DBDeleteServiceImpl implements IService
 {
-	final static Logger				logger	= LoggerFactory.getLogger( DBDeleteServiceImpl.class ) ;
-	private MerchantSmsSendService	merchantSmsSendService ;
-	private ThreadPoolTaskExecutor	threadPoolTaskExecutor ;
-	
+	final static Logger logger = LoggerFactory.getLogger( DBDeleteServiceImpl.class );
+	private MerchantSmsSendService merchantSmsSendService;
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+	private RedisOperator          redisOperator;
+
 	/*
+
+
+分布式调用中不支持事务。
+
+因为事务是在服务器端实现，而在分布式中，每批次的调用对象都可能访问不同的机器，所以，没法进行事务。
+
 	 * (non-Javadoc)
 	 * @see z.z.w.test.service.IService#execute()
 	 */
-	@Override
-	public void execute() throws Exception
+	@Override public void execute() throws Exception
 	{
-		logger.info( "開始刪除數據庫數據..." ) ;
+		logger.info( "開始刪除數據庫數據..." );
+
+		Thread.sleep( 3 * 1000 );
+		String key = "tljkljlest2";
+		logger.info( "------DeleteServiceImpl===redisOperator.get( key )=={}...", redisOperator.get( key ) );
+
+		String value = "tlj4444444444444444444kljlest2";
+		logger.info( "-----------DeleteServiceImpl== redisOperator.set( key, valu==={}.==={}..", redisOperator.set( key, value ), redisOperator.get( key ) );
+
+		Thread.sleep( 10 * 1000 );
 	}
-	
+
 	/**
 	 * @return the merchantSmsSendService
 	 */
 	public MerchantSmsSendService getMerchantSmsSendService()
 	{
-		return merchantSmsSendService ;
+		return merchantSmsSendService;
 	}
-	
+
 	/**
 	 * @return the threadPoolTaskExecutor
 	 */
 	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
 	{
-		return threadPoolTaskExecutor ;
+		return threadPoolTaskExecutor;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
-	@Override
-	public void run()
+	@Override public void run()
 	{
 		try
 		{
-			execute() ;
+			execute();
 		}
 		catch ( Exception e )
 		{
-			logger.error( "刪除數據出错:" + e.getMessage() , e ) ;
+			logger.error( "刪除數據出错:" + e.getMessage(), e );
 		}
 	}
-	
+
+	public RedisOperator getRedisOperator()
+	{
+		return redisOperator;
+	}
+
+	@Resource public void setRedisOperator( RedisOperator redisOperator )
+	{
+		this.redisOperator = redisOperator;
+	}
+
 	/**
-	 * @param merchantSmsSendService
-	 *            the merchantSmsSendService to set
+	 * @param merchantSmsSendService the merchantSmsSendService to set
 	 */
 	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
 	{
-		this.merchantSmsSendService = merchantSmsSendService ;
+		this.merchantSmsSendService = merchantSmsSendService;
 	}
-	
+
 	/**
-	 * @param threadPoolTaskExecutor
-	 *            the threadPoolTaskExecutor to set
+	 * @param threadPoolTaskExecutor the threadPoolTaskExecutor to set
 	 */
 	public void setThreadPoolTaskExecutor( ThreadPoolTaskExecutor threadPoolTaskExecutor )
 	{
-		this.threadPoolTaskExecutor = threadPoolTaskExecutor ;
+		this.threadPoolTaskExecutor = threadPoolTaskExecutor;
 	}
-	
+
 }

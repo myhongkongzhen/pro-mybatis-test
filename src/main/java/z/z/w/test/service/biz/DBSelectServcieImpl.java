@@ -1,4 +1,4 @@
-package z.z.w.test.service.biz ;
+package z.z.w.test.service.biz;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +18,9 @@ import z.z.w.util.RedisOperator;
  **************************************************************************/
 public class DBSelectServcieImpl implements IService
 {
-	final static Logger				logger	= LoggerFactory.getLogger( DBSelectServcieImpl.class ) ;
-	private MerchantSmsSendService	merchantSmsSendService ;
-	private ThreadPoolTaskExecutor	threadPoolTaskExecutor ;
+	final static Logger logger = LoggerFactory.getLogger( DBSelectServcieImpl.class );
+	private MerchantSmsSendService merchantSmsSendService;
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
 	private RedisOperator redisOperator;
 
@@ -35,19 +35,33 @@ public class DBSelectServcieImpl implements IService
 	}
 
 	/*
+
+
+分布式调用中不支持事务。
+
+因为事务是在服务器端实现，而在分布式中，每批次的调用对象都可能访问不同的机器，所以，没法进行事务。
+
 		 * (non-Javadoc)
 		 * @see z.z.w.test.service.IService#execute()
 		 */
-	@Override
-	public void execute() throws Exception
+	@Override public void execute() throws Exception
 	{
-		// TODO 2015年9月23日 上午9:19:26 
-		logger.info( "開始查詢數據庫數據...." ) ;
-		logger.info( "====={}.",redisOperator );
 
-		String value="test1";
-		String key="test2";
-		logger.info( "====={}...",redisOperator.set( key, value ) );
+		// TODO 2015年9月23日 上午9:19:26
+		logger.info( "開始查詢數據庫數據...." );
+
+		String value = "te00000st1";
+		String key = "tljkljlest2";
+		logger.info( "DBSelectServcieImpl== redisOperator.set( key, valu==={}..{}.", redisOperator.set( key, value ), redisOperator.get( key ) );
+		Thread.sleep( 5 * 1000 );
+
+		logger.info( "DBSelectServcieImpl== .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.get( key ) );
+		redisOperator.del( key );
+
+		logger.info( "i================= .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.get( key ) );
+
+		Thread.sleep( 10 * 1000 );
+
 	}
 
 	/**
@@ -55,7 +69,7 @@ public class DBSelectServcieImpl implements IService
 	 */
 	public MerchantSmsSendService getMerchantSmsSendService()
 	{
-		return merchantSmsSendService ;
+		return merchantSmsSendService;
 	}
 
 	/**
@@ -63,42 +77,39 @@ public class DBSelectServcieImpl implements IService
 	 */
 	public ThreadPoolTaskExecutor getThreadPoolTaskExecutor()
 	{
-		return threadPoolTaskExecutor ;
+		return threadPoolTaskExecutor;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
-	@Override
-	public void run()
+	@Override public void run()
 	{
 		try
 		{
-			execute() ;
+			execute();
 		}
 		catch ( Exception e )
 		{
-			logger.error( "查詢數據出错:" + e.getMessage() , e ) ;
+			logger.error( "查詢數據出错:" + e.getMessage(), e );
 		}
 	}
 
 	/**
-	 * @param merchantSmsSendService
-	 *            the merchantSmsSendService to set
+	 * @param merchantSmsSendService the merchantSmsSendService to set
 	 */
 	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
 	{
-		this.merchantSmsSendService = merchantSmsSendService ;
+		this.merchantSmsSendService = merchantSmsSendService;
 	}
 
 	/**
-	 * @param threadPoolTaskExecutor
-	 *            the threadPoolTaskExecutor to set
+	 * @param threadPoolTaskExecutor the threadPoolTaskExecutor to set
 	 */
 	public void setThreadPoolTaskExecutor( ThreadPoolTaskExecutor threadPoolTaskExecutor )
 	{
-		this.threadPoolTaskExecutor = threadPoolTaskExecutor ;
+		this.threadPoolTaskExecutor = threadPoolTaskExecutor;
 	}
 
 }

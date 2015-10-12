@@ -33,7 +33,12 @@ public class TaskTestServiceImpl implements IService
 		logger.info( "TaskTestServiceImpl execute start ..................................." );
 //		Future<String> future = merchantSmsSendService.asyncMethodWithReturnType();
 //		if ( null != future ) logger.info( "========{}==|||||||||||||||||||||", future.get() );
-		merchantSmsSendService.asynchronously();
+
+		for ( int i = 0 ; i < 200 ; i++ )
+		{
+			merchantSmsSendService.asynchronously( i );
+		}
+
 		logger.info( "TaskTestServiceImpl execute end ................................." );
 	}
 

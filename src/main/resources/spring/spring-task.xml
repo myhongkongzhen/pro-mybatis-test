@@ -25,15 +25,15 @@
     <!--<property name="queueCapacity" value="2000"/>-->
     <!--</bean>-->
 
-    <task:executor id="executor" pool-size="1-10"
+    <task:executor id="asynExecutor" pool-size="5-20"
                    queue-capacity="128" rejection-policy="CALLER_RUNS"/>
-    <task:annotation-driven executor="executor"/>
+    <task:annotation-driven executor="asynExecutor"/>
 
     <task:scheduler id="scheduler" pool-size="10"/>
 
-    <task:scheduled-tasks scheduler="scheduler">
-        <task:scheduled ref="taskTestServiceImpl" method="execute" fixed-delay="3000"/>
-        <!--<task:scheduled ref="taskTestTwoServiceImpl" method="execute" fixed-delay="3000"/>-->
-    </task:scheduled-tasks>
+    <!--<task:scheduled-tasks scheduler="scheduler">-->
+        <!--<task:scheduled ref="taskTestServiceImpl" method="execute" fixed-delay="300000"/>-->
+        <!--&lt;!&ndash;<task:scheduled ref="taskTestTwoServiceImpl" method="execute" fixed-delay="3000"/>&ndash;&gt;-->
+    <!--</task:scheduled-tasks>-->
 
 </beans>

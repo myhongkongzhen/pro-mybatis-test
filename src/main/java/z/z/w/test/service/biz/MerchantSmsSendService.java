@@ -44,10 +44,9 @@ public class MerchantSmsSendService
 		return null;
 	}
 
-	@Async
-	public void asynchronously()
+	@Async public void asynchronously( int i )
 	{
-		logger.info( " Execute method asynchronously - " + Thread.currentThread().getName() );
+		logger.info( i + " Execute method asynchronously - " + Thread.currentThread().getName() );
 		try
 		{
 			Thread.sleep( 7000 );
@@ -56,7 +55,7 @@ public class MerchantSmsSendService
 		{
 			logger.error( "Error : {}.", e.getMessage(), e );
 		}
-
+		logger.info( i + " Execute method asynchronously - END" );
 	}
 
 	/**
