@@ -34,15 +34,27 @@
         <constructor-arg name="name" value="${redis.database}"/>
         <property name="password" value="${redis.password}"/>
     </bean>
+
+    <bean id="jedis.shardInfo2" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg name="host" value="113.31.87.154"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+        <constructor-arg name="timeout" value="${redis.timeout}"/>
+        <constructor-arg name="name" value="${redis.database}"/>
+        <property name="password" value="${redis.password}"/>
+    </bean>
+
     <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
         <constructor-arg index="0" ref="jedisPoolConfig"/>
         <constructor-arg index="1">
             <list>
                 <ref bean="jedis.shardInfo"/>
+                <ref bean="jedis.shardInfo2"/>
             </list>
         </constructor-arg>
     </bean>
 
     <bean id="redisOperator" class="z.z.w.util.RedisOperator"/>
+    <bean id="esearchOperator" class="z.z.w.util.EsearchOperator">
 
+    </bean>
 </beans>

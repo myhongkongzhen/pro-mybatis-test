@@ -32,8 +32,8 @@
     <task:scheduler id="scheduler" pool-size="10"/>
 
     <!--<task:scheduled-tasks scheduler="scheduler">-->
-        <!--<task:scheduled ref="taskTestServiceImpl" method="execute" fixed-delay="300000"/>-->
-        <!--&lt;!&ndash;<task:scheduled ref="taskTestTwoServiceImpl" method="execute" fixed-delay="3000"/>&ndash;&gt;-->
+        <!--<task:scheduled ref="taskTestServiceImpl" method="execute" fixed-delay="3000000"/>-->
+        <!--<task:scheduled ref="taskTestTwoServiceImpl" method="execute" fixed-delay="300000"/>-->
     <!--</task:scheduled-tasks>-->
 
 </beans>
