@@ -25,21 +25,30 @@ import java.util.List;
  *********************************************************************************************/
 public class ListTest
 {
-	private int multSize = 5;
-	private int idx      = 30;
+	private int multSize = 10;
+	private int idx      = 34;
 
 	@Test public void testSubList() throws Exception
 	{
 
 		List<String> rsList = new ArrayList<String>();
+
 		for ( int i = 0 ; i < idx ; i++ )
 		{
 			rsList.add( i + "" );
 		}
 
+		System.out.println( "---------------------------" );
+		List<String> subList = rsList.subList( 0, 2 );
+		for ( int i = 0 ; i < subList.size() ; i++ )
+		{
+			System.out.println( "subList.get(i) =" + subList.get( i ) + " , " + "current class = ListTest.testSubList()" );
+		}
+		System.out.println( "---------------------------" );
+
 		for ( int i = 0 ; i < idx ; i++ )
 		{
-			System.out.print( "rsList.get(i) =" + rsList.get( i ) + " , " );
+			System.out.println( "rsList.get(i) =" + rsList.get( i ) + " , " );
 		}
 
 		System.out.println();
@@ -66,7 +75,7 @@ public class ListTest
 		if ( multSize < rsList.size() )
 		{
 			orsList = new ArrayList<String>( rsList );
-			rsList = new ArrayList<String>( rsList.subList( 0, multSize ) );
+			rsList = new ArrayList<String>( rsList.subList( 0, multSize - 1 ) );
 			orsList.removeAll( rsList );
 			endIdx = rsList.size();
 		}

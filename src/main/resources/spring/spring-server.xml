@@ -49,4 +49,6 @@
         <property name="merchantSmsSendService" ref="merchantSmsSendService"/>
     </bean>
     <bean id="taskTestTwoServiceImpl" class="z.z.w.test.service.impl.TaskTestTwoServiceImpl"/>
+
+    <bean id="vosServiceImpl" class="z.z.w.test.service.vos.VosServiceImpl"/>
 </beans>

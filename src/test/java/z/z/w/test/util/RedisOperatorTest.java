@@ -16,7 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redis.clients.jedis.*;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /*********************************************************************************************
  * <pre>
@@ -46,6 +49,81 @@ import java.util.*;
 		finally
 		{
 			shardedJedisPool.destroy();
+		}
+	}
+
+	@Test public void testDelKeys() throws Exception
+	{
+		ShardedJedis redis = getRedisClient();
+		try
+		{
+			ShardedJedisPipeline p = redis.pipelined();
+
+			Response<Long>
+					response =
+					p.hdel( "ZHIYAN::STATUS::ACCOUNT::SMSID", new String[] { "558a66b1" , "bbdb666f" , "5dd58903" , "3bba6f48" , "c9011e69" } );
+			p.syncAndReturnAll();
+
+			Long aLong = response.get();
+			System.out.println( "aLong =" + aLong + " , " + "current class = RedisOperatorTest.testDelKeys()" );
+
+		}
+		catch ( Exception e )
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			redis.disconnect();
+		}
+
+	}
+
+	@Test public void testPipGetKeysValue() throws Exception
+	{
+		ShardedJedis redis = getRedisClient();
+		try
+		{
+			ShardedJedisPipeline p = redis.pipelined();
+
+			setValues( p );
+
+//			getValues( p );
+
+		}
+		catch ( Exception e )
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			redis.disconnect();
+		}
+
+	}
+
+	private void setValues( ShardedJedisPipeline p )
+	{
+		Map<String, String> map = new HashMap<>();
+		map.put( "1", "1" );
+		map.put( "2", "2" );
+		map.put( "3", "3" );
+		map.put( "4", "4" );
+		map.put( "5", "5" );
+		p.hmset( "test_123", map );
+		p.syncAndReturnAll();
+	}
+
+	private void getValues( ShardedJedisPipeline p )
+	{
+		Response<List<String>> response = p.hmget( "test_123", new String[] { "6" , "2" , "4" ,"9", "3" , "1" , "5" } );
+		p.syncAndReturnAll();
+
+		List<String> list = response.get();
+		for ( String value : list )
+		{
+			System.out.println( "value =" + value + " , " + "current class = RedisOperatorTest.testPipGetKeysValue()" );
+
 		}
 	}
 

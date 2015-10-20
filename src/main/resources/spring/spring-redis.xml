@@ -47,8 +47,10 @@
         <constructor-arg index="0" ref="jedisPoolConfig"/>
         <constructor-arg index="1">
             <list>
-                <ref bean="jedis.shardInfo"/>
+                <!--154 從:從無法自動同步到主-->
                 <ref bean="jedis.shardInfo2"/>
+                <!--156 主:主到從自動同步,列表要把主庫寫在最後-->
+                <ref bean="jedis.shardInfo"/>
             </list>
         </constructor-arg>
     </bean>
