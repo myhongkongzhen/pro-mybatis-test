@@ -8,12 +8,16 @@
 
 package z.z.w.test.util;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.search.SearchHit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +27,7 @@ import z.z.w.test.entity.ex.MerchantUrlIpEntity;
 import z.z.w.util.EsearchOperator;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
 
 /*********************************************************************************************
@@ -40,6 +45,65 @@ import java.util.List;
 	private EsearchOperator           esearchOperator;
 	private MerchantUrlIpEntityMapper merchantUrlIpEntityMapper;
 
+	@Test public void testGetData() throws Exception
+	{
+
+		Client client = null;
+		try
+		{
+			client = esearchOperator.getClient();
+			for ( int i = 0 ; i < 20 ; i++ )
+			{
+//				GetRequestBuilder prepareGet = client.prepareGet( "merchanturlip", "merchanturlip", String.valueOf( i ) );
+
+				SearchResponse
+						searchResponse =
+						client.prepareSearch( "merchanturlip" )
+							  .setTypes( "merchanturlip" )
+							  .setSearchType( SearchType.DFS_QUERY_THEN_FETCH )
+							  .execute()
+							  .actionGet();
+
+				Iterator<SearchHit> iterator = searchResponse.getHits().iterator();
+				while ( iterator.hasNext() )
+				{
+					SearchHit next = iterator.next();
+					String json = iterator.next().getSourceAsString();
+
+					MerchantUrlIpEntity entity = JSON.parseObject( json, MerchantUrlIpEntity.class );
+					System.out.println( entity.toString() );
+
+					System.out.println( "=============================================" );
+				}
+
+//				GetResponse response = prepareGet.execute().actionGet();
+//				System.out.println( response.getId() );
+//
+//				Map<String, Object> source = response.getSource();
+//				if ( source == null ) return;
+//				for ( Map.Entry<String, Object> entry : source.entrySet() )
+//				{
+//
+//					String key = entry.getKey();
+//					System.out.print( key + "===" );
+//					Object value = entry.getValue();
+//					System.out.println( value );
+//				}
+				System.out.println( "=============================================" );
+
+			}
+
+		}
+		catch ( Exception e )
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			client.close();
+		}
+	}
+
 	@Test public void testCreateIndex()
 	{
 		Client client = null;
@@ -54,7 +118,7 @@ import java.util.List;
 
 				String toJson = toJson( entity );
 				System.out.println( toJson + "===" );
-				IndexRequestBuilder requestBuilder = client.prepareIndex( "MerchantUrlIp", "MerchantUrlIp" ).setSource( toJson ).setId( String.valueOf( i ) );
+				IndexRequestBuilder requestBuilder = client.prepareIndex( "merchanturlip", "merchanturlip" ).setSource( toJson ).setId( String.valueOf( i ) );
 				builder.add( requestBuilder );
 			}
 
