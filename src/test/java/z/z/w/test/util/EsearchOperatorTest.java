@@ -52,46 +52,24 @@ import java.util.List;
 		try
 		{
 			client = esearchOperator.getClient();
-			for ( int i = 0 ; i < 20 ; i++ )
+//			for ( int i = 0 ; i < 20 ; i++ )
+//			{
+			SearchResponse
+					searchResponse =
+					client.prepareSearch( "merchanturlip" ).setTypes( "merchanturlip" ).setSearchType( SearchType.DFS_QUERY_THEN_FETCH ).execute().actionGet();
+
+			Iterator<SearchHit> iterator = searchResponse.getHits().iterator();
+			while ( iterator.hasNext() )
 			{
-//				GetRequestBuilder prepareGet = client.prepareGet( "merchanturlip", "merchanturlip", String.valueOf( i ) );
+				String json = iterator.next().getSourceAsString();
 
-				SearchResponse
-						searchResponse =
-						client.prepareSearch( "merchanturlip" )
-							  .setTypes( "merchanturlip" )
-							  .setSearchType( SearchType.DFS_QUERY_THEN_FETCH )
-							  .execute()
-							  .actionGet();
+				MerchantUrlIpEntity entity = JSON.parseObject( json, MerchantUrlIpEntity.class );
+				System.out.println( entity.toString() );
 
-				Iterator<SearchHit> iterator = searchResponse.getHits().iterator();
-				while ( iterator.hasNext() )
-				{
-					SearchHit next = iterator.next();
-					String json = iterator.next().getSourceAsString();
-
-					MerchantUrlIpEntity entity = JSON.parseObject( json, MerchantUrlIpEntity.class );
-					System.out.println( entity.toString() );
-
-					System.out.println( "=============================================" );
-				}
-
-//				GetResponse response = prepareGet.execute().actionGet();
-//				System.out.println( response.getId() );
-//
-//				Map<String, Object> source = response.getSource();
-//				if ( source == null ) return;
-//				for ( Map.Entry<String, Object> entry : source.entrySet() )
-//				{
-//
-//					String key = entry.getKey();
-//					System.out.print( key + "===" );
-//					Object value = entry.getValue();
-//					System.out.println( value );
-//				}
 				System.out.println( "=============================================" );
-
 			}
+
+//			}
 
 		}
 		catch ( Exception e )

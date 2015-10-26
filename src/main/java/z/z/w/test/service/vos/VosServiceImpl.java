@@ -8,6 +8,8 @@
 
 package z.z.w.test.service.vos;
 
+import com.alibaba.fastjson.JSONObject;
+import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,9 +41,15 @@ public class VosServiceImpl implements IService
 		logger.info( "vos5000測試代碼...{}.", httpUrl );
 
 		Map<String, String> map = new HashMap<>();
-		map.put( "Content-Type", "text/html;charset=UTF-8" );
-		HttpClient.INSTANCE.httpPostParticular( httpUrl, null, map );
-		String post = HttpClient.INSTANCE.httpPost( httpUrl );
+		map.put( HTTP.CONTENT_TYPE, "text/html;charset=UTF-8" );
+
+		JSONObject jsonParam = new JSONObject();
+		jsonParam.put( "names", new String[] { "触宝科技04" , "东阿亿信1" } );
+		jsonParam.put( "softswitchName", "MBX5000_192.168.1.101" );
+
+		String post = HttpClient.INSTANCE.httpPost( httpUrl, jsonParam.toString(), map );
+
+//		String post = HttpClient.INSTANCE.httpPost( httpUrl );
 
 		logger.info( "請求返回結果：{}.", post );
 	}
