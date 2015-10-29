@@ -1,0 +1,13 @@
+You want to teach yourself vim (the best text editor known to human kind)
+in the fastest way possible. This is my way of doing it.
+You start by learning the minimal to survive, then you integrate all the tricks slowly.
+      In a standard editor, typing on the keyboard is enough to write som and see it on the screen.
+       Not this time. Vim is in Normal mode. Let’s go to Insert mode. Type the letter i.
+
+      You should feel a bit better. You can type letters like in a standard editor.
+To get back to Normal mode just press the ESC key.
+
+You now know how to switch between Insert and Normal mode. And now, here are
+the commands that you need in order need to survive in Normal mode:
+ommands
+the commands that you need in order need to survive in Normal mode:
