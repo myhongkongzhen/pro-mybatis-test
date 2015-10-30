@@ -1,26 +1,25 @@
 package z.z.w.test.service.biz ;
 
-import java.lang.management.ManagementFactory ;
-import java.math.BigDecimal ;
-import java.util.ArrayList ;
-import java.util.Date ;
-import java.util.List ;
-import java.util.Random ;
-import java.util.concurrent.BlockingQueue ;
-import java.util.concurrent.LinkedBlockingQueue ;
-import java.util.concurrent.ThreadLocalRandom ;
-import java.util.concurrent.atomic.AtomicLong ;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import z.z.w.test.entity.biz.MerchantSmsSend;
+import z.z.w.test.service.IService;
+import z.z.w.util.PoolSizeCalculator;
+import z.z.w.util.comm.RandomUtil;
 
-import org.apache.commons.lang3.time.DateFormatUtils ;
-import org.apache.commons.lang3.time.DateUtils ;
-import org.slf4j.Logger ;
-import org.slf4j.LoggerFactory ;
-import org.springframework.beans.factory.annotation.Value ;
-
-import z.z.w.test.entity.biz.MerchantSmsSend ;
-import z.z.w.test.service.IService ;
-import z.z.w.util.PoolSizeCalculator ;
-import z.z.w.util.comm.RandomUtil ;
+import java.lang.management.ManagementFactory;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**************************************************************************
  * <pre>
@@ -40,7 +39,7 @@ public class PoolSizeCalServiceImpl extends PoolSizeCalculator implements IServi
 	private Long					dataSizePer ;
 	@Value( "${OPER.BATCHSIZE}" )
 	private Integer					batchSize ;
-	private static AtomicLong		al		= null ;
+	private  AtomicLong		al		= null ;
 	
 	/*
 	 * (non-Javadoc)

@@ -24,44 +24,39 @@ import java.util.concurrent.atomic.AtomicLong;
 public class DBInsertServiceImpl implements IService
 {
 	final static Logger logger = LoggerFactory.getLogger( DBInsertServiceImpl.class );
-	
-	private static AtomicLong		al		= null;									/*
+
+	private AtomicLong al  = null;									/*
 																					 * new
 																					 * AtomicLong(
 																					 * 1002258 ) ;
 																					 */
-	private static int				idx		= ThreadLocalRandom.current().nextInt();
-	@Value( "${EXECUTOR.POOL.THREAD.SIZE}" )
-	private Integer					threadNum;
-	@Value( "${OPER.DATASIZE}" )
-	private Long					dataSize;
-	@Value( "${OPER.PER.DATASIZE}" )
-	private Long					dataSizePer;
-	@Value( "${OPER.BATCHSIZE}" )
-	private Integer					batchSize;
-	@Value( "${EXECUTOR.POOL.QUEUESIZE}" )
-	private Integer					queueSize;
-	private ExecutorService			service	= null;
-	private MerchantSmsSendService	merchantSmsSendService;
+	private int        idx = ThreadLocalRandom.current().nextInt();
+	@Value( "${EXECUTOR.POOL.THREAD.SIZE}" ) private Integer threadNum;
+	@Value( "${OPER.DATASIZE}" ) private             Long    dataSize;
+	@Value( "${OPER.PER.DATASIZE}" ) private         Long    dataSizePer;
+	@Value( "${OPER.BATCHSIZE}" ) private            Integer batchSize;
+	@Value( "${EXECUTOR.POOL.QUEUESIZE}" ) private   Integer queueSize;
+	private ExecutorService service = null;
+	private MerchantSmsSendService merchantSmsSendService;
 	
 	/*
 	 * (non-Javadoc)
 	 * @see z.z.w.test.service.IService#execute()
 	 */
-	
+
 	public void execute() throws Exception
 	{
-		logger.info( "Thread size : {}. data size : {}. per data size :{},queue size : {}." , threadNum , dataSize , dataSizePer , queueSize );
+		logger.info( "Thread size : {}. data size : {}. per data size :{},queue size : {}.", threadNum, dataSize, dataSizePer, queueSize );
 //		service = Executors.newFixedThreadPool( threadNum ) ;
-		service = new ThreadPoolExecutor( threadNum , threadNum , 0L , TimeUnit.MILLISECONDS , new LinkedBlockingQueue< Runnable >( queueSize ) );
+		service = new ThreadPoolExecutor( threadNum, threadNum, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>( queueSize ) );
 		Long maxID = merchantSmsSendService.getMaxId();
-		logger.info( "Current table send max id : {}." , maxID );
+		logger.info( "Current table send max id : {}.", maxID );
 		if ( null == maxID ) maxID = 0l;
 		al = new AtomicLong( maxID + 1000 );
-		logger.debug( "{}." , al );
-		
-		List< MerchantSmsSend > list = new ArrayList< MerchantSmsSend >();
-		
+		logger.debug( "{}.", al );
+
+		List<MerchantSmsSend> list = new ArrayList<MerchantSmsSend>();
+
 //		int idx = new Long( ( dataSize.longValue() / dataSizePer.longValue() ) ).intValue() ;
 //		logger.info( "IDX===>{}" , idx ) ;
 
@@ -72,11 +67,11 @@ public class DBInsertServiceImpl implements IService
 			{
 				MerchantSmsSend record = getMSS( ++idx );
 				list.add( record );
-				
+
 				if ( ( ( ( i + 1 ) % batchSize ) == 0 ) )
 				{
-					final List< MerchantSmsSend > lt = new ArrayList< MerchantSmsSend >( list );
-					
+					final List<MerchantSmsSend> lt = new ArrayList<MerchantSmsSend>( list );
+
 					if ( service.isShutdown() )
 					{
 						logger.warn( "Executors shutdown......break..." );
@@ -84,7 +79,7 @@ public class DBInsertServiceImpl implements IService
 					}
 					service.execute( new Runnable()
 					{
-						private void insertData( List< MerchantSmsSend > lt )
+						private void insertData( List<MerchantSmsSend> lt )
 						{
 							try
 							{
@@ -95,45 +90,45 @@ public class DBInsertServiceImpl implements IService
 								}
 								finally
 								{
-									logger.info( "Add merchant sms send data to db use {} ms." , ( System.currentTimeMillis() - startTime ) );
+									logger.info( "Add merchant sms send data to db use {} ms.", ( System.currentTimeMillis() - startTime ) );
 								}
 							}
 							catch ( Exception e )
 							{
-								logger.error( "分庫插入數據出错:" + e.getMessage() , e );
+								logger.error( "分庫插入數據出错:" + e.getMessage(), e );
 							}
 						}
-						
+
 						public void run()
 						{
 							try
 							{
 								logger.debug( "Start insert data to db ....." );
-								logger.debug( "{}===>>>>>>>>>{}" , lt.size() , lt );
+								logger.debug( "{}===>>>>>>>>>{}", lt.size(), lt );
 								insertData( lt );
 							}
 							catch ( Exception e )
 							{
-								logger.error( "Insert data to db error :" + e.getMessage() , e );
+								logger.error( "Insert data to db error :" + e.getMessage(), e );
 							}
-							
+
 						}
 					} );
-					
+
 					list.clear();
 				}
 			}
 			finally
 			{
-				logger.debug( "Insert data to db size : {}." , ( i + 1 ) );
+				logger.debug( "Insert data to db size : {}.", ( i + 1 ) );
 			}
-			
+
 //			Thread.sleep( 1000 * 30 ) ;
 //			logger.info( "IDX---->>{}" , j ) ;
 //		}
-	
+
 	}
-	
+
 	/**
 	 * @return the merchantSmsSendService
 	 */
@@ -141,7 +136,7 @@ public class DBInsertServiceImpl implements IService
 	{
 		return merchantSmsSendService;
 	}
-	
+
 	/**
 	 * Create by : 2015年9月18日 下午12:31:05
 	 */
@@ -167,10 +162,9 @@ public class DBInsertServiceImpl implements IService
 //		}
 //
 //	}
-	
+
 	/**
-	 * @param merchantSmsSendService
-	 *            the merchantSmsSendService to set
+	 * @param merchantSmsSendService the merchantSmsSendService to set
 	 */
 	public void setMerchantSmsSendService( MerchantSmsSendService merchantSmsSendService )
 	{
@@ -181,7 +175,7 @@ public class DBInsertServiceImpl implements IService
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
-	
+
 	/**
 	 * Create by : 2015年9月21日 下午8:44:00
 	 *
@@ -213,7 +207,7 @@ public class DBInsertServiceImpl implements IService
 //				"ZS_P2P_CHANNEL001" ,
 //				"ZS_P2P_CHANNEL002" ,
 //				"ZS_P2P_CHANNEL003" } ;
-		
+
 		MerchantSmsSend record = new MerchantSmsSend();
 //		int idx = channelCodeArr.length ;
 //
@@ -262,22 +256,22 @@ public class DBInsertServiceImpl implements IService
 //		record.setResource( 1 );
 //		record.setId( al.incrementAndGet() );
 //		logger.debug( "{}" , record.toString() );
-		
+
 		return record;
 	}
-	
+
 	public void run()
 	{
 		try
 		{
 			execute();
-			
+
 			service.shutdown();
 		}
 		catch ( Exception e )
 		{
-			logger.error( "分庫插入數據出错:" + e.getMessage() , e );
+			logger.error( "分庫插入數據出错:" + e.getMessage(), e );
 		}
-		
+
 	}
 }

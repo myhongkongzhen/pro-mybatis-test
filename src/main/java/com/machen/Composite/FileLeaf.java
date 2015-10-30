@@ -8,93 +8,92 @@
 
 package com.machen.Composite;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class FileLeaf extends FileComponent
 {
 
-	public FileLeaf(String fileName)
+	public FileLeaf( String fileName )
 	{
-		super(fileName);
+		super( fileName );
 	}
 
-	@Override
-	public void displayContent()
+	@Override public void displayContent()
 	{
 		BufferedReader br = null;
 		try
 		{
-			File displayFile = new File(fileName);
-			br = new BufferedReader(new InputStreamReader(
-					new BufferedInputStream(new FileInputStream(displayFile))));
+			File displayFile = new File( fileName );
+			br = new BufferedReader( new InputStreamReader( new BufferedInputStream( new FileInputStream( displayFile ) ) ) );
 			String s = null;
-			while (null != (s = br.readLine()))
+			while ( null != ( s = br.readLine() ) )
 			{
-				System.out.println(s);
+				System.out.println( s );
 			}
 
-		} catch (IOException e)
+		}
+		catch ( IOException e )
 		{
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
-			if (null != br)
+			if ( null != br )
 			{
 				try
 				{
 					br.close();
 					br = null;
-				} catch (IOException e)
+				}
+				catch ( IOException e )
 				{
 					e.printStackTrace();
 				}
 			}
 		}
-		System.out.println("------------------------------------");
+		System.out.println( "------------------------------------" );
 	}
 
-	@Override
-	public void showName(int level)
+	@Override public void showName( int level )
 	{
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < level; i++)
+		for ( int i = 0 ; i < level ; i++ )
 		{
-			sb.append("-");
+			sb.append( "-" );
 		}
-		sb.append("文件:").append(fileName);
-		System.out.println(sb.toString());
+		sb.append( "文件:" ).append( fileName );
+		System.out.println( sb.toString() );
 	}
 
-	@Override
-	public int getCount(int initNumber)
+	@Override public int getCount( int initNumber )
 	{
 		return initNumber + 1;
 	}
 
-	@Override
-	public int getCountExcludeDirectory(int initNumber)
+	@Override public int getCountExcludeDirectory( int initNumber )
 	{
 		return initNumber + 1;
 	}
 
-	@Override
-	public void delFileByName(String fileName, boolean compelDel)
+	@Override public void delFileByName( String fileName, boolean compelDel )
 	{
-		if (this.fileName.equalsIgnoreCase(fileName) || compelDel == true)
+		if ( this.fileName.equalsIgnoreCase( fileName ) || compelDel == true )
 		{
-			File delFile = new File(this.fileName);
-			if (delFile.exists())
+			File delFile = new File( this.fileName );
+			if ( delFile.exists() )
 			{
-				delFile.delete();
-				System.out.println("删除" + this.fileName + "文件成功");
-			} else
+				if ( delFile.delete() )
+				{
+					System.out.println( "删除" + this.fileName + "文件成功" );
+				}
+				else
+				{
+					System.out.println( "删除" + this.fileName + "文件失敗" );
+				}
+			}
+			else
 			{
-				System.out.println(this.fileName + "文件不存在,删除失败");
+				System.out.println( this.fileName + "文件不存在,删除失败" );
 			}
 		}
 	}

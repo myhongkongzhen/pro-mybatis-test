@@ -1,6 +1,6 @@
-package z.z.w.test.entity.biz ;
+package z.z.w.test.entity.biz;
 
-import java.util.Date ;
+import java.util.Date;
 
 /**************************************************************************
  * <pre>
@@ -14,7 +14,7 @@ import java.util.Date ;
  **************************************************************************/
 public class MerchantSmsChannel
 {
-	
+
 	/**
 	 * ID bigint(20) not null,
 	 * MER_SMS_CHAN_SIG char(20) comment '内部标示符',
@@ -22,203 +22,202 @@ public class MerchantSmsChannel
 	 * CHANNEL_SMS_ID char(20) comment '短信发送消息ID',
 	 * MERCHANT_SMS_SEND_ID bigint(20) comment '商户发送短信记录ID',
 	 */
-	
-	private Long	id ;
-	
-	private String	merSmsChanSig ;
-	
-	private String	merchantSmsUid ;
-	private String	sendSmsCode ;
-	private Long	merchantSmsSendId ;
-	private Date	dateTime ;
-	
+
+	private Long id;
+
+	private String merSmsChanSig;
+
+	private String merchantSmsUid;
+	private String sendSmsCode;
+	private Long   merchantSmsSendId;
+	private Date   dateTime;
+
 	public MerchantSmsChannel()
 	{
-		super() ;
+		super();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	@Override
-	public boolean equals( Object obj )
+	@Override public boolean equals( Object obj )
 	{
-		if ( this == obj ) return true ;
-		if ( obj == null ) return false ;
-		if ( getClass() != obj.getClass() ) return false ;
-		MerchantSmsChannel other = ( MerchantSmsChannel ) obj ;
+		if ( this == obj ) return true;
+		if ( obj == null ) return false;
+		if ( getClass() != obj.getClass() ) return false;
+		MerchantSmsChannel other = ( MerchantSmsChannel ) obj;
 		if ( dateTime == null )
 		{
-			if ( other.dateTime != null ) return false ;
+			if ( other.dateTime != null ) return false;
 		}
-		else if ( !dateTime.equals( other.dateTime ) ) return false ;
+		else if ( !dateTime.equals( other.dateTime ) ) return false;
 		if ( id == null )
 		{
-			if ( other.id != null ) return false ;
+			if ( other.id != null ) return false;
 		}
-		else if ( !id.equals( other.id ) ) return false ;
+		else if ( !id.equals( other.id ) ) return false;
 		if ( merSmsChanSig == null )
 		{
-			if ( other.merSmsChanSig != null ) return false ;
+			if ( other.merSmsChanSig != null ) return false;
 		}
-		else if ( !merSmsChanSig.equals( other.merSmsChanSig ) ) return false ;
+		else if ( !merSmsChanSig.equals( other.merSmsChanSig ) ) return false;
 		if ( merchantSmsSendId == null )
 		{
-			if ( other.merchantSmsSendId != null ) return false ;
+			if ( other.merchantSmsSendId != null ) return false;
 		}
-		else if ( !merchantSmsSendId.equals( other.merchantSmsSendId ) ) return false ;
+		else if ( !merchantSmsSendId.equals( other.merchantSmsSendId ) ) return false;
 		if ( merchantSmsUid == null )
 		{
-			if ( other.merchantSmsUid != null ) return false ;
+			if ( other.merchantSmsUid != null ) return false;
 		}
-		else if ( !merchantSmsUid.equals( other.merchantSmsUid ) ) return false ;
+		else if ( !merchantSmsUid.equals( other.merchantSmsUid ) ) return false;
 		if ( sendSmsCode == null )
 		{
-			if ( other.sendSmsCode != null ) return false ;
+			if ( other.sendSmsCode != null ) return false;
 		}
-		else if ( !sendSmsCode.equals( other.sendSmsCode ) ) return false ;
-		return true ;
+		else if ( !sendSmsCode.equals( other.sendSmsCode ) ) return false;
+		return true;
 	}
-	
+
 	/**
 	 * @return the dateTime
 	 */
 	public Date getDateTime()
 	{
-		return dateTime ;
+		if ( dateTime != null )
+		{
+			return ( Date ) dateTime.clone();
+		}
+		return null;
 	}
-	
+
 	/**
-	 * @param dateTime
-	 *            the dateTime to set
+	 * @param dateTime the dateTime to set
 	 */
 	public void setDateTime( Date dateTime )
 	{
-		this.dateTime = dateTime ;
+		if ( dateTime != null )
+		{
+			this.dateTime = ( Date ) dateTime.clone();
+		}
 	}
-	
+
 	/**
 	 * @return the id
 	 */
 	public Long getId()
 	{
-		return id ;
+		return id;
 	}
-	
+
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId( Long id )
 	{
-		this.id = id ;
+		this.id = id;
 	}
-	
+
 	/**
 	 * @return the merchantSmsSendId
 	 */
 	public Long getMerchantSmsSendId()
 	{
-		return merchantSmsSendId ;
+		return merchantSmsSendId;
 	}
-	
+
 	/**
-	 * @param merchantSmsSendId
-	 *            the merchantSmsSendId to set
+	 * @param merchantSmsSendId the merchantSmsSendId to set
 	 */
 	public void setMerchantSmsSendId( Long merchantSmsSendId )
 	{
-		this.merchantSmsSendId = merchantSmsSendId ;
+		this.merchantSmsSendId = merchantSmsSendId;
 	}
-	
+
 	/**
 	 * @return the merchantSmsUid
 	 */
 	public String getMerchantSmsUid()
 	{
-		return merchantSmsUid ;
+		return merchantSmsUid;
 	}
-	
+
 	/**
-	 * @param merchantSmsUid
-	 *            the merchantSmsUid to set
+	 * @param merchantSmsUid the merchantSmsUid to set
 	 */
 	public void setMerchantSmsUid( String merchantSmsUid )
 	{
-		this.merchantSmsUid = merchantSmsUid ;
+		this.merchantSmsUid = merchantSmsUid;
 	}
-	
+
 	/**
 	 * @return the merSmsChanSig
 	 */
 	public String getMerSmsChanSig()
 	{
-		return merSmsChanSig ;
+		return merSmsChanSig;
 	}
-	
+
 	/**
-	 * @param merSmsChanSig
-	 *            the merSmsChanSig to set
+	 * @param merSmsChanSig the merSmsChanSig to set
 	 */
 	public void setMerSmsChanSig( String merSmsChanSig )
 	{
-		this.merSmsChanSig = merSmsChanSig ;
+		this.merSmsChanSig = merSmsChanSig;
 	}
-	
+
 	/**
 	 * @return the sendSmsCode
 	 */
 	public String getSendSmsCode()
 	{
-		return sendSmsCode ;
+		return sendSmsCode;
 	}
-	
+
 	/**
-	 * @param sendSmsCode
-	 *            the sendSmsCode to set
+	 * @param sendSmsCode the sendSmsCode to set
 	 */
 	public void setSendSmsCode( String sendSmsCode )
 	{
-		this.sendSmsCode = sendSmsCode ;
+		this.sendSmsCode = sendSmsCode;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
-	@Override
-	public int hashCode()
+	@Override public int hashCode()
 	{
-		final int prime = 31 ;
-		int result = 1 ;
-		result = ( prime * result ) + ( ( dateTime == null ) ? 0 : dateTime.hashCode() ) ;
-		result = ( prime * result ) + ( ( id == null ) ? 0 : id.hashCode() ) ;
-		result = ( prime * result ) + ( ( merSmsChanSig == null ) ? 0 : merSmsChanSig.hashCode() ) ;
-		result = ( prime * result ) + ( ( merchantSmsSendId == null ) ? 0 : merchantSmsSendId.hashCode() ) ;
-		result = ( prime * result ) + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() ) ;
-		result = ( prime * result ) + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() ) ;
-		return result ;
+		final int prime = 31;
+		int result = 1;
+		result = ( prime * result ) + ( ( dateTime == null ) ? 0 : dateTime.hashCode() );
+		result = ( prime * result ) + ( ( id == null ) ? 0 : id.hashCode() );
+		result = ( prime * result ) + ( ( merSmsChanSig == null ) ? 0 : merSmsChanSig.hashCode() );
+		result = ( prime * result ) + ( ( merchantSmsSendId == null ) ? 0 : merchantSmsSendId.hashCode() );
+		result = ( prime * result ) + ( ( merchantSmsUid == null ) ? 0 : merchantSmsUid.hashCode() );
+		result = ( prime * result ) + ( ( sendSmsCode == null ) ? 0 : sendSmsCode.hashCode() );
+		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString()
+	@Override public String toString()
 	{
-		return "MerchantSmsChannel [id=" + id
-				+ ", merSmsChanSig="
-				+ merSmsChanSig
-				+ ", merchantSmsUid="
-				+ merchantSmsUid
-				+ ", sendSmsCode="
-				+ sendSmsCode
-				+ ", merchantSmsSendId="
-				+ merchantSmsSendId
-				+ ", dateTime="
-				+ dateTime
-				+ "]" ;
+		return "MerchantSmsChannel [id="
+			   + id
+			   + ", merSmsChanSig="
+			   + merSmsChanSig
+			   + ", merchantSmsUid="
+			   + merchantSmsUid
+			   + ", sendSmsCode="
+			   + sendSmsCode
+			   + ", merchantSmsSendId="
+			   + merchantSmsSendId
+			   + ", dateTime="
+			   + dateTime
+			   + "]";
 	}
 }
