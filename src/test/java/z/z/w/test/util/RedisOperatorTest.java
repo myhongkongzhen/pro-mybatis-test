@@ -116,7 +116,7 @@ import java.util.Set;
 
 	private void getValues( ShardedJedisPipeline p )
 	{
-		Response<List<String>> response = p.hmget( "test_123", new String[] { "6" , "2" , "4" ,"9", "3" , "1" , "5" } );
+		Response<List<String>> response = p.hmget( "test_123", new String[] { "6" , "2" , "4" , "9" , "3" , "1" , "5" } );
 		p.syncAndReturnAll();
 
 		List<String> list = response.get();

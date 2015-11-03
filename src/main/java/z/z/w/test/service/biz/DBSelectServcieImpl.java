@@ -52,13 +52,13 @@ public class DBSelectServcieImpl implements IService
 
 		String value = "te00000st1";
 		String key = "tljkljlest2";
-		logger.info( "DBSelectServcieImpl== redisOperator.set( key, valu==={}..{}.", redisOperator.set( key, value ), redisOperator.get( key ) );
+		logger.info( "DBSelectServcieImpl== redisOperator.set( key, valu==={}..{}.", redisOperator.set( key, value ), redisOperator.phget( key ) );
 		Thread.sleep( 5 * 1000 );
 
-		logger.info( "DBSelectServcieImpl== .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.get( key ) );
-		redisOperator.del( key );
+		logger.info( "DBSelectServcieImpl== .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.phget( key ) );
+//		redisOperator.del( key );
 
-		logger.info( "i================= .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.get( key ) );
+		logger.info( "i================= .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.phget( key ) );
 
 		Thread.sleep( 10 * 1000 );
 

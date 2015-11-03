@@ -41,10 +41,10 @@ public class DBDeleteServiceImpl implements IService
 
 		Thread.sleep( 3 * 1000 );
 		String key = "tljkljlest2";
-		logger.info( "------DeleteServiceImpl===redisOperator.get( key )=={}...", redisOperator.get( key ) );
+		logger.info( "------DeleteServiceImpl===redisOperator.get( key )=={}...", redisOperator.phget( key ) );
 
 		String value = "tlj4444444444444444444kljlest2";
-		logger.info( "-----------DeleteServiceImpl== redisOperator.set( key, valu==={}.==={}..", redisOperator.set( key, value ), redisOperator.get( key ) );
+		logger.info( "-----------DeleteServiceImpl== redisOperator.set( key, valu==={}.==={}..", redisOperator.set( key, value ), redisOperator.phget( key ) );
 
 		Thread.sleep( 10 * 1000 );
 	}
