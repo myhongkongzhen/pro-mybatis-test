@@ -55,7 +55,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="shardRedisOperator" class="z.z.w.util.ShardRedisOperator"/>
+    <bean id="shardRedisOperator" class="z.z.w.util.redis.ShardRedisOperator"/>
     <bean id="esearchOperator" class="z.z.w.util.EsearchOperator">
 
     </bean>

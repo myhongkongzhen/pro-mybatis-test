@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import z.z.w.test.service.IService;
-import z.z.w.util.ShardRedisOperator;
+import z.z.w.util.redis.ShardRedisOperator;
 
 import javax.annotation.Resource;
 
