@@ -23,7 +23,7 @@ import java.util.Set;
 
 /*********************************************************************************************
  * <pre>
- *     FileName: z.z.w.util.RedisOperatorTest
+ *     FileName: z.z.w.util.ShardRedisOperatorTest
  *         Desc:
  *       author: Z_Z.W - myhongkongzhen@gmail.com
  *      version: 2015-10-09 10:09
@@ -31,7 +31,7 @@ import java.util.Set;
  *      History:
  * </pre>
  *********************************************************************************************/
-@RunWith( SpringJUnit4ClassRunner.class ) @ContextConfiguration( locations = { "classpath:spring/spring.xml" } ) public class RedisOperatorTest
+@RunWith( SpringJUnit4ClassRunner.class ) @ContextConfiguration( locations = { "classpath:spring/spring.xml" } ) public class ShardRedisOperatorTest
 {
 	final int size = 300;
 	private ShardedJedisPool shardedJedisPool;
@@ -65,7 +65,7 @@ import java.util.Set;
 			p.syncAndReturnAll();
 
 			Long aLong = response.get();
-			System.out.println( "aLong =" + aLong + " , " + "current class = RedisOperatorTest.testDelKeys()" );
+			System.out.println( "aLong =" + aLong + " , " + "current class = ShardRedisOperatorTest.testDelKeys()" );
 
 		}
 		catch ( Exception e )
@@ -122,7 +122,7 @@ import java.util.Set;
 		List<String> list = response.get();
 		for ( String value : list )
 		{
-			System.out.println( "value =" + value + " , " + "current class = RedisOperatorTest.testPipGetKeysValue()" );
+			System.out.println( "value =" + value + " , " + "current class = ShardRedisOperatorTest.testPipGetKeysValue()" );
 
 		}
 	}
@@ -478,7 +478,7 @@ import java.util.Set;
 		try
 		{
 
-			System.out.println( "redis =" + redis + " , " + "current class = RedisOperatorTest.setUp()" );
+			System.out.println( "redis =" + redis + " , " + "current class = ShardRedisOperatorTest.setUp()" );
 
 			Map<String, String> data = new HashMap<String, String>();
 
@@ -510,7 +510,7 @@ import java.util.Set;
 		try
 		{
 
-			System.out.println( "redis =" + redis + " , " + "current class = RedisOperatorTest.setUp()" );
+			System.out.println( "redis =" + redis + " , " + "current class = ShardRedisOperatorTest.setUp()" );
 
 			Map<String, String> data = new HashMap<String, String>();
 
@@ -577,7 +577,7 @@ import java.util.Set;
 		try
 		{
 
-			System.out.println( "redis =" + redis + " , " + "current class = RedisOperatorTest.setUp()" );
+			System.out.println( "redis =" + redis + " , " + "current class = ShardRedisOperatorTest.setUp()" );
 			ShardedJedisPipeline pipeline = redis.pipelined();
 			Map<String, String> data = new HashMap<String, String>();
 
@@ -590,7 +590,7 @@ import java.util.Set;
 			}
 			Response<String> rs = pipeline.hmset( "account_uuid", data );
 			pipeline.sync();
-			System.out.println( "rs.get() =" + rs.get() + " , " + "current class = RedisOperatorTest.testPipleLine()" );
+			System.out.println( "rs.get() =" + rs.get() + " , " + "current class = ShardRedisOperatorTest.testPipleLine()" );
 			long end = System.currentTimeMillis();
 			System.out.println( "hmset without pipeline used [" + ( end - start ) + "] hms.." );
 
@@ -612,7 +612,7 @@ import java.util.Set;
 		try
 		{
 
-			System.out.println( "redis =" + redis + " , " + "current class = RedisOperatorTest.setUp()" );
+			System.out.println( "redis =" + redis + " , " + "current class = ShardRedisOperatorTest.setUp()" );
 			ShardedJedisPipeline pipeline = redis.pipelined();
 
 			long start = System.currentTimeMillis();
@@ -627,7 +627,7 @@ import java.util.Set;
 			Response<String> response = pipeline.hget( "ZHIYAN::STATUS::UUID::SMSID", "743867464486091" );
 			pipeline.sync();
 			String result = response.get();
-			System.out.println( "result =" + result + " , " + "current class = RedisOperatorTest.testGet()" );
+			System.out.println( "result =" + result + " , " + "current class = ShardRedisOperatorTest.testGet()" );
 			long end = System.currentTimeMillis();
 			System.out.println( "hmset without pipeline used [" + ( end - start ) + "] hms.." );
 
@@ -649,14 +649,14 @@ import java.util.Set;
 		try
 		{
 
-			System.out.println( "redis =" + redis + " , " + "current class = RedisOperatorTest.setUp()" );
+			System.out.println( "redis =" + redis + " , " + "current class = ShardRedisOperatorTest.setUp()" );
 			ShardedJedisPipeline pipeline = redis.pipelined();
 
 			long start = System.currentTimeMillis();
 			Response<Long> response = pipeline.hlen( "account_smsig" );
 			pipeline.sync();
 			Long result = response.get();
-			System.out.println( "result =" + result + " , " + "current class = RedisOperatorTest.testGet()" );
+			System.out.println( "result =" + result + " , " + "current class = ShardRedisOperatorTest.testGet()" );
 			long end = System.currentTimeMillis();
 			System.out.println( "hmset without pipeline used [" + ( end - start ) + "] hms.." );
 
@@ -677,7 +677,7 @@ import java.util.Set;
 
 		try
 		{
-			System.out.println( "redis =" + redis + " , " + "current class = RedisOperatorTest.setUp()" );
+			System.out.println( "redis =" + redis + " , " + "current class = ShardRedisOperatorTest.setUp()" );
 			ShardedJedisPipeline pipeline = redis.pipelined();
 			Map<String, String> data = new HashMap<String, String>();
 

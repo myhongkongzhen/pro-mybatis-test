@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import z.z.w.test.service.IService;
-import z.z.w.util.RedisOperator;
+import z.z.w.util.ShardRedisOperator;
 
 import javax.annotation.Resource;
 
@@ -23,7 +23,7 @@ public class DBDeleteServiceImpl implements IService
 	final static Logger logger = LoggerFactory.getLogger( DBDeleteServiceImpl.class );
 	private MerchantSmsSendService merchantSmsSendService;
 	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
-	private RedisOperator          redisOperator;
+	private ShardRedisOperator     shardRedisOperator;
 
 	/*
 
@@ -35,16 +35,18 @@ public class DBDeleteServiceImpl implements IService
 	 * (non-Javadoc)
 	 * @see z.z.w.test.service.IService#execute()
 	 */
-	@Override public void execute() throws Exception
+	@Override
+	public void execute() throws Exception
 	{
 		logger.info( "開始刪除數據庫數據..." );
 
 		Thread.sleep( 3 * 1000 );
 		String key = "tljkljlest2";
-		logger.info( "------DeleteServiceImpl===redisOperator.get( key )=={}...", redisOperator.phget( key ) );
+		logger.info( "------DeleteServiceImpl===shardRedisOperator.get( key )=={}...", shardRedisOperator.phget( key ) );
 
 		String value = "tlj4444444444444444444kljlest2";
-		logger.info( "-----------DeleteServiceImpl== redisOperator.set( key, valu==={}.==={}..", redisOperator.set( key, value ), redisOperator.phget( key ) );
+		logger.info( "-----------DeleteServiceImpl== shardRedisOperator.set( key, valu==={}.==={}..", shardRedisOperator.set( key, value ),
+					 shardRedisOperator.phget( key ) );
 
 		Thread.sleep( 10 * 1000 );
 	}
@@ -81,14 +83,14 @@ public class DBDeleteServiceImpl implements IService
 		}
 	}
 
-	public RedisOperator getRedisOperator()
+	public ShardRedisOperator getShardRedisOperator()
 	{
-		return redisOperator;
+		return shardRedisOperator;
 	}
 
-	@Resource public void setRedisOperator( RedisOperator redisOperator )
+	@Resource public void setShardRedisOperator( ShardRedisOperator shardRedisOperator )
 	{
-		this.redisOperator = redisOperator;
+		this.shardRedisOperator = shardRedisOperator;
 	}
 
 	/**

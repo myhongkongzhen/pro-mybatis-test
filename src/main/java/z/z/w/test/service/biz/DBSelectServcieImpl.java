@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import z.z.w.test.service.IService;
-import z.z.w.util.RedisOperator;
+import z.z.w.util.ShardRedisOperator;
 
 /**************************************************************************
  * <pre>
@@ -22,16 +22,16 @@ public class DBSelectServcieImpl implements IService
 	private MerchantSmsSendService merchantSmsSendService;
 	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-	private RedisOperator redisOperator;
+	private ShardRedisOperator shardRedisOperator;
 
-	public RedisOperator getRedisOperator()
+	public ShardRedisOperator getShardRedisOperator()
 	{
-		return redisOperator;
+		return shardRedisOperator;
 	}
 
-	public void setRedisOperator( RedisOperator redisOperator )
+	public void setShardRedisOperator( ShardRedisOperator shardRedisOperator )
 	{
-		this.redisOperator = redisOperator;
+		this.shardRedisOperator = shardRedisOperator;
 	}
 
 	/*
@@ -44,21 +44,22 @@ public class DBSelectServcieImpl implements IService
 		 * (non-Javadoc)
 		 * @see z.z.w.test.service.IService#execute()
 		 */
-	@Override public void execute() throws Exception
+	@Override
+	public void execute() throws Exception
 	{
 
 		// TODO 2015年9月23日 上午9:19:26
 		logger.info( "開始查詢數據庫數據...." );
 
 		String value = "te00000st1";
-		String key = "tljkljlest2";
-		logger.info( "DBSelectServcieImpl== redisOperator.set( key, valu==={}..{}.", redisOperator.set( key, value ), redisOperator.phget( key ) );
+		String key   = "tljkljlest2";
+		logger.info( "DBSelectServcieImpl== shardRedisOperator.set( key, valu==={}..{}.", shardRedisOperator.set( key, value ), shardRedisOperator.phget( key ) );
 		Thread.sleep( 5 * 1000 );
 
-		logger.info( "DBSelectServcieImpl== .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.phget( key ) );
-//		redisOperator.del( key );
+		logger.info( "DBSelectServcieImpl== .del( key, val-DBSelectServcieImpl===shardRedisOperator.get( key )=={}...", shardRedisOperator.phget( key ) );
+//		shardRedisOperator.del( key );
 
-		logger.info( "i================= .del( key, val-DBSelectServcieImpl===redisOperator.get( key )=={}...", redisOperator.phget( key ) );
+		logger.info( "i================= .del( key, val-DBSelectServcieImpl===shardRedisOperator.get( key )=={}...", shardRedisOperator.phget( key ) );
 
 		Thread.sleep( 10 * 1000 );
 
