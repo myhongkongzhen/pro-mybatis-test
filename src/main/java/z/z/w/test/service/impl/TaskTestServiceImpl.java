@@ -10,6 +10,7 @@ package z.z.w.test.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import z.z.w.test.service.IService;
 import z.z.w.test.service.biz.MerchantSmsSendService;
 
@@ -27,19 +28,24 @@ public class TaskTestServiceImpl implements IService
 {
 	final private static Logger logger = LoggerFactory.getLogger( TaskTestServiceImpl.class );
 	private MerchantSmsSendService merchantSmsSendService;
+	@Value( "${VOS.5000.HTTP.URL}" ) private String httpUrl = "";
 
-	@Override public void execute() throws Exception
+	@Override
+	public void execute() throws Exception
 	{
-		logger.info( "TaskTestServiceImpl execute start ..................................." );
-//		Future<String> future = merchantSmsSendService.asyncMethodWithReturnType();
-//		if ( null != future ) logger.info( "========{}==|||||||||||||||||||||", future.get() );
 
-		for ( int i = 0 ; i < 200 ; i++ )
-		{
-			merchantSmsSendService.asynchronously( i );
-		}
+		logger.info( "httpUrl=={}==", httpUrl );
 
-		logger.info( "TaskTestServiceImpl execute end ................................." );
+//		logger.info( "TaskTestServiceImpl execute start ..................................." );
+////		Future<String> future = merchantSmsSendService.asyncMethodWithReturnType();
+////		if ( null != future ) logger.info( "========{}==|||||||||||||||||||||", future.get() );
+//
+//		for ( int i = 0 ; i < 200 ; i++ )
+//		{
+//			merchantSmsSendService.asynchronously( i );
+//		}
+//
+//		logger.info( "TaskTestServiceImpl execute end ................................." );
 	}
 
 	/**
@@ -52,7 +58,8 @@ public class TaskTestServiceImpl implements IService
 	 *
 	 * @see Thread#run()
 	 */
-	@Override public void run()
+	@Override
+	public void run()
 	{
 
 	}
